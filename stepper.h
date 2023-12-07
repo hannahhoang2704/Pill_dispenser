@@ -3,3 +3,5 @@
 void init_stepper();
 
 void step(bool clockwise);
+
+int calibrate();
