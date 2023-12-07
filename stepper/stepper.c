@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include "stepper.h"
-#include "opto.h"
+#include "../opto-fork/opto.h"
 
 #define A_GPIO 2
 #define B_GPIO 3

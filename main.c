@@ -2,8 +2,8 @@
 #include "pico/stdlib.h"
 
 #include "LED/LED.h"
-#include "stepper.h"
-#include "opto.h"
+#include "stepper/stepper.h"
+#include "opto-fork/opto.h"
 
 int main() {
     stdio_init_all();

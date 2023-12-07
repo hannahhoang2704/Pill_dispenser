@@ -23,12 +23,11 @@ add_compile_options(-Wall
 # Tell CMake where to find the executable source file
 add_executable(${PROJECT_NAME} 
     main.c
-        stepper.c
-        stepper.h
-        opto.c
-        opto.h
         LED/LED.c
         LED/LED.h
+        opto-fork/opto.c
+        opto-fork/opto.h
+        stepper/stepper.c
 )
 
 # Create map/bin/hex/uf2 files
