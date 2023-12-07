@@ -27,8 +27,8 @@ add_executable(${PROJECT_NAME}
         stepper.h
         opto.c
         opto.h
-        command.c
-        command.h
+        LED/LED.c
+        LED/LED.h
 )
 
 # Create map/bin/hex/uf2 files
