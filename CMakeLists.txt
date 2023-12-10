@@ -7,7 +7,7 @@ include($ENV{PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 set(PICO_BOARD pico_w)
 
 # Set name of project (as PROJECT_NAME) and C/C   standards
-project(stepper C CXX ASM)
+project(pill_dispenser C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -28,6 +28,8 @@ add_executable(${PROJECT_NAME}
         opto-fork/opto.c
         opto-fork/opto.h
         stepper/stepper.c
+        switch/switch.c
+        switch/switch.h
 )
 
 # Create map/bin/hex/uf2 files
