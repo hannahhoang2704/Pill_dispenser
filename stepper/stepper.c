@@ -4,17 +4,17 @@
 #include "stepper.h"
 #include "../opto-fork/opto.h"
 
-#define A_GPIO 2
-#define B_GPIO 3
-#define C_GPIO 6
-#define D_GPIO 13
+#define IN1 2
+#define IN2 3
+#define IN3 6
+#define IN4 13
 #define COIL_COUNT 4
 
 void init_stepper() {
-    static const int stepper_pin[COIL_COUNT] = {A_GPIO,
-                                                B_GPIO,
-                                                C_GPIO,
-                                                D_GPIO};
+    static const int stepper_pin[COIL_COUNT] = {IN1,
+                                                IN2,
+                                                IN3,
+                                                IN4};
 
     for (int stepper_i = 0; stepper_i < COIL_COUNT; stepper_i++) {
         gpio_init(stepper_pin[stepper_i]);
@@ -42,10 +42,10 @@ void step(bool clockwise) {
     static const struct coil_struct {
         int gpio;
         uint8_t bit;
-    } coils[COIL_COUNT] = {{A_GPIO, A},
-                           {B_GPIO, B},
-                           {C_GPIO, C},
-                           {D_GPIO, D}};
+    } coils[COIL_COUNT] = {{IN1, A},
+                           {IN2, B},
+                           {IN3, C},
+                           {IN4, D}};
 
     static int8_t stepper_mask_i = 0;
 
@@ -108,14 +108,12 @@ int calibrate() {
     return steps;
 }
 
-#define THEORETICAL_REV 4096
-
 void rotate_8th(int full_rev, int n_8ths) {
     full_rev = full_rev == -1 ? THEORETICAL_REV : full_rev;
-    int steps_per_octet = full_rev / 8;
+    int steps_per_8th = full_rev / 8;
     bool direction = n_8ths >= 0;
     int target = n_8ths != 0 ?
-                 steps_per_octet * abs(n_8ths) :
+                 steps_per_8th * abs(n_8ths) :
                  full_rev;
 
     uint64_t step_shift = SPD_REDUC_INIT;
