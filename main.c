@@ -1,17 +1,30 @@
+#include <pico/printf.h>
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 
 #include "LED/LED.h"
+#include "switch/switch.h"
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
+
+#define TIME_S ((unsigned long) time_us_64() / 1000000)
+#define PILL_INTERVAL_S 10
+#define PILL_COUNT 7
 
 int main() {
     stdio_init_all();
 
-    LED led = {20};
-    init_led(&led);
+    LED led_3 = {LED_3,
+                 INIT_PWM_LEVEL};
+    init_pwm(led_3);
+
+    SW sw_0 = {SW_0};
+    init_switch(sw_0);
+
     init_opto_fork();
     init_stepper();
+
+    int full_revolution_steps = THEORETICAL_REV;
 
     while (true) {
         /// AT STARTUP ///
@@ -19,8 +32,16 @@ int main() {
         // Blink LED,
         // Until button pressed
         /// Advanced:
-        // Remembers state across boot/power down.
+        // "Remembers state across boot/power down":
+        // Log to EEPROM
         // LoRaWAN Report: boot.
+
+        while (!switch_pressed(sw_0)) {
+            toggle_pwm(&led_3);
+            sleep_ms(100);
+        }
+
+        put_pwm(&led_3, PWM_OFF);
 
         /// BUTTON PRESSED #1 ///
         /// Minimum:
@@ -29,37 +50,65 @@ int main() {
         // Stops at opto-fork,
         // LED turns on
         /// Advanced:
+        // Log to EEPROM
         // Calibrate according to state:
         // opposite direction so the pills aren't dispensed.
         // LoRaWAN Report: Calibration started.
+
+        full_revolution_steps = calibrate();
+        toggle_pwm(&led_3);
 
         /// AFTER INITIAL CALIBRATION ///
         /// Minimum:
         // [fill pill slots]
         // Waits for button press
         /// Advanced:
+        // Log to EEPROM
         // ? Dispense pill if previous dispensing was not finished due to reboot ?
         // LoRaWAN Report: Calibration finished.
 
+        while (!switch_pressed(sw_0)) {
+            sleep_ms(50);
+        }
+
         /// BUTTON PRESSED #2 ///
         /// Minimum:
-        // Start dispensing pills at X intervals (x = 30 s),
+        // LED Off
+        // Start dispensing pills at X intervals (X = 30 s).
         /// Advanced:
+        // Log to EEPROM
         // LoRaWAN Report: Dispensing started.
 
-        /// PILL DROP ///
+        put_pwm(&led_3, PWM_OFF);
+
+        /// WAIT FOR 30 s INTERVAL: DROP DROP ///
         /// Minimum:
         // Detect pill drop with piezo-sensor (counting steps isn't mentioned... however:),
         // If no pill was detected (within a certain number of steps?), blink LED 5 times
         /// Advanced:
+        // Log to EEPROM
         // LoRaWAN Report: Dropping pill...
         // LoRaWAN Report: Pill drop detected || not detected. (Again, determined how?)
+
+        uint64_t start = TIME_S;
+        for (int pill = 0; pill < PILL_COUNT; pill++) {
+            uint64_t pilling_time = start + PILL_INTERVAL_S * pill;
+            while (TIME_S < pilling_time) {
+                sleep_ms(5);
+            }
+
+            rotate_8th(full_revolution_steps, 1);
+
+            // pill dropped ? // piezo-detection
+            // blink if not
+        }
 
         /// WHEEL TURNED 7 TIMES /// ["All pills dispensed"]
         /// Minimum:
         // ? Ensure that the next "slot" is opto-fork, in order to confirm 'full revolution' ?
         // Loop back to "STARTUP"
         /// Advanced:
+        // Log to EEPROM
         // LoRaWAN Report: Pills dispensed.
         // LoRaWAN Report: Restarting operation.
     }
