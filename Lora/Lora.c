@@ -84,3 +84,22 @@ int get_current_second(){
         return -1; // or any other suitable default value
     }
 }
+
+void connect_network(){
+    const uint8_t set_mode [] = "AT+MODE=LWOTAA\"\r\n";
+    const uint8_t set_key [] = "AT+KEY=, \"2023-12-10 14:26:13\"\r\n";
+    const uint8_t set_class [] = "AT+CLASS=A\"\r\n";
+    const uint8_t set_port [] = "AT+PORT=8\"\r\n";
+    const uint8_t set_join [] = "AT+JOIN\r\n";
+    uart_write_blocking(UART_ID, set_mode, strlen(set_mode));
+    uart_write_blocking(UART_ID, set_key, strlen(set_key));
+    uart_write_blocking(UART_ID, set_class, strlen(set_class));
+    uart_write_blocking(UART_ID, set_port, strlen(set_port));
+    uart_write_blocking(UART_ID, set_join, strlen(set_join));
+    printf("%s\n", on_uart_rx());
+}
+
+void send_msg(char *content){
+    const uint8_t data = "AT+MSG=, \"Hello Phuong\"\r\n";
+    uart_write_blocking(UART_ID, data, strlen(data));
+}

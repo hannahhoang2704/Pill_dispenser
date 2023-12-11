@@ -23,5 +23,7 @@ void set_time();
 void sync_real_time();
 void get_current_time();
 int get_current_second();
+void connect_network();
+void send_msg(char *content);
 
 #endif
