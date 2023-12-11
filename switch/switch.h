@@ -7,8 +7,11 @@
 
 typedef struct {
     uint pin;
+    bool pressed;
 } SW;
 
 void init_switch(SW sw);
 
 bool switch_pressed(SW sw);
+
+bool is_button_clicked(SW * sw);

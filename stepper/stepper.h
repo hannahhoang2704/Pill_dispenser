@@ -8,4 +8,6 @@ void step(bool clockwise);
 
 int calibrate();
 
+int new_calibrate();
+
 void rotate_8th(int full_rev, int n_8ths);

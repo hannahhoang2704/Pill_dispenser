@@ -42,6 +42,7 @@ void init_pwm(LED led) {
 
 void put_pwm(LED * led, uint16_t level) {
     led->pwm_level = level;
+
     uint slice = pwm_gpio_to_slice_num(led->pin);
     uint channel = pwm_gpio_to_channel(led->pin);
     pwm_set_chan_level(slice, channel, led->pwm_level);
@@ -49,6 +50,7 @@ void put_pwm(LED * led, uint16_t level) {
 
 void toggle_pwm(LED * led) {
     led->pwm_level = led->pwm_level == PWM_OFF ? PWM_SOFT : PWM_OFF;
+
     uint slice = pwm_gpio_to_slice_num(led->pin);
     uint channel = pwm_gpio_to_channel(led->pin);
     pwm_set_chan_level(slice, channel, led->pwm_level);

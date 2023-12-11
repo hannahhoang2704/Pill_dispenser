@@ -22,30 +22,26 @@ void init_stepper() {
     }
 }
 
-enum step_stage {
-    A  = 0b0001,
-    AB = 0b0011,
-    B  = 0b0010,
-    BC = 0b0110,
-    C  = 0b0100,
-    CD = 0b1100,
-    D  = 0b1000,
-    DA = 0b1001
-};
-
 #define STEP_STATES 8
 
 void step(bool clockwise) {
     static const uint8_t step_masks[STEP_STATES] =
-            {A, AB, B, BC, C, CD, D, DA};
+            {0b0001,
+             0b0011,
+             0b0010,
+             0b0110,
+             0b0100,
+             0b1100,
+             0b1000,
+             0b1001};
 
     static const struct coil_struct {
         int gpio;
         uint8_t bit;
-    } coils[COIL_COUNT] = {{IN1, A},
-                           {IN2, B},
-                           {IN3, C},
-                           {IN4, D}};
+    } coils[COIL_COUNT] = {{IN1, 0b0001},
+                           {IN2, 0b0010},
+                           {IN3, 0b0100},
+                           {IN4, 0b1000}};
 
     static int8_t stepper_mask_i = 0;
 
@@ -71,6 +67,29 @@ void step(bool clockwise) {
 
 #define CALIB_OPERATIONS 4
 #define OPTO_OFFSET 158
+
+int rotate_to_opto() {
+    int revolution_steps = 0;
+    while (!opto_falling_edge) {
+        step(true);
+        ++revolution_steps;
+        sleep_us(SPD_REDUC_MIN);
+    }
+    opto_falling_edge = false;
+    return revolution_steps;
+}
+
+int new_calibrate() {
+
+    printf("Calibrating...\n");
+
+    rotate_to_opto();
+    int revolution_steps = rotate_to_opto();
+
+    printf("%d steps for full revolution.\n", revolution_steps);
+
+    return revolution_steps;
+}
 
 int calibrate() {
     uint64_t step_shift = SPD_REDUC_INIT;
@@ -109,19 +128,12 @@ int calibrate() {
 }
 
 void rotate_8th(int full_rev, int n_8ths) {
-    full_rev = full_rev == -1 ? THEORETICAL_REV : full_rev;
     int steps_per_8th = full_rev / 8;
     bool direction = n_8ths >= 0;
-    int target = n_8ths != 0 ?
-                 steps_per_8th * abs(n_8ths) :
-                 full_rev;
+    int target = steps_per_8th * abs(n_8ths);
 
-    uint64_t step_shift = SPD_REDUC_INIT;
     for (int step_i = 0; step_i < target; step_i++) {
         step(direction);
-        sleep_us(step_shift);
-        step_shift = step_shift > SPD_REDUC_MIN ?
-                     step_shift - 1 :
-                     SPD_REDUC_MIN;
+        sleep_us(SPD_REDUC_MIN);
     }
 }
