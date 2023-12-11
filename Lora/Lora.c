@@ -1,6 +1,6 @@
 #include "Lora.h"
 
-void UART_init(){
+void init_Lora(){
     uart_init(UART_ID, BAUD_RATE);
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
     gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
@@ -29,7 +29,7 @@ char* on_uart_rx() {
     // If no complete string is received yet, return NULL or an empty string
     return NULL;
 }
-void init_lora(){
+void start_lora(){
     const uint8_t init_command[] = "AT\r\n";
     char* receivedString;
             for (size_t i = 0; i < 5; i++)

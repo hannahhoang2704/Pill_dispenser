@@ -16,9 +16,9 @@
 #define PARITY    UART_PARITY_NONE
 #define STRLEN 80
 
-void UART_init();
+void init_Lora();
 char* on_uart_rx();
-void init_lora();
+void start_lora();
 void set_time();
 void sync_real_time();
 void get_current_time();
