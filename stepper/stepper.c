@@ -68,6 +68,7 @@ void step(bool clockwise) {
 #define CALIB_OPERATIONS 4
 #define OPTO_OFFSET 158
 
+/*
 int rotate_to_opto() {
     int revolution_steps = 0;
     while (!opto_falling_edge) {
@@ -90,6 +91,7 @@ int new_calibrate() {
 
     return revolution_steps;
 }
+*/
 
 int calibrate() {
     uint64_t step_shift = SPD_REDUC_INIT;

@@ -1,7 +1,4 @@
 #include "opto.h"
-#include "../LED/LED.h"
-
-extern bool opto_detect;
 
 #define OPTO_GPIO 28
 
@@ -14,10 +11,14 @@ void init_opto_fork() {
 bool opto_high() {
     return gpio_get(OPTO_GPIO);
 }
-
+/*
 // opto-fork interrupt event
 static void opto_event(uint gpio, uint32_t event_mask) {
     opto_falling_edge = true;
+}
+
+void unflag_opto_event() {
+    opto_falling_edge = false;
 }
 
 void init_opto_fork_irq() {
@@ -26,3 +27,4 @@ void init_opto_fork_irq() {
                                        true,
                                        opto_event);
 }
+*/

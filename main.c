@@ -22,8 +22,8 @@ int main() {
                false};
     init_switch(sw_0);
 
-    init_opto_fork_irq();
-    //init_opto_fork();
+    //init_opto_fork_irq();
+    init_opto_fork();
     init_stepper();
 
     int full_rev_steps = THEORETICAL_REV;
@@ -56,7 +56,7 @@ int main() {
         // opposite direction so the pills aren't dispensed.
         // LoRaWAN Report: Calibration started.
 
-        full_rev_steps = new_calibrate();
+        full_rev_steps = calibrate();
 
         /// AFTER INITIAL CALIBRATION ///
         /// Minimum:

@@ -3,7 +3,9 @@
 #ifndef OPTO_H
 #define OPTO_H
 
-volatile bool opto_falling_edge = false;
+// volatile bool opto_falling_edge = false;
+
+void unflag_opto_event();
 
 void init_opto_fork();
 
