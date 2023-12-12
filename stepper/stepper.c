@@ -66,7 +66,7 @@ void step(bool clockwise) {
 #define SPD_REDUC_INIT 1200
 
 #define CALIB_OPERATIONS 4
-#define OPTO_OFFSET 158
+#define OPTO_OFFSET 128 //158
 
 /*
 int rotate_to_opto() {
