@@ -92,6 +92,9 @@ int rotate_to_event(uint8_t flag, bool clockwise) {
     return steps;
 }
 
+// calibrate according to number of pills dropped so far
+// ... informed from EEPROM after boot ;
+// 0 otherwise
 void calibrate(int pills_dropped) {
 
     printf("Calibrating...\n");
