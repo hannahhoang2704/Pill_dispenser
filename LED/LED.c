@@ -55,3 +55,10 @@ void toggle_pwm(LED * led) {
     uint channel = pwm_gpio_to_channel(led->pin);
     pwm_set_chan_level(slice, channel, led->pwm_level);
 }
+
+void led_blink_times(LED *led, int blink_time){
+    for(int blink=0; blink<(blink_time*2);++blink){
+        toggle_pwm(led);
+        sleep_ms(200);
+    }
+}
