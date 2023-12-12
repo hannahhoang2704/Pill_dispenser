@@ -51,91 +51,63 @@ void step(bool clockwise) {
         if (--stepper_mask_i < 0) stepper_mask_i = 7;
     }
 
-    uint8_t step_state = step_masks[stepper_mask_i];
+    uint8_t step = step_masks[stepper_mask_i];
 
     for (int coil_i = 0; coil_i < COIL_COUNT; coil_i++) {
         struct coil_struct coil = coils[coil_i];
-        gpio_put(coil.gpio, coil.bit & step_state);
+        gpio_put(coil.gpio, coil.bit & step);
     }
 }
 
-// Max stepper speed the disk can keep up with (according to Roni's experience)
-#define SPD_REDUC_MIN 800
-// Initial speed, for helping the disk accumulate speed gradually,
-// helping it build some momentum
-#define SPD_REDUC_INIT 1200
+#define SPD_REDUC_MIN 850
 
-#define CALIB_OPERATIONS 4
 #define OPTO_OFFSET 158
 
-/*
-int rotate_to_opto() {
-    int revolution_steps = 0;
-    while (!opto_falling_edge) {
-        step(true);
-        ++revolution_steps;
+void rotate_steps(int steps) {
+    bool clockwise = steps >= 0;
+    int start = clockwise ? 0 : steps;
+    int target = clockwise ? steps : 0;
+
+    for (int s = start; s != target; s++) {
+        step(clockwise);
         sleep_us(SPD_REDUC_MIN);
     }
-    opto_falling_edge = false;
-    return revolution_steps;
 }
 
-int new_calibrate() {
+void rotate_8th(int n_8ths) {
+    int steps = THEORETICAL_8TH * n_8ths;
 
-    printf("Calibrating...\n");
-
-    rotate_to_opto();
-    int revolution_steps = rotate_to_opto();
-
-    printf("%d steps for full revolution.\n", revolution_steps);
-
-    return revolution_steps;
+    rotate_steps(steps);
 }
-*/
 
-int calibrate() {
-    uint64_t step_shift = SPD_REDUC_INIT;
-
-    printf("Calibrating...\n");
-
-    const bool operation_order[CALIB_OPERATIONS] = {false,
-                                                    true,
-                                                    false,
-                                                    true};
+// to_opto defines whether it will rotate in or out of opto-fork
+int rotate_to_event(uint8_t flag, bool clockwise) {
     int steps = 0;
-
-    for (int oper_i = 0; oper_i < CALIB_OPERATIONS; oper_i++) {
-        bool condition = operation_order[oper_i];
-        while (opto_high() == condition) {
-            step(true);
-            if (oper_i > 1) ++steps;
-            sleep_us(step_shift);
-            step_shift = step_shift > SPD_REDUC_MIN ?
-                         step_shift - 1 :
-                         SPD_REDUC_MIN;
-        }
+    while (!opto_flag_state(flag)) {
+        step(clockwise);
+        ++steps;
+        sleep_us(SPD_REDUC_MIN);
     }
-
-    for (int s = 0; s < OPTO_OFFSET; s++) {
-        step(true);
-        sleep_us(step_shift);
-        step_shift = step_shift < SPD_REDUC_INIT ?
-                     step_shift + 20 :
-                     SPD_REDUC_INIT;
-    }
-
-    printf("%d steps for full revolution.\n", steps);
-
+    set_opto_flag(flag, false);
     return steps;
 }
 
-void rotate_8th(int full_rev, int n_8ths) {
-    int steps_per_8th = full_rev / 8;
-    bool direction = n_8ths >= 0;
-    int target = steps_per_8th * abs(n_8ths);
+void calibrate(int pills_dropped) {
 
-    for (int step_i = 0; step_i < target; step_i++) {
-        step(direction);
-        sleep_us(SPD_REDUC_MIN);
+    printf("Calibrating...\n");
+
+    if (pills_dropped == 0) {
+        rotate_to_event(FALL, true);
+        int revolution_steps = rotate_to_event(FALL, true);
+
+        rotate_steps(OPTO_OFFSET);
+
+        printf("%d steps for full revolution.\n", revolution_steps);
+
+    } else {
+        rotate_to_event(FALL, false);
+        rotate_steps(-OPTO_OFFSET);
+        sleep_ms(50);
+        rotate_8th(pills_dropped);
     }
 }

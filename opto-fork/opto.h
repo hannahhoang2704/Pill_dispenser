@@ -3,14 +3,15 @@
 #ifndef OPTO_H
 #define OPTO_H
 
-// volatile bool opto_falling_edge = false;
+enum opto_flags {
+    FALL,
+    RISE
+};
 
-void unflag_opto_event();
+bool opto_flag_state(uint8_t flag);
 
-void init_opto_fork();
+void set_opto_flag(uint8_t flag, bool state);
 
 void init_opto_fork_irq();
-
-bool opto_high();
 
 #endif
