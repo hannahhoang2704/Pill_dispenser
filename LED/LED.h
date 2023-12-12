@@ -29,5 +29,5 @@ void blink_led(LED *led, bool state);
 void init_pwm(LED led);
 void put_pwm(LED * led, uint16_t level);
 void toggle_pwm(LED * led);
-
+void led_blinks_times(LED *led, int blink_times);
 #endif  // LED_H
