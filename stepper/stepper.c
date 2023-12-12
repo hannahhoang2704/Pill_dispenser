@@ -24,6 +24,8 @@ void init_stepper() {
 
 #define STEP_STATES 8
 
+// Takes one 'half'-step in the ordered direction.
+// Saves the step state within boot ;; not across boots.
 void step(bool clockwise) {
     static const uint8_t step_masks[STEP_STATES] =
             {0b0001,
@@ -63,6 +65,9 @@ void step(bool clockwise) {
 
 #define OPTO_OFFSET 158
 
+// Rotates steps.
+// Positive steps = clockwise
+// Negative steps = counter-clockwise
 void rotate_steps(int steps) {
     bool clockwise = steps >= 0;
     int start = clockwise ? 0 : steps;
@@ -74,6 +79,7 @@ void rotate_steps(int steps) {
     }
 }
 
+// rotates n * full_revolution / 8
 void rotate_8th(int n_8ths) {
     int steps = THEORETICAL_8TH * n_8ths;
 
@@ -92,25 +98,33 @@ int rotate_to_event(uint8_t flag, bool clockwise) {
     return steps;
 }
 
-// calibrate according to number of pills dropped so far
-// ... informed from EEPROM after boot ;
-// 0 otherwise
+// Calibrates according to number of 'pills dropped' so far.
 void calibrate(int pills_dropped) {
 
     printf("Calibrating...\n");
 
     if (pills_dropped == 0) {
+
+        // rotate until opto-fork falling edge
         rotate_to_event(FALL, true);
+
+        // repeat, and capture the number of steps
         int revolution_steps = rotate_to_event(FALL, true);
 
+        // align the disk with the hole
+        // offset may vary among devices
         rotate_steps(OPTO_OFFSET);
 
         printf("%d steps for full revolution.\n", revolution_steps);
 
     } else {
+
+        // first calibrate over the empty slot
         rotate_to_event(FALL, false);
         rotate_steps(-OPTO_OFFSET);
         sleep_ms(50);
+
+        // then rotate according to logged pill data
         rotate_8th(pills_dropped);
     }
 }
