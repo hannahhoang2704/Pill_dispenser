@@ -8,9 +8,9 @@ enum opto_flags {
     RISE
 };
 
-bool opto_flag_state(uint8_t flag);
+bool opto_flag_state(enum opto_flags flag);
 
-void set_opto_flag(uint8_t flag, bool state);
+void set_opto_flag(enum opto_flags flag, bool state);
 
 void init_opto_fork_irq();
 
