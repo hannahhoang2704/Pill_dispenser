@@ -6,12 +6,10 @@
 #include "switch/switch.h"
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
-#include "piezo/piezo.h"
 
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
 #define PILL_COUNT 7
-#define BLINK_TIME 5
 
 int main() {
     stdio_init_all();
@@ -28,9 +26,6 @@ int main() {
     init_opto_fork();
     init_stepper();
 
-    //init piezo sensor
-    init_piezo();
-
     int full_rev_steps = THEORETICAL_REV;
 
     while (true) {
@@ -45,7 +40,7 @@ int main() {
 
         while (!is_button_clicked(&sw_0)) {
             toggle_pwm(&led_3);
-            sleep_ms(500);
+            sleep_ms(100);
         }
 
         put_pwm(&led_3, PWM_OFF);
@@ -101,23 +96,15 @@ int main() {
             // LoRaWAN Report: Dropping pill...
             // LoRaWAN Report: Pill drop detected || not detected. (Again, determined how?)
 
-            uint64_t next_pilling_time = start + PILL_INTERVAL_S * pill;
-            while (TIME_S < next_pilling_time) {
+            uint64_t pilling_time = start + PILL_INTERVAL_S * pill;
+            while (TIME_S < pilling_time) {
                 sleep_ms(5);
             }
+
             rotate_8th(full_rev_steps, 1);
-            sleep_ms(10);
-            bool pill_detected = piezo_detection_within_us();
-            if(!pill_detected){
-                //toggle led 5 times
-                printf("Can't detect any pill in compartment %d, blink light 5 times\n", pill+1);
-                for(int blink=0; blink<(BLINK_TIME*2);++blink){
-                    toggle_pwm(&led_3);
-                    sleep_ms(200);
-                }
-            }else{
-                printf("Pill in compartment %d is detected by piezo\n", pill+1);
-            }
+
+            // pill dropped ? // piezo-detection
+            // blink if not
         }
 
         /// WHEEL TURNED 7 TIMES /// ["All pills dispensed"]
