@@ -5,11 +5,13 @@
 
 volatile bool piezo_falling_edge = false;
 
+// A callback function, detecting when falling edge is detected
 void pill_detection(uint gpio, uint32_t events){
     if(gpio == PIEZO_SENSOR)
         piezo_falling_edge = true;
 }
 
+// Initilize piezo sensor, including a callback interrupt to detect a falling edge of the sensor
 void init_piezo(){
     gpio_init(PIEZO_SENSOR);
     gpio_set_dir(PIEZO_SENSOR, GPIO_IN);
@@ -17,7 +19,7 @@ void init_piezo(){
     gpio_set_irq_enabled_with_callback(PIEZO_SENSOR, GPIO_IRQ_EDGE_FALL, true, &pill_detection);
 }
 
-//returns a boolean if object is detected by piezo sensor within a maximum of waiting time
+// Returns a boolean if object is detected by piezo sensor within a maximum of waiting time
 bool piezo_detection_within_us(){
     piezo_falling_edge = false;
     uint32_t time_start = time_us_64();

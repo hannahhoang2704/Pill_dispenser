@@ -112,7 +112,7 @@ int main() {
             // blink if not
             if(!pill_detected){
                 printf("Can't detect any pill in compartment %d, blink light 5 times\n", pill+1);
-                led_blinks_times(&led_3, BLINK_TIME);
+                led_blink_times(&led_3, BLINK_TIME);
             }else{
                 printf("Pill in compartment %d is detected by piezo\n", pill+1);
             }
