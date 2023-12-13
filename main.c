@@ -11,7 +11,6 @@
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
 #define PILL_COUNT 7
-#define BLINK_TIME 5
 
 int main() {
     stdio_init_all();
@@ -20,7 +19,7 @@ int main() {
 
     init_switch(SW_0);
 
-    init_opto_fork_irq();
+    init_opto_fork();
     init_stepper();
     init_piezo();
 
