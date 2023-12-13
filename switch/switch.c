@@ -1,21 +1,22 @@
 #include "switch.h"
 
-void init_switch(SW sw) {
-    gpio_set_function(sw.pin, GPIO_FUNC_SIO);
-    gpio_set_dir(sw.pin, GPIO_IN);
-    gpio_pull_up(sw.pin);
+void init_switch(uint sw) {
+    gpio_set_function(sw, GPIO_FUNC_SIO);
+    gpio_set_dir(sw, GPIO_IN);
+    gpio_pull_up(sw);
 }
 
-bool switch_pressed(SW sw) {
-    return !gpio_get(sw.pin);
+bool switch_pressed(uint sw) {
+    return !gpio_get(sw);
 }
 
-bool is_button_clicked(SW * sw) {
-    if (!gpio_get(sw->pin) && sw->pressed == false) {
-        sw->pressed = true;
-        return true;
-    } else if (gpio_get(sw->pin) && sw->pressed == true) {
-        sw->pressed = false;
+static bool sw_0_pressed = false;
+
+bool switch_pressed_debounced(uint sw) {
+    if (!gpio_get(sw) && !sw_0_pressed) {
+        sw_0_pressed = true;
+    } else if (gpio_get(sw) && sw_0_pressed) {
+        sw_0_pressed = false;
     }
-    return false;
+    return sw_0_pressed;
 }

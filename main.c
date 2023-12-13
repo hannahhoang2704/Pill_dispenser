@@ -16,9 +16,7 @@ int main() {
 
     init_pwm();
 
-    SW sw_0 = {SW_0,
-               false};
-    init_switch(sw_0);
+    init_switch(SW_0);
 
     init_opto_fork_irq();
     init_stepper();
@@ -35,7 +33,7 @@ int main() {
         // Log to EEPROM
         // LoRaWAN Report: boot.
 
-        while (!is_button_clicked(&sw_0)) {
+        while (!switch_pressed_debounced(SW_0)) {
             toggle_pwm();
             sleep_ms(100);
         }
@@ -67,7 +65,7 @@ int main() {
 
         put_pwm(PWM_SOFT);
 
-        while (!is_button_clicked(&sw_0)) {
+        while (!switch_pressed_debounced(SW_0)) {
             sleep_ms(50);
         }
 
