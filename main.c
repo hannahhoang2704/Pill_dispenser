@@ -22,6 +22,7 @@ int main() {
 
     init_opto_fork_irq();
     init_stepper();
+    init_piezo();
 
     int rotations = 0; // read from eeprom, zero by default
 
@@ -81,6 +82,7 @@ int main() {
 
         put_pwm(PWM_OFF);
 
+        set_piezo_irq(true);
         uint64_t start = TIME_S;
         for (int pill = rotations; pill < PILL_COUNT; pill++) {
 
@@ -98,21 +100,18 @@ int main() {
                 sleep_ms(5);
             }
 
-
+            set_piezo_flag(false);
             rotate_8th(1);
-            sleep_ms(10);
-            bool pill_detected = piezo_detection_within_us();
-            // blink if not
-            if(!pill_detected){
-                printf("Can't detect any pill in compartment %d, blink light 5 times\n", pill+1);
-                led_blink_times(&led_3, BLINK_TIME);
-            }else{
-                printf("Pill in compartment %d is detected by piezo\n", pill+1);
-            }
 
-            // pill dropped ? // piezo-detection
-            // blink if not
+            if (!piezo_detection_within_us()) {
+                printf("No pill. #%d\n", pill + 1);
+                led_blink_times(5);
+            } else {
+                printf("Pill. #%d\n", pill + 1);
+            }
         }
+        printf("Dispenser empty.\n");
+        set_piezo_irq(false);
 
         rotations = 0;
 

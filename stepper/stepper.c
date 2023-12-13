@@ -63,7 +63,7 @@ void step(bool clockwise) {
 
 #define SPD_REDUC_MIN 850
 
-#define OPTO_OFFSET 158
+#define OPTO_OFFSET 148
 
 // Rotates steps.
 // Positive steps = clockwise
@@ -87,13 +87,19 @@ void rotate_8th(int n_8ths) {
 }
 
 // to_opto defines whether it will rotate in or out of opto-fork
-int rotate_to_event(uint8_t flag, bool clockwise) {
+int rotate_to_event(enum opto_events flag, bool clockwise) {
     int steps = 0;
+
+    set_opto_fork_irq(true);
+
     while (!opto_flag_state(flag)) {
         step(clockwise);
         ++steps;
         sleep_us(SPD_REDUC_MIN);
     }
+
+    set_opto_fork_irq(false);
+
     set_opto_flag(flag, false);
     return steps;
 }

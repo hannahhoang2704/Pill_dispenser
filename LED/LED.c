@@ -58,8 +58,11 @@ void toggle_pwm() {
 }
 
 void led_blink_times(int blink_time) {
-    for (int blink = 0; blink < (blink_time * 2); ++blink) {
+    for (int blink = 0; blink < blink_time; ++blink) {
+        toggle_pwm();
+        sleep_ms(200);
         toggle_pwm();
         sleep_ms(200);
     }
+    put_pwm(PWM_OFF);
 }

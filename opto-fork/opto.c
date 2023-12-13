@@ -6,28 +6,28 @@
 static bool volatile opto_fall = false;
 static bool volatile opto_rise = false;
 
-// Returns the state of 'flag'.
-bool opto_flag_state(enum opto_flags flag) {
-    switch (flag) {
+// Returns the state of 'event'.
+bool opto_flag_state(enum opto_events event) {
+    switch (event) {
         case FALL:
             return opto_fall;
         case RISE:
             return opto_rise;
         default:
-            fprintf(stderr, "Unknown flag: %u\n", flag);
+            fprintf(stderr, "Unknown event: %u\n", event);
             return false;
     }
 }
 
-// Manual control over flag state.
-void set_opto_flag(enum opto_flags flag, bool state) {
-    switch (flag) {
+// Manual control over event state.
+void set_opto_flag(enum opto_events event, bool state) {
+    switch (event) {
         case FALL:
             opto_fall = state; break;
         case RISE:
             opto_rise = state; break;
         default:
-            fprintf(stderr, "Unknown flag: %u\n", flag);
+            fprintf(stderr, "Unknown event: %u\n", event);
     }
 }
 
@@ -41,16 +41,19 @@ static void opto_event(uint gpio, uint32_t event_mask) {
         case GPIO_IRQ_EDGE_RISE:
             opto_rise = true; break;
         default:
-            fprintf(stderr, "Unknown opto-fork interrupt event_mask: %u\n", event_mask);
+            ;
     }
 }
 
 // Initialize opto-fork for both falling and rising edge events.
-void init_opto_fork_irq() {
+void init_opto_fork() {
     gpio_init(OPTO_GPIO);
     gpio_pull_up(OPTO_GPIO);
+}
+
+void set_opto_fork_irq(bool state) {
     gpio_set_irq_enabled_with_callback(OPTO_GPIO,
                                        GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE,
-                                       true,
+                                       state,
                                        opto_event);
 }
