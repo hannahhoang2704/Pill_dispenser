@@ -6,10 +6,12 @@
 #include "switch/switch.h"
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
+#include "piezo/piezo.h"
 
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
 #define PILL_COUNT 7
+#define BLINK_TIME 5
 
 int main() {
     stdio_init_all();
@@ -91,12 +93,22 @@ int main() {
             // LoRaWAN Report: Dropping pill...
             // LoRaWAN Report: Pill drop detected || not detected. (Again, determined how?)
 
-            uint64_t pilling_time = start + PILL_INTERVAL_S * pill;
-            while (TIME_S < pilling_time) {
+            uint64_t next_pilling_time = start + PILL_INTERVAL_S * pill;
+            while (TIME_S < next_pilling_time) {
                 sleep_ms(5);
             }
 
+
             rotate_8th(1);
+            sleep_ms(10);
+            bool pill_detected = piezo_detection_within_us();
+            // blink if not
+            if(!pill_detected){
+                printf("Can't detect any pill in compartment %d, blink light 5 times\n", pill+1);
+                led_blink_times(&led_3, BLINK_TIME);
+            }else{
+                printf("Pill in compartment %d is detected by piezo\n", pill+1);
+            }
 
             // pill dropped ? // piezo-detection
             // blink if not
