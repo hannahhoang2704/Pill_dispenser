@@ -11,27 +11,19 @@
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
 #define PILL_COUNT 7
-#define BLINK_TIME 5
 
 int main() {
     stdio_init_all();
 
-    LED led_3 = {LED_3,
-                 INIT_PWM_LEVEL};
-    init_pwm(led_3);
+    init_pwm();
 
-    SW sw_0 = {SW_0,
-               false};
-    init_switch(sw_0);
+    init_switch(SW_0);
 
-    //init_opto_fork_irq();
     init_opto_fork();
     init_stepper();
-
-    //init piezo sensor
     init_piezo();
 
-    int full_rev_steps = THEORETICAL_REV;
+    int rotations = 0; // read from eeprom, zero by default
 
     while (true) {
         /// AT STARTUP ///
@@ -43,12 +35,12 @@ int main() {
         // Log to EEPROM
         // LoRaWAN Report: boot.
 
-        while (!is_button_clicked(&sw_0)) {
-            toggle_pwm(&led_3);
-            sleep_ms(500);
+        while (!switch_pressed_debounced(SW_0)) {
+            toggle_pwm();
+            sleep_ms(100);
         }
 
-        put_pwm(&led_3, PWM_OFF);
+        put_pwm(PWM_OFF);
 
         /// BUTTON PRESSED #1 ///
         /// Minimum:
@@ -61,7 +53,7 @@ int main() {
         // opposite direction so the pills aren't dispensed.
         // LoRaWAN Report: Calibration started.
 
-        full_rev_steps = calibrate();
+        calibrate(rotations);
 
         /// AFTER INITIAL CALIBRATION ///
         /// Minimum:
@@ -73,9 +65,9 @@ int main() {
         // ? Dispense pill if previous dispensing was not finished due to reboot ?
         // LoRaWAN Report: Calibration finished.
 
-        put_pwm(&led_3, PWM_SOFT);
+        put_pwm(PWM_SOFT);
 
-        while (!is_button_clicked(&sw_0)) {
+        while (!switch_pressed_debounced(SW_0)) {
             sleep_ms(50);
         }
 
@@ -87,10 +79,11 @@ int main() {
         // Log to EEPROM
         // LoRaWAN Report: Dispensing started.
 
-        put_pwm(&led_3, PWM_OFF);
+        put_pwm(PWM_OFF);
 
+        set_piezo_irq(true);
         uint64_t start = TIME_S;
-        for (int pill = 0; pill < PILL_COUNT; pill++) {
+        for (int pill = rotations; pill < PILL_COUNT; pill++) {
 
             /// WAIT FOR 30 s INTERVAL: DROP DROP ///
             /// Minimum:
@@ -106,19 +99,20 @@ int main() {
                 sleep_ms(5);
             }
 
-            rotate_8th(full_rev_steps, 1);
-            sleep_ms(10);
-            bool pill_detected = piezo_detection_within_us();
-            // blink if not
-            if(!pill_detected){
-                printf("Can't detect any pill in compartment %d, blink light 5 times\n", pill+1);
-                led_blink_times(&led_3, BLINK_TIME);
-            }else{
-                printf("Pill in compartment %d is detected by piezo\n", pill+1);
+            set_piezo_flag(false);
+            rotate_8th(1);
+
+            if (!piezo_detection_within_us()) {
+                printf("No pill. #%d\n", pill + 1);
+                led_blink_times(5);
+            } else {
+                printf("Pill. #%d\n", pill + 1);
             }
-            // pill dropped ? // piezo-detection
-            // blink if not
         }
+        printf("Dispenser empty.\n");
+        set_piezo_irq(false);
+
+        rotations = 0;
 
         /// WHEEL TURNED 7 TIMES /// ["All pills dispensed"]
         /// Minimum:

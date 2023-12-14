@@ -7,6 +7,6 @@ void init_stepper();
 
 void step(bool clockwise);
 
-void calibrate(int pills_dropped);
+void calibrate(int rotations);
 
 void rotate_8th(int n_8ths);

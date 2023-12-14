@@ -63,7 +63,7 @@ void step(bool clockwise) {
 
 #define SPD_REDUC_MIN 850
 
-#define OPTO_OFFSET 158
+#define OPTO_OFFSET 148
 
 // Rotates steps.
 // Positive steps = clockwise
@@ -87,25 +87,32 @@ void rotate_8th(int n_8ths) {
 }
 
 // to_opto defines whether it will rotate in or out of opto-fork
-int rotate_to_event(uint8_t flag, bool clockwise) {
+int rotate_to_event(enum opto_events flag, bool clockwise) {
     int steps = 0;
+
+    set_opto_fork_irq(true);
+
     while (!opto_flag_state(flag)) {
         step(clockwise);
         ++steps;
         sleep_us(SPD_REDUC_MIN);
     }
+
+    set_opto_fork_irq(false);
+
     set_opto_flag(flag, false);
     return steps;
 }
 
-// Calibrates according to number of 'pills dropped' so far.
-void calibrate(int pills_dropped) {
+// Calibrates according to number of 'rotations' done thus far.
+// 'rotations' is to be derived from EEPROM
+void calibrate(int rotations) {
 
     printf("Calibrating...\n");
 
-    if (pills_dropped == 0) {
+    if (rotations == 0) {
 
-        // rotate until opto-fork falling edge
+        // rotate clockwise until opto-fork falling edge
         rotate_to_event(FALL, true);
 
         // repeat, and capture the number of steps
@@ -119,12 +126,19 @@ void calibrate(int pills_dropped) {
 
     } else {
 
-        // first calibrate over the empty slot
+        // rotate counter-clockwise until opto-fork falling edge
         rotate_to_event(FALL, false);
+
+        // align the disk with the hole
+        // offset may vary among devices
         rotate_steps(-OPTO_OFFSET);
+
+        // sleep to mitigate momentum,
+        // before rotating opposite direction
         sleep_ms(50);
 
-        // then rotate according to logged pill data
-        rotate_8th(pills_dropped);
+        // then rotate according to logged
+        rotate_8th(rotations);
     }
+    printf("Calibration finished\n");
 }

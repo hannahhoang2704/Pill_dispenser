@@ -19,16 +19,15 @@
 
 typedef struct {
     uint pin;
-    uint16_t pwm_level;
 } LED;
 
 void init_led(LED *led);
 bool check_led_state(LED *led);
 void blink_led(LED *led, bool state);
 
-void init_pwm(LED led);
-void put_pwm(LED * led, uint16_t level);
-void toggle_pwm(LED * led);
-void led_blink_times(LED *led, int blink_time);
+void init_pwm();
+void put_pwm(uint16_t level);
+void toggle_pwm();
+void led_blink_times(int blink_time);
 
 #endif  // LED_H
