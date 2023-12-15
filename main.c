@@ -11,11 +11,13 @@
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
 #define PILL_COUNT 7
+#define BLINK_TIMES 5
 
 int main() {
     stdio_init_all();
 
-    init_pwm();
+    LED led_3 = {.pin = LED_3};
+    init_pwm(&led_3);
 
     init_switch(SW_0);
 
@@ -36,11 +38,11 @@ int main() {
         // LoRaWAN Report: boot.
 
         while (!switch_pressed_debounced(SW_0)) {
-            toggle_pwm();
-            sleep_ms(100);
+            toggle_pwm(&led_3);
+            sleep_ms(500);
         }
 
-        put_pwm(PWM_OFF);
+        set_led_brightness(&led_3, PWM_OFF);
 
         /// BUTTON PRESSED #1 ///
         /// Minimum:
@@ -65,7 +67,7 @@ int main() {
         // ? Dispense pill if previous dispensing was not finished due to reboot ?
         // LoRaWAN Report: Calibration finished.
 
-        put_pwm(PWM_SOFT);
+        set_led_brightness(&led_3, PWM_SOFT);
 
         while (!switch_pressed_debounced(SW_0)) {
             sleep_ms(50);
@@ -79,7 +81,7 @@ int main() {
         // Log to EEPROM
         // LoRaWAN Report: Dispensing started.
 
-        put_pwm(PWM_OFF);
+        set_led_brightness(&led_3, PWM_OFF);
 
         set_piezo_irq(true);
         uint64_t start = TIME_S;
@@ -103,13 +105,13 @@ int main() {
             rotate_8th(1);
 
             if (!piezo_detection_within_us()) {
-                printf("No pill. #%d\n", pill + 1);
-                led_blink_times(5);
+                printf("No pill found in compartment %d, blink lights\n", pill + 1);
+                led_blink_times(&led_3, BLINK_TIMES);
             } else {
-                printf("Pill. #%d\n", pill + 1);
+                printf("Pill found in compartment %d\n", pill + 1);
             }
         }
-        printf("Dispenser empty.\n");
+//        printf("Dispenser empty.\n");
         set_piezo_irq(false);
 
         rotations = 0;
