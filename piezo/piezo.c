@@ -1,8 +1,5 @@
 #include "piezo.h"
 
-#define PIEZO_SENSOR 27
-#define PIEZO_MAX_WAITING_TIME 85000
-
 volatile bool piezo_falling_edge = false;
 
 static void pill_detection(uint gpio, uint32_t event_mask) {

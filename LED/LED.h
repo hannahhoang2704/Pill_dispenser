@@ -21,11 +21,8 @@ typedef struct {
     uint pin;
     uint slice;
     uint channel;
+    uint16_t pwm_level;
 } LED;
-
-void init_led(LED *led);
-bool check_led_state(LED *led);
-void blink_led(LED *led, bool state);
 
 void init_pwm(LED *led);
 void set_led_brightness(LED *led, uint16_t level);
