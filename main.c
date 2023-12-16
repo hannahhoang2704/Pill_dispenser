@@ -7,6 +7,7 @@
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
 #include "piezo/piezo.h"
+#include "eeprom/eeprom.h"
 
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
@@ -24,6 +25,8 @@ int main() {
     init_opto_fork();
     init_stepper();
     init_piezo();
+
+    initialize_eeprom();
 
     int rotations = 0; // read from eeprom, zero by default
 
