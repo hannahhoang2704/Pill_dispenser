@@ -14,16 +14,6 @@ void init_stepper() {
 // Takes one 'half'-step in the ordered direction.
 // Saves the step state within boot ;; not across boots.
 void step(bool clockwise) {
-    static const uint8_t step_masks[STEP_STATES] =
-            {0b0001,
-             0b0011,
-             0b0010,
-             0b0110,
-             0b0100,
-             0b1100,
-             0b1000,
-             0b1001};
-
     static int8_t stepper_mask_i = 0;
 
     if (clockwise) {
