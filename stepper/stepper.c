@@ -4,25 +4,12 @@
 #include "stepper.h"
 #include "../opto-fork/opto.h"
 
-#define IN1 2
-#define IN2 3
-#define IN3 6
-#define IN4 13
-#define COIL_COUNT 4
-
 void init_stepper() {
-    static const int stepper_pin[COIL_COUNT] = {IN1,
-                                                IN2,
-                                                IN3,
-                                                IN4};
-
     for (int stepper_i = 0; stepper_i < COIL_COUNT; stepper_i++) {
-        gpio_init(stepper_pin[stepper_i]);
-        gpio_set_dir(stepper_pin[stepper_i], GPIO_OUT);
+        gpio_init(coils[stepper_i].gpio);
+        gpio_set_dir(coils[stepper_i].gpio, GPIO_OUT);
     }
 }
-
-#define STEP_STATES 8
 
 // Takes one 'half'-step in the ordered direction.
 // Saves the step state within boot ;; not across boots.
@@ -36,14 +23,6 @@ void step(bool clockwise) {
              0b1100,
              0b1000,
              0b1001};
-
-    static const struct coil_struct {
-        int gpio;
-        uint8_t bit;
-    } coils[COIL_COUNT] = {{IN1, 0b0001},
-                           {IN2, 0b0010},
-                           {IN3, 0b0100},
-                           {IN4, 0b1000}};
 
     static int8_t stepper_mask_i = 0;
 
@@ -60,10 +39,6 @@ void step(bool clockwise) {
         gpio_put(coil.gpio, coil.bit & step);
     }
 }
-
-#define SPD_REDUC_MIN 850
-
-#define OPTO_OFFSET 148
 
 // Rotates steps.
 // Positive steps = clockwise
