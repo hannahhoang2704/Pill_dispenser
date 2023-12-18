@@ -1,6 +1,3 @@
-//
-// Created by Hanh Hoang on 15.12.2023.
-//
 #include <stdio.h>
 #include <string.h>
 #include "hardware/i2c.h"

@@ -35,6 +35,7 @@ add_executable(${PROJECT_NAME}
         piezo/piezo.c
         eeprom/eeprom.c
         eeprom/eeprom.h
+        main.h
 )
 
 # Create map/bin/hex/uf2 files
