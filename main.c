@@ -2,16 +2,16 @@
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 
+#include "main.h"
 #include "LED/LED.h"
 #include "switch/switch.h"
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
 #include "piezo/piezo.h"
+#include "eeprom/eeprom.h"
 
-#define TIME_S ((unsigned long) time_us_64() / 1000000)
-#define PILL_INTERVAL_S 10
-#define PILL_COUNT 7
-#define BLINK_TIMES 5
+static const uint16_t stored_entry_index_address = I2C_MEMORY_SIZE-1;
+static const uint16_t stored_rotation_address = I2C_MEMORY_SIZE-2;
 
 int main() {
     stdio_init_all();
@@ -25,7 +25,21 @@ int main() {
     init_stepper();
     init_piezo();
 
+    initialize_eeprom();
+
     int rotations = 0; // read from eeprom, zero by default
+    uint8_t current_entry_index = 0;
+
+    read_from_eeprom(stored_rotation_address, (uint8_t *)&rotations, 1);
+    if (rotations < 0 || rotations > 7) rotations = 0;
+
+    //write first Boot log to memory
+    read_from_eeprom(stored_entry_index_address, &current_entry_index, 1);
+    if(current_entry_index >= MAX_ENTRIES || current_entry_index < 0) current_entry_index = 0;
+
+    char boot_log[] = "Boot";
+//    printf("%s\n", boot_log);
+    write_log_entry(boot_log, &current_entry_index, stored_entry_index_address);
 
     while (true) {
         /// AT STARTUP ///

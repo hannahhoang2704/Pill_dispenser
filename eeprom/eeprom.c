@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <string.h>
+#include "hardware/i2c.h"
+#include "eeprom.h"
+
+//initialize i2c pins
+void initialize_eeprom(){
+    i2c_init(i2c1, BAUDRATE);
+    i2c_init(i2c0, BAUDRATE);
+
+    gpio_set_function(I2C0_SDA_PIN, GPIO_FUNC_I2C);
+    gpio_set_function(I2C0_SCL_PIN, GPIO_FUNC_I2C);
+}
+
+//write an array of data to eeprom
+void write_to_eeprom(uint16_t memory_address, uint8_t *data, size_t length){
+    uint8_t buf[2 + length];
+    buf[0] = (uint8_t)(memory_address >> 8);    //high byte of memory address
+    buf[1] = (uint8_t)(memory_address);         //low byte of memory address
+    for(size_t i = 0; i<length; ++i){
+        buf[i+2] = data[i];
+    }
+    i2c_write_blocking(i2c0, DEVADDR, buf, length+2, false);
+    sleep_ms(WRITE_CYCLE_TIME_PER_BYTE*(length+2));
+}
+
+//read an array of data from eeprom
+void read_from_eeprom(uint16_t memory_address, uint8_t *data_read, size_t length){
+    uint8_t buf[2+ length];
+    buf[0] = (uint8_t)(memory_address >>8); //high byte of memory address
+    buf[1] = (uint8_t)(memory_address);     //low byte of memory address
+    i2c_write_blocking(i2c0, DEVADDR, buf, 2, true);
+    i2c_read_blocking(i2c0, DEVADDR, data_read, length, false);
+}
+
+//cyclic redundancy check to detect error log in eeprom memory
+uint16_t crc16(const uint8_t *data_p, size_t length){
+    uint8_t x;
+    uint16_t crc = 0xFFFF;
+    while(length--){
+        x = crc >> 8 ^ *data_p++;
+        x ^= x >> 4;
+        crc =  (crc << 8) ^ ((uint16_t) (x << 5) ^ ((uint16_t) x));
+    }
+    return crc;
+}
+
+void write_log_entry(char *str, uint8_t *index, uint16_t index_address){
+    if(*index >= MAX_ENTRIES){
+        printf("Maximum log entries. Erasing the log to log the messages\n");
+        erase_logs(index, index_address);
+    }
+    size_t size_length = strlen(str); //not include NULL terminator
+
+    if(size_length > STRLEN-1){
+        size_length = STRLEN-1;
+    }
+
+    uint8_t log_buf[size_length + 3];
+    printf("Log message for index %d: %s\n", *index, str);
+
+    //copy string to uint8_t array
+    for(int a= 0; a < strlen(str); ++a){
+        log_buf[a] = (uint8_t)str[a];
+    }
+    log_buf[strlen(str)] = '\0';
+
+    //add CRC to log buffer
+    uint16_t crc = crc16(log_buf, size_length+1);
+    log_buf[size_length+1] = (uint8_t)(crc >> 8);
+    log_buf[size_length+2] = (uint8_t) crc;         //check again the size length
+//    printf("CRC is %02X %02X\nAfter CRC\n", log_buf[size_length+1], log_buf[size_length+2]);
+//    for(int i= 0; i<STRLEN+2; ++i){
+//        printf("%02X    ", log_buf[i]);
+//    }
+//    printf("\n");
+
+    //write to EEPROM
+    uint16_t write_address = (uint16_t)FIRST_ADDRESS + (*index * (uint16_t)ENTRY_SIZE);
+    if(write_address < ENTRY_SIZE*MAX_ENTRIES){
+        write_to_eeprom(write_address, log_buf, ENTRY_SIZE);
+        printf("Address to write log: %u\n", write_address);
+        *index+=1;
+        write_to_eeprom(index_address, index, 1);
+    }
+}
+
+void read_log_entry(uint8_t *index){
+    printf("Reading log entry\n");
+    for(int i = 0; i < *index; ++i){
+        uint8_t read_buff[ENTRY_SIZE];
+        uint16_t read_address = (uint16_t)FIRST_ADDRESS + (i * (uint16_t)ENTRY_SIZE);
+        read_from_eeprom(read_address, (uint8_t *)&read_buff, ENTRY_SIZE);
+//        printf("Raw data from EEPROM at index %d\n", i);
+//        for (int k = 0; k < ENTRY_SIZE; ++k){
+//            printf("%02X", read_buff[k]);
+//        }
+//        printf("\n");
+        int term_zero_index = 0;
+        while (read_buff[term_zero_index] != '\0') {
+            term_zero_index++;
+        }
+//        printf("Terminate index: %d\n", term_zero_index);
+
+        if (read_buff[0] != 0 && crc16(read_buff, (term_zero_index+3))==0 && term_zero_index < (ENTRY_SIZE - 2))
+        {
+            printf("Log entry index %d: ", i);
+            int b_index = 0;
+            while (read_buff[b_index]) {
+                printf("%c", read_buff[b_index++]);
+            }
+            printf("\n");
+        } else {
+            printf("Invalid or empty log entry at index %d\n", i);
+            break; // Stop if an invalid entry is encountered
+        }
+    }
+    printf("\nStop\n");
+}
+
+void erase_logs(uint8_t *current_index, uint16_t index_address){
+    printf("Erase the log messages\nDelete log from address:\n");
+    for(int i=0; i < *current_index; ++i){
+        uint16_t write_address = FIRST_ADDRESS + (i * ENTRY_SIZE);
+        printf("%u  ", write_address);
+        uint8_t buf[] = {00};
+        write_to_eeprom(write_address, buf, ENTRY_SIZE);
+    }
+    printf("\n");
+    *current_index = 0;
+    //write current index
+    write_to_eeprom(index_address, current_index, 1);
+}
+
