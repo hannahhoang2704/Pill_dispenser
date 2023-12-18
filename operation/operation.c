@@ -46,7 +46,6 @@ void blink_until_sw_pressed(uint sw) {
         sleep_ms(50);
     }
     printf("Switch %u pressed.\n\n", sw_i);
-    put_pwm(PWM_OFF);
     // log(PRESSED);
 }
 

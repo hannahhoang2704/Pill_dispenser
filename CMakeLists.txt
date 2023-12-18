@@ -33,6 +33,8 @@ add_executable(${PROJECT_NAME}
         switch/switch.h
         piezo/piezo.h
         piezo/piezo.c
+        operation/operation.c
+        operation/operation.h
 )
 
 # Create map/bin/hex/uf2 files

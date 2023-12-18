@@ -33,6 +33,6 @@ void init_stepper();
 
 void step(bool clockwise);
 
-void calibrate(int rotations);
+void rotate_steps(int steps);
 
 void rotate_8th(int n_8ths);
