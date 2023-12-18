@@ -15,6 +15,7 @@
 #define STOP_BITS 1
 #define PARITY    UART_PARITY_NONE
 #define STRLEN 80
+#define UART_WAIT_US 10000000
 
 void init_Lora();
 char* on_uart_rx();

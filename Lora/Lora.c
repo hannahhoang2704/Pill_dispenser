@@ -85,21 +85,41 @@ int get_current_second(){
     }
 }
 
-void connect_network(){
-    const uint8_t set_mode [] = "AT+MODE=LWOTAA\"\r\n";
-    const uint8_t set_key [] = "AT+KEY=, \"2023-12-10 14:26:13\"\r\n";
-    const uint8_t set_class [] = "AT+CLASS=A\"\r\n";
-    const uint8_t set_port [] = "AT+PORT=8\"\r\n";
-    const uint8_t set_join [] = "AT+JOIN\r\n";
-    uart_write_blocking(UART_ID, set_mode, strlen(set_mode));
-    uart_write_blocking(UART_ID, set_key, strlen(set_key));
-    uart_write_blocking(UART_ID, set_class, strlen(set_class));
-    uart_write_blocking(UART_ID, set_port, strlen(set_port));
-    uart_write_blocking(UART_ID, set_join, strlen(set_join));
-    printf("%s\n", on_uart_rx());
+void send_command(const uint8_t * command) {
+    uart_write_blocking(UART_ID,
+                        command,
+                        strlen((char *) command));
+
+    printf("Sending: %s", (char *) command);
+
+    uint64_t time_us = time_us_64();
+    printf("[rsp_time us] *response*\n");
+    while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
+        printf("[%llu us] %s\n",
+               time_us_64() - time_us,
+               on_uart_rx());
+        time_us = time_us_64();
+    }
+    printf("\n");
 }
 
-void send_msg(char *content){
-    const uint8_t data = "AT+MSG=, \"Hello Phuong\"\r\n";
-    uart_write_blocking(UART_ID, data, strlen(data));
+void connect_network(){
+    const uint8_t set_mode [] = "AT+MODE=LWOTAA\r\n";
+    const uint8_t set_key [] = "AT+KEY=APPKEY,\"3ffb2c845fe93f3f5a99c91c11844b81\"\r\n";
+    const uint8_t set_class [] = "AT+CLASS=A\r\n";
+    const uint8_t set_port [] = "AT+PORT=8\r\n";
+    const uint8_t set_join [] = "AT+JOIN\r\n";
+    const uint8_t dev_eui [] = "AT+BEACON=INFO\r\n";
+
+    send_command(set_mode);
+    send_command(set_key);
+    send_command(set_class);
+    send_command(set_port);
+    send_command(set_join);
+}
+
+void send_msg(){
+    const uint8_t data[] = "AT+MSG=\"Hello Phuong\"\r\n";
+
+    send_command(data);
 }
