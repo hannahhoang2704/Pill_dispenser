@@ -6,11 +6,9 @@
 #define IN4 13
 #define COIL_COUNT 4
 
-#define THEORETICAL_REV 4096
 #define THEORETICAL_8TH 512
 #define STEP_STATES 8
 #define SPD_REDUC_MIN 850
-#define OPTO_OFFSET 148
 
 static const struct coil_struct {
     int gpio;
