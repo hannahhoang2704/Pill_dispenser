@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "Lora.h"
 
 void init_Lora(){
@@ -85,41 +86,49 @@ int get_current_second(){
     }
 }
 
-void send_command(const uint8_t * command) {
-    uart_write_blocking(UART_ID,
-                        command,
-                        strlen((char *) command));
-
-    printf("Sending: %s", (char *) command);
-
-    uint64_t time_us = time_us_64();
-    printf("[rsp_time us] *response*\n");
+bool get_cmd_rps(enum cmd_enum cmd) {
+    char response[STRLEN];
     while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
-        printf("[%llu us] %s\n",
-               time_us_64() - time_us,
-               on_uart_rx());
-        time_us = time_us_64();
+        strcpy(response, on_uart_rx());
+        if (strcmp(response, "failure") == 0) { // could be used for faster confirmation
+            return false;
+        } else if (strcmp(response, succ_rsp[cmd]) == 0) {
+            return true;
+        }
     }
-    printf("\n");
+    return false;
 }
 
-void connect_network(){
-    const uint8_t set_mode [] = "AT+MODE=LWOTAA\r\n";
-    const uint8_t set_key [] = "AT+KEY=APPKEY,\"3ffb2c845fe93f3f5a99c91c11844b81\"\r\n";
-    const uint8_t set_class [] = "AT+CLASS=A\r\n";
-    const uint8_t set_port [] = "AT+PORT=8\r\n";
-    const uint8_t set_join [] = "AT+JOIN\r\n";
-    const uint8_t dev_eui [] = "AT+BEACON=INFO\r\n";
-
-    send_command(set_mode);
-    send_command(set_key);
-    send_command(set_class);
-    send_command(set_port);
-    send_command(set_join);
+void send_command(enum cmd_enum cmd) {
+    printf("Sending: %s", (const char *) commands[cmd]);
+    uart_write_blocking(UART_ID,
+                        (const uint8_t *) commands[cmd],
+                        strlen(commands[cmd]));
 }
 
-void send_msg(){
-    const uint8_t data[] = "AT+MSG=\"Hello Phuong\"\r\n";
+bool connect_network() {
+    bool connecting = true;
+    printf("Connecting to LoRa...\n");
+    for (enum cmd_enum cmd = MODE; cmd <= JOIN; cmd++) {
+        send_command(cmd);
+        if (!get_cmd_rps(cmd)) {
+            fprintf(stderr, "LoRa command failed: %s""Connection failed.\n\n", commands[cmd]);
+            return false;
+        }
+    }
+    printf("LoRa connection established!\n\n");
+    send_msg("LoRa connection established!\n");
+    return connecting;
+}
 
-    send_command(data);
+void send_msg(char * content){
+    char data[STRLEN];
+    sprintf(data, commands[MSG], content);
+    uart_write_blocking(UART_ID,
+                        (uint8_t *) data,
+                        strlen(data));
+
+#if WAIT_FOR_RSP
+    get_cmd_rps(MSG);
+#endif
 }
