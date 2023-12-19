@@ -1,34 +1,31 @@
 #include <pico/printf.h>
-#include "hardware/i2c.h"
-#include "pico/stdlib.h"
 
 #include "operation/operation.h"
-
-#define TIME_S ((unsigned long) time_us_64() / 1000000)
-#define PILL_INTERVAL_S 10
-#define PILL_COUNT 7
-#define BLINK_TIMES 5
 
 int main() {
     stdio_init_all();
 
-    LED led_3 = {.pin = LED_3};
-    init_pwm(&led_3);
+    printf("\n%s\n", log_msg[BOOT]);
 
-    init_switch(SW_0);
-
+    LED led_3 = init_pwm(LED_3);
+    SW sw_0 = init_switch(SW_0);
     init_opto_fork();
     init_stepper();
     init_piezo();
+    init_Lora();
+    printf("Pins initialized.\n");
+
+    oper_st state = init_operation();
 
     while (true) {
+        if (state.comp_rotd == MAX_COMP_COUNT) {
+            blink_until_sw_pressed(sw_0, led_3);
+        }
 
-        blink_until_sw_pressed(SW_0);
+        calibrate(&state);
 
-        calibrate();
+        wait_until_sw_pressed(led_3, sw_0);
 
-        wait_until_sw_pressed(SW_0);
-
-        dispense();
+        dispense(&state, led_3);
     }
 }
