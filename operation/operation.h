@@ -25,8 +25,8 @@ static const char * log_msg[] =
          "Dispensing finished!\nPills detected: %hhu",
          "Starting rotation...",
          "Rotation finished.",
-         "Pill detected!",
-         "No pill detected."};
+         "Pill found in compartment %d",
+         "No pill found in compartment %d, blink lights"};
 
 enum logs {
     BOOT,
@@ -49,7 +49,7 @@ enum logs {
 
 // contains program state information
 typedef struct operation_state {
-    bool lora_conn;
+    bool lora_conn; // true if LoRa connection established, false if not
     uint8_t comp_rotd; // compartments rotated for current dispense ; 7 = default
     uint8_t pills_det; // pills detected during current dispense
 } oper_st;

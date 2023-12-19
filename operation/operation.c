@@ -155,9 +155,10 @@ void dispense(oper_st * state, LED led) {
         set_piezo_flag(false);
         rotate_8th(1);
         // log(ROT_0);
+        ++state->comp_rotd;
 
         if (!piezo_detection_within_us()) {
-            printf("#%d No pill detected.\n", comp + 1);
+            printf("No pill found in compartment %d, blink lights\n", state->comp_rotd);
             // log(PILL_0, state);
             led_blink_times(&led, BLINK_COUNT);
         } else {
@@ -165,7 +166,6 @@ void dispense(oper_st * state, LED led) {
             ++state->pills_det;
             // log(PILL_0, state);
         }
-        ++state->comp_rotd;
     }
 
     set_piezo_irq(false);
