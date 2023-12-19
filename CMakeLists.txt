@@ -35,6 +35,7 @@ add_executable(${PROJECT_NAME}
         piezo/piezo.c
         operation/operation.c
         operation/operation.h
+        Lora/Lora.c
 )
 
 # Create map/bin/hex/uf2 files
