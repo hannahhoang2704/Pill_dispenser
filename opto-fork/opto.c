@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "opto.h"
 
+static bool volatile opto_fall = false;
+static bool volatile opto_rise = false;
+
 // Returns the state of 'event'.
 bool opto_flag_state(enum opto_events event) {
     switch (event) {
