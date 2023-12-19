@@ -1,6 +1,6 @@
 #include "piezo.h"
 
-volatile bool piezo_falling_edge = false;
+static volatile bool piezo_falling_edge = false;
 
 static void pill_detection(uint gpio, uint32_t event_mask) {
     piezo_falling_edge = true;
