@@ -1,3 +1,4 @@
+#include <pico/printf.h>
 #include "piezo.h"
 
 static volatile bool piezo_falling_edge = false;
@@ -6,6 +7,7 @@ static void pill_detection(uint gpio, uint32_t event_mask) {
     piezo_falling_edge = true;
 }
 
+//initialize piezo sensor pin
 void init_piezo() {
     gpio_init(PIEZO_SENSOR);
     gpio_set_dir(PIEZO_SENSOR, GPIO_IN);
