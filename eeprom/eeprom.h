@@ -24,7 +24,7 @@
 #define ADDR_LEN 2
 #define ENTRY_SIZE 64
 #define MAX_ENTRIES 32
-#define STRLEN 62
+#define STRLEN_EEPROM 62
 #define FIRST_ADDRESS 0
 
 void init_eeprom();

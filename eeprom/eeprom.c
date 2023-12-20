@@ -52,12 +52,12 @@ void write_log_entry(const char *str, uint8_t *index) {
     }
     size_t size_length = strlen(str); //not include NULL terminator
 
-    if (size_length > STRLEN - 1) {
-        size_length = STRLEN - 1;
+    if (size_length > STRLEN_EEPROM - 1) {
+        size_length = STRLEN_EEPROM - 1;
     }
 
     uint8_t log_buf[size_length + 3];
-    printf("Log message for index %d: %s\n", *index, str);
+    //printf("Log message for index %d: %s\n", *index, str);
 
     //copy string to uint8_t array
     for (int a = 0; a < strlen(str); ++a) {
@@ -70,7 +70,7 @@ void write_log_entry(const char *str, uint8_t *index) {
     log_buf[size_length + 1] = (uint8_t) (crc >> 8);
     log_buf[size_length + 2] = (uint8_t) crc;         //check again the size length
 //    printf("CRC is %02X %02X\nAfter CRC\n", log_buf[size_length+1], log_buf[size_length+2]);
-//    for(int i= 0; i<STRLEN+2; ++i){
+//    for(int i= 0; i<STRLEN_EEPROM+2; ++i){
 //        printf("%02X    ", log_buf[i]);
 //    }
 //    printf("\n");
@@ -79,7 +79,7 @@ void write_log_entry(const char *str, uint8_t *index) {
     uint16_t write_address = (uint16_t) FIRST_ADDRESS + (*index * (uint16_t) ENTRY_SIZE);
     if (write_address < ENTRY_SIZE * MAX_ENTRIES) {
         write_to_eeprom(write_address, log_buf, ENTRY_SIZE);
-        printf("Address to write log: %u\n", write_address);
+        //printf("Address to write log: %u\n", write_address);
         *index += 1;
         write_to_eeprom(LOG_INDEX_ADDR, index, 1);
     }
@@ -121,7 +121,7 @@ void erase_logs(uint8_t * log_index) {
     printf("Erase the log messages\nDelete log from address:\n");
     for (int i = 0; i < MAX_ENTRIES; ++i) {
         uint16_t write_address = FIRST_ADDRESS + (i * ENTRY_SIZE);
-        //printf("%u  ", write_address);
+        printf("%u  ", write_address);
         uint8_t buf[] = {00};
         write_to_eeprom(write_address, buf, 1);
     }
