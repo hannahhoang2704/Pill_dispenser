@@ -4,6 +4,7 @@
 #include "../switch/switch.h"
 #include "../piezo/piezo.h"
 #include "../Lora/Lora.h"
+#include "../eeprom/eeprom.h"
 
 #define TIME_S ((unsigned long) time_us_64() / 1000000)
 #define PILL_INTERVAL_S 10
@@ -50,13 +51,15 @@ enum logs {
 // contains program state information
 typedef struct operation_state {
     bool lora_conn; // true if LoRa connection established, false if not
+    uint8_t eeprom_log_i; // current free (?) log entry
     uint8_t comp_rotd; // compartments rotated for current dispense ; 7 = default
     uint8_t pills_det; // pills detected during current dispense
 } oper_st;
 
 oper_st init_operation();
-void blink_until_sw_pressed(SW sw, LED led);
+void print_state(struct operation_state state);
+void blink_until_sw_pressed(SW * sw, LED * led);
 int rotate_to_event(enum opto_events flag, bool clockwise);
 void calibrate(oper_st * state);
-void wait_until_sw_pressed(LED led, SW sw);
-void dispense(oper_st * state, LED led);
+void wait_until_sw_pressed(LED * led, SW * sw);
+void dispense(oper_st * state, LED * led);
