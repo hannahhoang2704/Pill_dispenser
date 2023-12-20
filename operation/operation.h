@@ -11,32 +11,28 @@
 #define MAX_COMP_COUNT 7 // comp = compartment
 #define BLINK_COUNT 5
 
+// LoRa doesn't like \n's
 static const char * log_msg[] =
         {"Boot!",
          "LoRa connection established!",
          "LoRa connection failed...",
-         "State:\nCompartments left: %hhu\nPills detected: %hhu",
-         "Failed to read state from EEPROM\nResetting to default.",
-         "Switch #u pressed.",
-         "Printing logs.",
+         "Switch #%u pressed.",
          "Calibrating...",
-         "Calibration finished!\nFull revolution: %d steps.",
-         "Calibration finished!\nReset to compartment #%hhu",
-         "Dispensing started from compartment #%hhu",
-         "Dispensing finished!\nPills detected: %hhu",
-         "Starting rotation...",
+         "Calibration finished! Full revolution: %d steps.",
+         "Calibration finished! Compartment at #%hhu",
+         "Dispensing starting from compartment #%hhu",
+         "Dispensing finished! Pills detected: %hhu",
+         "Rotating to compartment %hhu...",
          "Rotation finished.",
          "Pill found in compartment %d",
          "No pill found in compartment %d, blink lights"};
 
+// used most crucially for logf_msg switch case
 enum logs {
     BOOT,
     LORA_1,
     LORA_0,
-    STATE_1,
-    STATE_0,
     SW_PRESSED,
-    READ_LOG,
     CALIB_1,
     CALIB_0_1,
     CALIB_0_2,
@@ -57,7 +53,8 @@ typedef struct operation_state {
 } oper_st;
 
 oper_st init_operation();
-void print_state(struct operation_state state);
+void print_state(oper_st state);
+void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...);
 void blink_until_sw_pressed(SW * sw, LED * led);
 int rotate_to_event(enum opto_events flag, bool clockwise);
 void calibrate(oper_st * state);

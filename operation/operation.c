@@ -1,6 +1,7 @@
 #include <pico/stdlib.h>
 #include <pico/printf.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "operation.h"
 
@@ -25,21 +26,28 @@ uint64_t convert_time(char * time_unit) {
 // data based on LoRa connection
 // and EEPROM data
 oper_st init_operation() {
-    start_lora();
-    oper_st state = {.lora_conn = connect_network()};
+    init_eeprom();
+    oper_st state;
     read_from_eeprom(LOG_INDEX_ADDR,
-                     (uint8_t *) &(state.eeprom_log_i),1);
+                     (uint8_t *) &state.eeprom_log_i,1);
     read_from_eeprom(COMP_ROTD_ADDR,
                      (uint8_t *) &state.comp_rotd,1);
     read_from_eeprom(PILLS_DET_ADDR,
                      (uint8_t *) &state.pills_det,1);
+    logf_msg(BOOT, &state, 0);
+
     if (state.comp_rotd > MAX_COMP_COUNT) state.comp_rotd = MAX_COMP_COUNT;
     if (state.pills_det > MAX_COMP_COUNT) state.pills_det = MAX_COMP_COUNT;
-
+    start_lora();
+    if ((state.lora_conn = connect_network())) {
+        logf_msg(LORA_1, &state, 0);
+    } else {
+        logf_msg(LORA_0, &state, 0);
+    }
     return state;
 }
 
-void print_state(struct operation_state state) {
+void print_state(oper_st state) {
     printf("lora_conn: %s\n"
            "eeprom_log_i: %hhu\n"
            "comp_rotd: %hhu\n"
@@ -49,6 +57,41 @@ void print_state(struct operation_state state) {
            state.eeprom_log_i,
            state.comp_rotd,
            state.pills_det);
+}
+
+void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
+    char msg[STRLEN_EEPROM];
+    va_list args;
+    va_start(args, n_args);
+    vsnprintf(msg, STRLEN_EEPROM - 1, log_msg[logEnum], args);
+    va_end(args);
+
+    printf("%s\n\n", msg);
+    write_log_entry(msg, &state->eeprom_log_i);
+    write_to_eeprom(LOG_INDEX_ADDR, &state->eeprom_log_i, 1);
+
+    // msg handling is very slow
+    switch (logEnum) {
+        case LORA_1:
+        case LORA_0:
+        case CALIB_1:
+        case CALIB_0_2:
+        case DISP_1:
+        case DISP_0:
+            send_msg(msg, true);
+            break;
+        case CALIB_0_1:
+        case ROT_0:
+            write_to_eeprom(COMP_ROTD_ADDR,
+                            &state->comp_rotd, 1);
+            break;
+        case PILL_1:
+            write_to_eeprom(PILLS_DET_ADDR,
+                            &state->pills_det, 1);
+        case PILL_0:
+            send_msg(msg, true);
+            break;
+    }
 }
 
 // Loops infinitely until switch is pressed,
@@ -62,7 +105,6 @@ void blink_until_sw_pressed(SW * sw, LED * led) {
         loop %= 10;
         sleep_ms(50);
     }
-    printf("Switch %u pressed.\n\n", sw->board_index);
 }
 
 // to_opto defines whether it will rotate in or out of opto-fork
@@ -84,9 +126,8 @@ int rotate_to_event(enum opto_events flag, bool clockwise) {
 // Calibrates according to number of 'comp_rotd' done thus far.
 // 'comp_rotd' is to be derived from EEPROM
 void calibrate(oper_st * state) {
-    printf("Calibrating...\n");
-    write_log_entry(log_msg[CALIB_1], &state->eeprom_log_i);
-    send_msg(log_msg[CALIB_1]);
+
+    logf_msg(CALIB_1, state, 0);
 
     int opto_width;
     int full_rev_minus_opto_width;
@@ -110,14 +151,8 @@ void calibrate(oper_st * state) {
         // according to measured opto_width minus slippage
         rotate_steps(opto_width / 2 - 10);
 
-        printf("Full revolution: %d steps\n"
-               "Opto-width: %d steps\n",
-               full_rev_steps, opto_width);
-
         state->comp_rotd = 0;
-        write_to_eeprom(COMP_ROTD_ADDR,
-                        &(state->comp_rotd), 1);
-        write_log_entry(log_msg[CALIB_0_1], &state->eeprom_log_i);
+        logf_msg(CALIB_0_1, state, 1, full_rev_steps);
 
     } else {
 
@@ -139,7 +174,7 @@ void calibrate(oper_st * state) {
 
         // then rotate according to logged
         rotate_8th(state->comp_rotd);
-        write_log_entry(log_msg[CALIB_0_1], &state->eeprom_log_i);
+        logf_msg(CALIB_0_2, state, 1, state->comp_rotd);
     }
     printf("Calibration finished!\n\n");
 }
@@ -163,11 +198,7 @@ void wait_until_sw_pressed(LED * led, SW * sw) {
 // which is read from EEPROM on boot.
 void dispense(oper_st * state, LED * led) {
 
-    printf("%s dispensing...\n",
-           state->comp_rotd == 0 ?
-           "Starting" :
-           "Continuing");
-    write_log_entry(log_msg[DISP_1], &state->eeprom_log_i);
+    logf_msg(DISP_1, state, 1, state->comp_rotd);
 
     set_piezo_irq(true);
     uint64_t start = TIME_S;
@@ -178,33 +209,24 @@ void dispense(oper_st * state, LED * led) {
             sleep_ms(5);
         }
 
-        write_log_entry(log_msg[ROT_1], &state->eeprom_log_i);
+        logf_msg(ROT_1, state, 1, state->comp_rotd + 1);
         set_piezo_flag(false);
         rotate_8th(1);
-        write_log_entry(log_msg[ROT_0], &state->eeprom_log_i);
         ++state->comp_rotd;
-        write_to_eeprom(COMP_ROTD_ADDR,
-                        &state->comp_rotd, 1);
+        logf_msg(ROT_0, state, 0);
 
         if (!piezo_detection_within_us()) {
-            printf("No pill found in compartment %d, blink lights\n", state->comp_rotd);
-            // log(PILL_0, state);
-            write_log_entry(log_msg[PILL_0], &state->eeprom_log_i);
+            logf_msg(PILL_0, state, 1, state->comp_rotd);
             led_blink_times(led, BLINK_COUNT);
         } else {
-            printf("No pill found in compartment %d, blink lights\n", state->comp_rotd);
             ++state->pills_det;
-            write_to_eeprom(PILLS_DET_ADDR,
-                            &state->pills_det, 1);
-            write_log_entry(log_msg[PILL_0], &state->eeprom_log_i);
-            // log(PILL_0, state);
+            logf_msg(PILL_1, state, 1, state->comp_rotd);
         }
     }
 
     set_piezo_irq(false);
-    printf("Dispensing finished.\n\n");
+    logf_msg(DISP_0, state, 1, state->pills_det);
     state->pills_det = 0;
     write_to_eeprom(PILLS_DET_ADDR,
-                    &(state->pills_det), 1);
-    write_log_entry(log_msg[DISP_1], &state->eeprom_log_i);
+                    &state->pills_det, 1);
 }
