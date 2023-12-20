@@ -9,7 +9,7 @@ void init_Lora() {
 }
 
 char *on_uart_rx() {
-    static char str[STRLEN]; // Make it static to preserve its value between function calls
+    static char str[STRLEN_LORA]; // Make it static to preserve its value between function calls
     int pos = 0;
     while (uart_is_readable_within_us(UART_ID, 500000)) {
         char c = uart_getc(UART_ID);
@@ -20,7 +20,7 @@ char *on_uart_rx() {
                 return str;
             }
         } else {
-            if (pos < STRLEN - 1) {
+            if (pos < STRLEN_LORA - 1) {
                 str[pos++] = c;
             }
         }
@@ -84,20 +84,20 @@ int get_current_second() {
 }
 
 void send_command(enum cmd_enum cmd) {
-    printf("Command: %s", (const char *) commands[cmd]);
+    //printf("Command: %s", (const char *) commands[cmd]);
     uart_write_blocking(UART_ID,
                         (const uint8_t *) commands[cmd],
                         strlen(commands[cmd]));
 }
 
-bool get_cmd_rps(enum cmd_enum cmd) {
-    char response[STRLEN];
+bool get_cmd_rps(enum cmd_enum cmd, bool loading_bar) {
+    char response[STRLEN_LORA];
     while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
+        if (loading_bar) printf("#");
         strcpy(response, on_uart_rx());
-        if (strcmp(response, "failure") == 0) { // could be used for faster confirmation
+        if (strcmp(response, "failure") == 0) { // could be used for faster failure confirmation
             return false;
         } else if (strcmp(response, succ_rsp[cmd]) == 0) {
-            printf("Response: %s\n", response);
             return true;
         }
     }
@@ -106,27 +106,27 @@ bool get_cmd_rps(enum cmd_enum cmd) {
 
 bool connect_network() {
     bool connecting = true;
-    printf("Connecting to LoRa...\n");
+    printf("Connecting to LoRa Server...\n"
+           "/-------\\\n");
     for (enum cmd_enum cmd = MODE; cmd <= JOIN; cmd++) {
         send_command(cmd);
-        if (!get_cmd_rps(cmd)) {
-            fprintf(stderr, "LoRa command failed: %s""Connection failed.\n\n", commands[cmd]);
+        if (!get_cmd_rps(cmd, true)) {
+            fprintf(stderr, "\nLoRa command failed: %s""Connection failed.\n\n", commands[cmd]);
             return false;
         }
     }
-    printf("LoRa connection established!\n\n");
-    send_msg("LoRa connection established!");
+    printf("\n");
     return connecting;
 }
 
-void send_msg(const char *content) {
-    char data[STRLEN];
+void send_msg(const char *content, bool wait_for_rsp) {
+    char data[STRLEN_LORA];
     sprintf(data, commands[MSG], content);
     uart_write_blocking(UART_ID,
                         (uint8_t *) data,
                         strlen(data));
 
 #if WAIT_FOR_MSG_RSP
-    get_cmd_rps(MSG);
+    if (wait_for_rsp) get_cmd_rps(MSG, false);
 #endif
 }

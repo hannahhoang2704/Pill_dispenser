@@ -14,7 +14,7 @@
 #define DATA_BITS 8
 #define STOP_BITS 1
 #define PARITY UART_PARITY_NONE
-#define STRLEN 80
+#define STRLEN_LORA 80
 #define UART_WAIT_US 10000000
 
 #define WAIT_FOR_MSG_RSP true // usually takes several seconds
@@ -58,6 +58,6 @@ void sync_real_time();
 void get_current_time();
 int get_current_second();
 bool connect_network();
-void send_msg(const char *content);
+void send_msg(const char *content, bool wait_for_rsp);
 
 #endif
