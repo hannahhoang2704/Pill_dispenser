@@ -17,7 +17,7 @@
 #define STRLEN 80
 #define UART_WAIT_US 10000000
 
-#define WAIT_FOR_RSP true
+#define WAIT_FOR_MSG_RSP true // usually takes several seconds
 
 static const char * commands[] =
         {"AT\r\n",
@@ -29,13 +29,13 @@ static const char * commands[] =
          "AT+MSG=\"%s\"\r\n"};
 
 static const char * succ_rsp[] =
-        {"+AT: OK\r\n",
-         "+MODE: LWOTAA\r\n",
-         "+KEY: APPKEY 3FFB2C845FE93F3F5A99C91C11844B81\r\n",
-         "+CLASS: A\r\n",
-         "+PORT: 8\r\n",
-         "+JOIN: Done\r\n",
-         "+MSG: Done\r\n"};
+        {"+AT: OK\r",
+         "+MODE: LWOTAA\r",
+         "+KEY: APPKEY 3FFB2C845FE93F3F5A99C91C11844B81\r",
+         "+CLASS: A\r",
+         "+PORT: 8\r",
+         "+JOIN: Done\r",
+         "+MSG: Done\r"};
 
 // we could search for failure responses aswell ;
 // didn't do yet, because documentation doesn't mention for all commands
@@ -58,6 +58,6 @@ void sync_real_time();
 void get_current_time();
 int get_current_second();
 bool connect_network();
-void send_msg(char *content);
+void send_msg(const char *content);
 
 #endif
