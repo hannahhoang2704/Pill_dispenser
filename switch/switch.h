@@ -15,10 +15,10 @@ typedef struct SW_S {
     uint8_t board_index; // the index named on the board
 } SW;
 
-SW init_switch(uint sw);
+SW init_switch(uint sw_pin);
 
 bool switch_pressed(SW sw);
 
-bool switch_pressed_debounced(SW sw);
+bool switch_pressed_debounced(SW * sw);
 
 #endif
