@@ -95,7 +95,8 @@ bool get_cmd_rps(enum cmd_enum cmd, bool loading_bar) {
     while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
         if (loading_bar) printf("#");
         strcpy(response, on_uart_rx());
-        if (strcmp(response, "failure") == 0) { // could be used for faster failure confirmation
+        if (strcmp(response, fail_rsp[cmd]) == 0) { // could be used for faster failure confirmation
+            printf("\nResponse: %s\n", response);
             return false;
         } else if (strcmp(response, succ_rsp[cmd]) == 0) {
             return true;
@@ -107,7 +108,7 @@ bool get_cmd_rps(enum cmd_enum cmd, bool loading_bar) {
 bool connect_network() {
     bool connecting = true;
     printf("Connecting to LoRa Server...\n"
-           "/-------\\\n");
+           "/LOADING\\\n");
     for (enum cmd_enum cmd = MODE; cmd <= JOIN; cmd++) {
         send_command(cmd);
         if (!get_cmd_rps(cmd, true)) {

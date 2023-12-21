@@ -37,8 +37,14 @@ static const char * succ_rsp[] =
          "+JOIN: Done\r",
          "+MSG: Done\r"};
 
-// we could search for failure responses aswell ;
-// didn't do yet, because documentation doesn't mention for all commands
+static const char * fail_rsp[] =
+        {"unknown\r",
+         "unknown\r",
+         "unknown\r",
+         "unknown\r",
+         "unknown\r",
+         "+JOIN: Join failed\r",
+         "+MSG: Please join network first\r"};
 
 enum cmd_enum {
     AT,
