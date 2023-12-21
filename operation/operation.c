@@ -5,21 +5,70 @@
 
 #include "operation.h"
 
-// returns system time
-// and changes time_unit according to its size
-uint64_t convert_time(char * time_unit) {
-    uint16_t time_s = (time_us_64() >> 32) / 1000000;
+// returns system time with decimal accuracy
+// and changes its unit depending on its size
+uint64_t get_time_with_decimal(char * time_unit) {
+    // d as in desi-units as in 10th of 'time'
+    uint64_t time_d = time_us_64() / 100000;
     *time_unit = 's';
-    if (time_s > 60) {
-        if (time_s > 3600) {
+    if (time_d > 600) {
+        if (time_d > 36000) {
             *time_unit = 'h';
-            return time_s / 3600;
+            time_d /= 3600;
         } else {
-
+            time_d /= 60;
             *time_unit = 'm';
         }
     }
-    return time_s;
+    return time_d;
+}
+
+
+void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
+    char msg[STRLEN_EEPROM];
+
+    char time_unit;
+    uint64_t time = get_time_with_decimal(&time_unit);
+    snprintf(msg, 9, "[%2llu,%llu %c] ", time / 10, time % 10, time_unit);
+    char content[STRLEN_EEPROM - 10];
+    va_list args;
+    va_start(args, n_args);
+    vsnprintf(content, STRLEN_EEPROM - 10, log_msg[logEnum], args);
+    va_end(args);
+    strcat(msg, content);
+
+    printf("%s\n", msg);
+    write_log_entry(msg, &state->eeprom_log_i);
+    write_to_eeprom(LOG_INDEX_ADDR, &state->eeprom_log_i, 1);
+
+    // msg handling is very slow
+    switch (logEnum) {
+        case LORA_1:
+        case LORA_0:
+        case CALIB_1:
+        case CALIB_0_2:
+        case DISP_1:
+        case DISP_0:
+        case PILL_0:
+            if (state->lora_conn)
+                send_msg(msg, true);
+            break;
+        case ROT_0:
+            write_to_eeprom(COMP_ROTD_ADDR,
+                            &state->comp_rotd, 1);
+            break;
+        case CALIB_0_1:
+            write_to_eeprom(COMP_ROTD_ADDR,
+                            &state->comp_rotd, 1);
+            if (state->lora_conn)
+                send_msg(msg, true);
+            break;
+        case PILL_1:
+            write_to_eeprom(PILLS_DET_ADDR,
+                            &state->pills_det, 1);
+            if (state->lora_conn)
+                send_msg(msg, true);
+    }
 }
 
 // generates operations state,
@@ -28,16 +77,15 @@ uint64_t convert_time(char * time_unit) {
 oper_st init_operation() {
     init_eeprom();
     oper_st state;
-    read_from_eeprom(LOG_INDEX_ADDR,
-                     (uint8_t *) &state.eeprom_log_i,1);
-    read_from_eeprom(COMP_ROTD_ADDR,
-                     (uint8_t *) &state.comp_rotd,1);
-    read_from_eeprom(PILLS_DET_ADDR,
-                     (uint8_t *) &state.pills_det,1);
-    logf_msg(BOOT, &state, 0);
 
+    state.eeprom_log_i = get_reg_value(LOG_INDEX_ADDR);
+    logf_msg(BOOT, &state, 0);
+    state.comp_rotd = get_reg_value(COMP_ROTD_ADDR);
     if (state.comp_rotd > MAX_COMP_COUNT) state.comp_rotd = MAX_COMP_COUNT;
-    if (state.pills_det > MAX_COMP_COUNT) state.pills_det = MAX_COMP_COUNT;
+    state.pills_det = get_reg_value(PILLS_DET_ADDR);
+    if (state.pills_det > MAX_COMP_COUNT) state.pills_det = 0;
+
+    init_Lora();
     start_lora();
     if ((state.lora_conn = connect_network())) {
         logf_msg(LORA_1, &state, 0);
@@ -59,48 +107,13 @@ void print_state(oper_st state) {
            state.pills_det);
 }
 
-void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
-    char msg[STRLEN_EEPROM];
-    va_list args;
-    va_start(args, n_args);
-    vsnprintf(msg, STRLEN_EEPROM - 1, log_msg[logEnum], args);
-    va_end(args);
-
-    printf("%s\n\n", msg);
-    write_log_entry(msg, &state->eeprom_log_i);
-    write_to_eeprom(LOG_INDEX_ADDR, &state->eeprom_log_i, 1);
-
-    // msg handling is very slow
-    switch (logEnum) {
-        case LORA_1:
-        case LORA_0:
-        case CALIB_1:
-        case CALIB_0_2:
-        case DISP_1:
-        case DISP_0:
-            send_msg(msg, true);
-            break;
-        case CALIB_0_1:
-        case ROT_0:
-            write_to_eeprom(COMP_ROTD_ADDR,
-                            &state->comp_rotd, 1);
-            break;
-        case PILL_1:
-            write_to_eeprom(PILLS_DET_ADDR,
-                            &state->pills_det, 1);
-        case PILL_0:
-            send_msg(msg, true);
-            break;
-    }
-}
-
 // Loops infinitely until switch is pressed,
 // blinking LED while looping.
 // Leaves LED off after press.
-void blink_until_sw_pressed(SW * sw, LED * led) {
-    printf("Press switch #%u to calibrate...\n", sw->board_index);
+void blink_until_sw_pressed(SW * sw_proceed, LED * led) {
+    printf("Press switch #%u to calibrate...\n", sw_proceed->board_index);
     uint8_t loop = 0;
-    while (!switch_pressed_debounced(sw)) {
+    while (!switch_pressed_debounced(sw_proceed)) {
         if (loop++ == 0) toggle_pwm(led);
         loop %= 10;
         sleep_ms(50);
@@ -142,7 +155,7 @@ void calibrate(oper_st * state) {
         // and measure opto_width
         opto_width = rotate_to_event(RISE, true);
 
-        // rotate clockwise into opto_fork area,
+        // rotate clockwise into opto_fork area and count steps,
         // completing full revolution
         full_rev_minus_opto_width = rotate_to_event(FALL, true);
         full_rev_steps = opto_width + full_rev_minus_opto_width;
@@ -182,15 +195,15 @@ void calibrate(oper_st * state) {
 // Puts LED on.
 // Loops infinitely until switch is pressed.
 // Puts LED off after switch press.
-void wait_until_sw_pressed(LED * led, SW * sw) {
+void wait_until_sw_pressed(SW * sw_proceed, LED * led) {
     set_led_brightness(led, PWM_SOFT);
     printf("Press switch #%u to start dispensing...\n",
-           sw->board_index);
-    while (!switch_pressed_debounced(sw)) {
+           sw_proceed->board_index);
+    while (!switch_pressed_debounced(sw_proceed)) {
         sleep_ms(50);
     }
     printf("Switch #%u pressed.\n\n",
-           sw->board_index);
+           sw_proceed->board_index);
     set_led_brightness(led, PWM_OFF);
 }
 
