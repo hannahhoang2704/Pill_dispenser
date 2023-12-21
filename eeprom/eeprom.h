@@ -30,6 +30,7 @@
 void init_eeprom();
 void write_to_eeprom(uint16_t memory_address, const uint8_t *data, size_t length);
 void read_from_eeprom(uint16_t memory_address, uint8_t *data_read, size_t length);
+uint8_t get_reg_value(uint16_t memory_address);
 uint16_t crc16(const uint8_t *data_p, size_t length);
 void write_log_entry(const char *str, uint8_t *index);
 void read_log_entry(uint8_t index);

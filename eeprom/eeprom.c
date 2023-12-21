@@ -33,6 +33,12 @@ void read_from_eeprom(uint16_t memory_address, uint8_t *data_read, size_t length
     i2c_read_blocking(i2c0, DEVADDR, data_read, length, false);
 }
 
+uint8_t get_reg_value(uint16_t memory_address) {
+    uint8_t value;
+    read_from_eeprom(memory_address, &value, 1);
+    return value;
+}
+
 //cyclic redundancy check to detect error log in eeprom memory
 uint16_t crc16(const uint8_t *data_p, size_t length) {
     uint8_t x;
