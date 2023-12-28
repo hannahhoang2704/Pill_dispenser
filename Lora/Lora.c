@@ -120,14 +120,11 @@ bool connect_network() {
     return connecting;
 }
 
-void send_msg(const char *content, bool wait_for_rsp) {
+void send_msg_to_Lora(const char *content, bool wait_for_rsp) {
     char data[STRLEN_LORA];
     sprintf(data, commands[MSG], content);
     uart_write_blocking(UART_ID,
                         (uint8_t *) data,
                         strlen(data));
-
-#if WAIT_FOR_MSG_RSP
     if (wait_for_rsp) get_cmd_rps(MSG, false);
-#endif
 }

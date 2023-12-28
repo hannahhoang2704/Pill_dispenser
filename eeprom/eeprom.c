@@ -5,9 +5,7 @@
 
 //initialize i2c pins
 void init_eeprom() {
-    //i2c_init(i2c1, BAUDRATE);
     i2c_init(i2c0, BAUDRATE);
-
     gpio_set_function(I2C0_SDA_PIN, GPIO_FUNC_I2C);
     gpio_set_function(I2C0_SCL_PIN, GPIO_FUNC_I2C);
 }
@@ -15,9 +13,9 @@ void init_eeprom() {
 //write an array of data to eeprom
 void write_to_eeprom(uint16_t memory_address, const uint8_t *data, size_t length) {
     uint8_t buf[ADDR_LEN + length];
-    buf[0] = (uint8_t) (memory_address >> 8);    //high byte of memory address
-    buf[1] = (uint8_t) (memory_address);         //low byte of memory address
-    for (size_t i = 0; i < length; ++i) {
+    buf[0] = (uint8_t)(memory_address >> 8);    //high byte of memory address
+    buf[1] = (uint8_t)(memory_address);         //low byte of memory address
+    for(size_t i = 0; i < length; ++i) {
         buf[i + ADDR_LEN] = data[i];
     }
     i2c_write_blocking(i2c0, DEVADDR, buf, length + ADDR_LEN, false);
@@ -26,14 +24,14 @@ void write_to_eeprom(uint16_t memory_address, const uint8_t *data, size_t length
 
 //read an array of data from eeprom
 void read_from_eeprom(uint16_t memory_address, uint8_t *data_read, size_t length) {
-    uint8_t buf[2 + length];
-    buf[0] = (uint8_t) (memory_address >> 8); //high byte of memory address
-    buf[1] = (uint8_t) (memory_address);     //low byte of memory address
-    i2c_write_blocking(i2c0, DEVADDR, buf, 2, true);
+    uint8_t buf[ADDR_LEN + length];
+    buf[0] = (uint8_t)(memory_address >> 8); //high byte of memory address
+    buf[1] = (uint8_t)(memory_address);     //low byte of memory address
+    i2c_write_blocking(i2c0, DEVADDR, buf, ADDR_LEN, true);
     i2c_read_blocking(i2c0, DEVADDR, data_read, length, false);
 }
 
-uint8_t get_reg_value(uint16_t memory_address) {
+uint8_t get_stored_value(uint16_t memory_address) {
     uint8_t value;
     read_from_eeprom(memory_address, &value, 1);
     return value;
@@ -61,9 +59,7 @@ void write_log_entry(const char *str, uint8_t *index) {
     if (size_length > STRLEN_EEPROM - 1) {
         size_length = STRLEN_EEPROM - 1;
     }
-
     uint8_t log_buf[size_length + 3];
-    //printf("Log message for index %d: %s\n", *index, str);
 
     //copy string to uint8_t array
     for (int a = 0; a < strlen(str); ++a) {
@@ -73,19 +69,13 @@ void write_log_entry(const char *str, uint8_t *index) {
 
     //add CRC to log buffer
     uint16_t crc = crc16(log_buf, size_length + 1);
-    log_buf[size_length + 1] = (uint8_t) (crc >> 8);
-    log_buf[size_length + 2] = (uint8_t) crc;         //check again the size length
-//    printf("CRC is %02X %02X\nAfter CRC\n", log_buf[size_length+1], log_buf[size_length+2]);
-//    for(int i= 0; i<STRLEN_EEPROM+2; ++i){
-//        printf("%02X    ", log_buf[i]);
-//    }
-//    printf("\n");
+    log_buf[size_length + 1] = (uint8_t)(crc >> 8);
+    log_buf[size_length + 2] = (uint8_t)crc;         //check again the size length
 
     //write to EEPROM
     uint16_t write_address = (uint16_t) FIRST_ADDRESS + (*index * (uint16_t) ENTRY_SIZE);
     if (write_address < ENTRY_SIZE * MAX_ENTRIES) {
         write_to_eeprom(write_address, log_buf, ENTRY_SIZE);
-        //printf("Address to write log: %u\n", write_address);
         *index += 1;
         write_to_eeprom(LOG_INDEX_ADDR, index, 1);
     }
@@ -106,7 +96,6 @@ void read_log_entry(uint8_t index) {
         while (read_buff[term_zero_index] != '\0') {
             term_zero_index++;
         }
-//        printf("Terminate index: %d\n", term_zero_index);
 
         if (read_buff[0] != 0 && crc16(read_buff, (term_zero_index + 3)) == 0 && term_zero_index < (ENTRY_SIZE - 2)) {
             printf("Log entry index %d: ", i);
@@ -123,7 +112,7 @@ void read_log_entry(uint8_t index) {
     printf("\nStop\n");
 }
 
-void erase_logs(uint8_t * log_index) {
+void erase_logs(uint8_t *log_index) {
     printf("Erase the log messages\nDelete log from address:\n");
     for (int i = 0; i < MAX_ENTRIES; ++i) {
         uint16_t write_address = FIRST_ADDRESS + (i * ENTRY_SIZE);
@@ -131,7 +120,6 @@ void erase_logs(uint8_t * log_index) {
         uint8_t buf[] = {00};
         write_to_eeprom(write_address, buf, 1);
     }
-    *log_index = FIRST_ADDRESS;
+    *log_index = 0;
     printf("\n");
-    //write current index
 }

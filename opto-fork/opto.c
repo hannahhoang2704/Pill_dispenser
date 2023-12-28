@@ -4,7 +4,7 @@
 static bool volatile opto_fall = false;
 static bool volatile opto_rise = false;
 
-// Returns the state of 'event'.
+// Returns the state of opto detection 'event'.
 bool opto_flag_state(enum opto_events event) {
     switch (event) {
         case FALL:

@@ -15,7 +15,7 @@ int main() {
     //print_state(state);
 
     while (true) {
-        if (state.comp_rotd == MAX_COMP_COUNT) {
+        if (state.current_comp_idx == MAX_COMP_COUNT) {
             blink_until_sw_pressed(&sw_proceed, &led_3);
         }
 

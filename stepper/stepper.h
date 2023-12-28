@@ -8,7 +8,7 @@
 
 #define THEORETICAL_8TH 512
 #define STEP_STATES 8
-#define SPD_REDUC_MIN 850
+#define STEPPER_WAITING_US 850
 
 static const struct coil_struct {
     int gpio;

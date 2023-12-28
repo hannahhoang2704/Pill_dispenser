@@ -30,26 +30,26 @@ static const char * log_msg[] =
 // used most crucially for logf_msg switch case
 enum logs {
     BOOT,
-    LORA_1,
-    LORA_0,
+    LORA_SUCCEED,
+    LORA_FAILED,
     SW_PRESSED,
-    CALIB_1,
-    CALIB_0_1,
-    CALIB_0_2,
-    DISP_1,
-    DISP_0,
-    ROT_1,
-    ROT_0,
-    PILL_1,
-    PILL_0,
+    CALIB_START,
+    CALIB_COMPLETED,
+    RECALIB_AFTER_REBOOT,
+    DISPENSE_CONTINUED,
+    DISPENSE_COMPLETED,
+    ROTATION_CONTINUED,
+    ROTATION_COMPLETED,
+    PILL_FOUND,
+    NO_PILL_FOUND
 };
 
 // contains program state information
 typedef struct operation_state {
-    uint8_t eeprom_log_i; // current free (?) log entry
-    uint8_t comp_rotd; // compartments rotated for current dispense ; 7 = default
-    uint8_t pills_det; // pills detected during current dispense
-    bool lora_conn; // true if LoRa connection established, false if not
+    uint8_t eeprom_log_idx; // current free (?) log entry
+    uint8_t current_comp_idx; // compartments rotated for current dispense ; 7 = default
+    uint8_t pills_detected; // pills detected during current dispense
+    bool lora_connected; // true if LoRa connection established, false if not
 } oper_st;
 
 oper_st init_operation();
