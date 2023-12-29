@@ -15,7 +15,7 @@ int main() {
     //print_state(state);
 
     while (true) {
-        if (state.comps_rotd == PILLCOMP_COUNT) {
+        if (state.current_comp_idx == PILLCOMP_COUNT) {
             blink_until_sw_pressed(&sw_proceed, &led_3, &state);
         }
 

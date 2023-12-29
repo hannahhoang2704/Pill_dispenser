@@ -44,7 +44,7 @@ void rotate_steps(int steps) {
 
     for (int s = start; s != target; s++) {
         step(clockwise);
-        sleep_us(SPD_REDUC_MIN);
+        sleep_us(STEPPER_WAITING_US);
     }
 }
 

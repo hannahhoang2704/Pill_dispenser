@@ -20,8 +20,6 @@
 #define OPTO_OFFSET 10
 #define BLINK_COUNT 5
 
-
-
 // LoRa doesn't like \n's ; considers them as operators
 static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
         {" Boot",
@@ -42,27 +40,27 @@ static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
 // used most crucially for logf_msg switch case
 enum logs {
     BOOT,
-    LORA_CONNECTED,
-    LORA_NOT_CONNECTED,
+    LORA_SUCCEED,
+    LORA_FAILED,
     WAITING_FOR_SW,
     SW_PRESSED,
-    CALIBRATING_STARTED,
-    CALIBRATED_FULL,
-    CALIBRATED_PARTIAL,
-    DISPENSING_STARTED,
-    DISPENSING_FINISHED,
-    COMPARTMENT_ROTATION_STARTED,
-    COMPARTMENT_ROTATION_FINISHED,
-    PILL_DETECTED,
-    PILL_NOT_DETECTED,
+    CALIB_START,
+    CALIB_COMPLETED,
+    RECALIB_AFTER_REBOOT,
+    DISPENSE_CONTINUED,
+    DISPENSE_COMPLETED,
+    ROTATION_CONTINUED,
+    ROTATION_COMPLETED,
+    PILL_FOUND,
+    NO_PILL_FOUND
 };
 
 // contains program state information
 typedef struct operation_state {
-    uint8_t eeprom_log_i; // current free log entry
-    uint8_t comps_rotd; // compartments rotated for current dispense ; 7 = default
-    uint8_t pills_detd; // pills detected during current dispense
-    bool lora_conn; // true if LoRa connection established, false if not
+    uint8_t eeprom_log_idx; // current free (?) log entry
+    uint8_t current_comp_idx; // compartments rotated for current dispense ; 7 = default
+    uint8_t pills_detected; // pills detected during current dispense
+    bool lora_connected; // true if LoRa connection established, false if not
 } oper_st;
 
 oper_st init_operation();
