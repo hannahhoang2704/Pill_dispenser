@@ -15,13 +15,13 @@ int main() {
     //print_state(state);
 
     while (true) {
-        if (state.comp_rotd == MAX_COMP_COUNT) {
-            blink_until_sw_pressed(&sw_proceed, &led_3);
+        if (state.comps_rotd == PILLCOMP_COUNT) {
+            blink_until_sw_pressed(&sw_proceed, &led_3, &state);
         }
 
         calibrate(&state);
 
-        wait_until_sw_pressed(&sw_proceed, &led_3);
+        wait_until_sw_pressed(&sw_proceed, &led_3, &state);
 
         dispense(&state, &led_3);
 

@@ -8,66 +8,64 @@
 // returns system time with decimal accuracy
 // and changes its unit depending on its size
 uint64_t get_time_with_decimal(char * time_unit) {
-    // d as in desi-units as in 10th of 'time'
-    uint64_t time_d = time_us_64() / 100000;
+    uint64_t time_d = TIME_DS;
     *time_unit = 's';
-    if (time_d > 600) {
-        if (time_d > 36000) {
+    if (time_d > SECS_IN_MIN * DEC_OFFSET) {
+        if (time_d > SECS_IN_HOUR * DEC_OFFSET) {
             *time_unit = 'h';
-            time_d /= 3600;
+            time_d /= SECS_IN_HOUR;
         } else {
-            time_d /= 60;
+            time_d /= SECS_IN_MIN;
             *time_unit = 'm';
         }
     }
     return time_d;
 }
 
-
+// logs a message and possible values
+// according to state in question to appropriate places
 void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
     char msg[STRLEN_EEPROM];
 
     char time_unit;
     uint64_t time = get_time_with_decimal(&time_unit);
-    snprintf(msg, 9, "[%2llu,%llu %c] ", time / 10, time % 10, time_unit);
-    char content[STRLEN_EEPROM - 10];
+    snprintf(msg, TIMESTAMP_LEN, "[%2llu,%01llu %c]",
+             time / DEC_OFFSET, time % DEC_OFFSET, time_unit);
+
+    char content[STRLEN_EEPROM - TIMESTAMP_LEN];
     va_list args;
     va_start(args, n_args);
-    vsnprintf(content, STRLEN_EEPROM - 10, log_msg[logEnum], args);
+    vsnprintf(content, STRLEN_EEPROM - TIMESTAMP_LEN,
+              log_format[logEnum], args);
     va_end(args);
+
     strcat(msg, content);
 
     printf("%s\n", msg);
     write_log_entry(msg, &state->eeprom_log_i);
-    write_to_eeprom(LOG_INDEX_ADDR, &state->eeprom_log_i, 1);
 
-    // msg handling is very slow
+    // values to store to eeprom
     switch (logEnum) {
-        case LORA_1:
-        case LORA_0:
-        case CALIB_1:
-        case CALIB_0_2:
-        case DISP_1:
-        case DISP_0:
-        case PILL_0:
-            if (state->lora_conn)
-                send_msg(msg, true);
-            break;
-        case ROT_0:
+        case CALIBRATED_FULL:
+        case COMPARTMENT_ROTATION_FINISHED:
             write_to_eeprom(COMP_ROTD_ADDR,
-                            &state->comp_rotd, 1);
+                            &state->comps_rotd, 1);
             break;
-        case CALIB_0_1:
-            write_to_eeprom(COMP_ROTD_ADDR,
-                            &state->comp_rotd, 1);
-            if (state->lora_conn)
-                send_msg(msg, true);
-            break;
-        case PILL_1:
+        case PILL_DETECTED:
             write_to_eeprom(PILLS_DET_ADDR,
-                            &state->pills_det, 1);
+                            &state->pills_detd, 1);
+        default:
+            ;
+    }
+
+    // LoRa messages to be sent to mqtt
+    switch (logEnum) {
+        case BOOT:
+        case LORA_NOT_CONNECTED:
+            break;
+        default:
             if (state->lora_conn)
-                send_msg(msg, true);
+                send_msg(msg, false);
     }
 }
 
@@ -80,17 +78,19 @@ oper_st init_operation() {
 
     state.eeprom_log_i = get_reg_value(LOG_INDEX_ADDR);
     logf_msg(BOOT, &state, 0);
-    state.comp_rotd = get_reg_value(COMP_ROTD_ADDR);
-    if (state.comp_rotd > MAX_COMP_COUNT) state.comp_rotd = MAX_COMP_COUNT;
-    state.pills_det = get_reg_value(PILLS_DET_ADDR);
-    if (state.pills_det > MAX_COMP_COUNT) state.pills_det = 0;
+
+    state.comps_rotd = get_reg_value(COMP_ROTD_ADDR);
+    state.pills_detd = get_reg_value(PILLS_DET_ADDR);
+
+    if (state.comps_rotd > PILLCOMP_COUNT) state.comps_rotd = PILLCOMP_COUNT;
+    if (state.pills_detd > PILLCOMP_COUNT) state.pills_detd = 0;
 
     init_Lora();
     start_lora();
     if ((state.lora_conn = connect_network())) {
-        logf_msg(LORA_1, &state, 0);
+        logf_msg(LORA_CONNECTED, &state, 0);
     } else {
-        logf_msg(LORA_0, &state, 0);
+        logf_msg(LORA_NOT_CONNECTED, &state, 0);
     }
     return state;
 }
@@ -98,26 +98,29 @@ oper_st init_operation() {
 void print_state(oper_st state) {
     printf("lora_conn: %s\n"
            "eeprom_log_i: %hhu\n"
-           "comp_rotd: %hhu\n"
-           "pills_det: %hhu\n"
+           "comps_rotd: %hhu\n"
+           "pills_detd: %hhu\n"
            "\n",
            state.lora_conn ? "true" : "false",
            state.eeprom_log_i,
-           state.comp_rotd,
-           state.pills_det);
+           state.comps_rotd,
+           state.pills_detd);
 }
 
 // Loops infinitely until switch is pressed,
 // blinking LED while looping.
 // Leaves LED off after press.
-void blink_until_sw_pressed(SW * sw_proceed, LED * led) {
-    printf("Press switch #%u to calibrate...\n", sw_proceed->board_index);
+void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
+    logf_msg(WAITING_FOR_SW, state, 0);
     uint8_t loop = 0;
     while (!switch_pressed_debounced(sw_proceed)) {
         if (loop++ == 0) toggle_pwm(led);
         loop %= 10;
         sleep_ms(50);
     }
+    logf_msg(SW_PRESSED, state,
+             1, sw_proceed->board_index);
+    set_led_brightness(led, PWM_OFF);
 }
 
 // to_opto defines whether it will rotate in or out of opto-fork
@@ -136,17 +139,15 @@ int rotate_to_event(enum opto_events flag, bool clockwise) {
     return steps;
 }
 
-// Calibrates according to number of 'comp_rotd' done thus far.
-// 'comp_rotd' is to be derived from EEPROM
+// Calibrates according to number of 'comps_rotd' done thus far.
+// 'comps_rotd' is to be derived from EEPROM
 void calibrate(oper_st * state) {
 
-    logf_msg(CALIB_1, state, 0);
+    logf_msg(CALIBRATING_STARTED, state, 0);
 
     int opto_width;
-    int full_rev_minus_opto_width;
-    int full_rev_steps;
 
-    if (state->comp_rotd == 7) {
+    if (state->comps_rotd >= PILLCOMP_COUNT) {
 
         // rotate clockwise into opto-fork area
         rotate_to_event(FALL, true);
@@ -157,15 +158,19 @@ void calibrate(oper_st * state) {
 
         // rotate clockwise into opto_fork area and count steps,
         // completing full revolution
-        full_rev_minus_opto_width = rotate_to_event(FALL, true);
-        full_rev_steps = opto_width + full_rev_minus_opto_width;
+        int full_rev_minus_opto_width = rotate_to_event(FALL, true);
+        int full_revolution = opto_width + full_rev_minus_opto_width;
 
         // align the disk with the hole,
         // according to measured opto_width minus slippage
-        rotate_steps(opto_width / 2 - 10);
+        rotate_steps(opto_width / 2 - OPTO_OFFSET);
 
-        state->comp_rotd = 0;
-        logf_msg(CALIB_0_1, state, 1, full_rev_steps);
+        // full calibration resets dispensing rotations
+        // and empties any possible pills from compartments
+        state->comps_rotd = 0;
+        state->pills_detd = 0;
+        logf_msg(CALIBRATED_FULL, state,
+                 1, full_revolution);
 
     } else {
 
@@ -183,63 +188,64 @@ void calibrate(oper_st * state) {
         // rotate counter-clockwise;
         // align the disk with the hole
         // which is half of opto_width + slippage
-        rotate_steps(-opto_width / 2 + 10);
+        rotate_steps(-opto_width / 2 + OPTO_OFFSET);
 
         // then rotate according to logged
-        rotate_8th(state->comp_rotd);
-        logf_msg(CALIB_0_2, state, 1, state->comp_rotd);
+        rotate_8th(state->comps_rotd);
+        logf_msg(CALIBRATED_PARTIAL, state,
+                 1, state->comps_rotd);
     }
-    printf("Calibration finished!\n\n");
 }
 
 // Puts LED on.
 // Loops infinitely until switch is pressed.
 // Puts LED off after switch press.
-void wait_until_sw_pressed(SW * sw_proceed, LED * led) {
+void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
     set_led_brightness(led, PWM_SOFT);
-    printf("Press switch #%u to start dispensing...\n",
-           sw_proceed->board_index);
+    logf_msg(WAITING_FOR_SW, state, 0);
     while (!switch_pressed_debounced(sw_proceed)) {
         sleep_ms(50);
     }
-    printf("Switch #%u pressed.\n\n",
-           sw_proceed->board_index);
+    logf_msg(SW_PRESSED, state,
+             1, sw_proceed->board_index);
     set_led_brightness(led, PWM_OFF);
 }
 
-// Dispense pills according 'comp_rotd',
+// Dispense pills according 'comps_rotd',
 // which is read from EEPROM on boot.
 void dispense(oper_st * state, LED * led) {
 
-    logf_msg(DISP_1, state, 1, state->comp_rotd);
+    logf_msg(DISPENSING_STARTED, state,
+             1, state->comps_rotd);
 
     set_piezo_irq(true);
     uint64_t start = TIME_S;
-    uint8_t comps_left = MAX_COMP_COUNT - state->comp_rotd;
+    uint8_t comps_left = PILLCOMP_COUNT - state->comps_rotd;
     for (uint8_t comp = 0; comp < comps_left; comp++) {
         uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
         while (TIME_S < next_pilling_time) {
             sleep_ms(5);
         }
 
-        logf_msg(ROT_1, state, 1, state->comp_rotd + 1);
+        logf_msg(COMPARTMENT_ROTATION_STARTED, state,
+                 1, state->comps_rotd + 1);
         set_piezo_flag(false);
         rotate_8th(1);
-        ++state->comp_rotd;
-        logf_msg(ROT_0, state, 0);
+        ++state->comps_rotd;
+        logf_msg(COMPARTMENT_ROTATION_FINISHED, state, 0);
 
         if (!piezo_detection_within_us()) {
-            logf_msg(PILL_0, state, 1, state->comp_rotd);
+            logf_msg(PILL_NOT_DETECTED, state,
+                     1, state->comps_rotd);
             led_blink_times(led, BLINK_COUNT);
         } else {
-            ++state->pills_det;
-            logf_msg(PILL_1, state, 1, state->comp_rotd);
+            ++state->pills_detd;
+            logf_msg(PILL_DETECTED, state,
+                     1, state->comps_rotd);
         }
     }
 
     set_piezo_irq(false);
-    logf_msg(DISP_0, state, 1, state->pills_det);
-    state->pills_det = 0;
-    write_to_eeprom(PILLS_DET_ADDR,
-                    &state->pills_det, 1);
+    logf_msg(DISPENSING_FINISHED, state,
+             1, state->pills_detd);
 }
