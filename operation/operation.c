@@ -35,11 +35,11 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
     char content[STRLEN_EEPROM - TIMESTAMP_LEN];
     va_list args;
     va_start(args, n_args);
-    vsnprintf(content, STRLEN_EEPROM - TIMESTAMP_LEN,
+    vsnprintf(content, STRLEN_EEPROM - 1 - TIMESTAMP_LEN,
               log_format[logEnum], args);
     va_end(args);
 
-    strcat(msg, content);
+    strncat(msg, content, STRLEN_EEPROM - 1 - TIMESTAMP_LEN);
 
     printf("%s\n", msg);
     write_log_entry(msg, &state->eeprom_log_i);
