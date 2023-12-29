@@ -131,7 +131,7 @@ void erase_logs(uint8_t * log_index) {
         uint8_t buf[] = {00};
         write_to_eeprom(write_address, buf, 1);
     }
-    *log_index = FIRST_ADDRESS;
+    *log_index = 0;
     printf("\n");
     //write current index
 }
