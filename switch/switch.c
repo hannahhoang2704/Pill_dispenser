@@ -3,6 +3,7 @@
 SW init_switch(uint sw_pin) {
     SW sw = {.pin = sw_pin,
              .pressed = false,
+             // board index designed for sw_0, 1 and 2
              .board_index = abs(((int)sw.pin - 7) - 2)};
 
     gpio_set_function(sw.pin, GPIO_FUNC_SIO);
