@@ -1,4 +1,3 @@
-
 #ifndef UART_H
 #define UART_H
 
@@ -6,25 +5,26 @@
 #include "pico/stdlib.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #define UART_ID uart0
-#define BAUD_RATE 9600
-#define UART_TX_PIN 0
-#define UART_RX_PIN 1
-#define DATA_BITS 8
-#define STOP_BITS 1
-#define PARITY    UART_PARITY_NONE
 #define STRLEN 80
-#define UART_WAIT_US 10000000
+#define WAITING_TIME 10000 // 10 seconds
+#define TEST_LORA "AT\r\n"
+#define SET_MODE "AT+MODE=LWOTAA\r\n"
+#define SET_KEY "AT+KEY=APPKEY,\"2B7E151628AED2A6ABF7158809CF4F3C\"\r\n"
+#define SET_CLASS "AT+CLASS=A\r\n"
+#define SET_PORT "AT+PORT=8\r\n"
+#define SET_JOIN "AT+JOIN\r\n"
 
-void init_Lora();
-char* on_uart_rx();
-void start_lora();
-void set_time();
-void sync_real_time();
-void get_current_time();
-int get_current_second();
-void connect_network();
-void send_msg(char *content);
+struct LoRaE5
+{
+    char *commands;
+    char *received_data;
+};
+
+bool test_lora(struct LoRaE5 *Lora);
+bool connect_network(struct LoRaE5 *Lora);
+bool send_message(struct LoRaE5 *Lora, char *data);
 
 #endif
