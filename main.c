@@ -14,7 +14,9 @@ int main()
     init_stepper();
     init_piezo();
 
-    // print_state(state);
+    //print_state(state);
+    set_opto_fork_irq();
+    set_piezo_irq();
 
     while (true)
     {
