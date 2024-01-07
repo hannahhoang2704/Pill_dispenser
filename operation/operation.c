@@ -42,7 +42,7 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
     // values to store to eeprom
     switch (logEnum) {
         case CALIB_COMPLETED:
-        case RECALIB_AFTER_REBOOT:
+        case ROTATION_COMPLETED:
             write_to_eeprom(COMP_INDEX_ADDR,
                             &state->current_comp_idx, 1);
             break;
