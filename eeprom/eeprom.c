@@ -90,16 +90,10 @@ void read_log_entry(uint8_t index) {
         uint8_t read_buff[ENTRY_SIZE];
         uint16_t read_address = (uint16_t) FIRST_ADDRESS + (i * (uint16_t) ENTRY_SIZE);
         read_from_eeprom(read_address, (uint8_t *) &read_buff, ENTRY_SIZE);
-//        printf("Raw data from EEPROM at index %d\n", i);
-//        for (int k = 0; k < ENTRY_SIZE; ++k){
-//            printf("%02X", read_buff[k]);
-//        }
-//        printf("\n");
         int term_zero_index = 0;
         while (read_buff[term_zero_index] != '\0') {
             term_zero_index++;
         }
-
         if (read_buff[0] != 0 && crc16(read_buff, (term_zero_index + 3)) == 0 && term_zero_index < (ENTRY_SIZE - 2)) {
             printf("Log entry index %d: ", i);
             int b_index = 0;
@@ -125,5 +119,6 @@ void erase_logs(uint8_t *log_index) {
         write_to_eeprom(write_address, buf, 1);
     }
     *log_index = 0;
+    write_to_eeprom(LOG_INDEX_ADDR, log_index, 1);
     printf("\n");
 }

@@ -5,9 +5,7 @@
 
 #include "operation.h"
 
-static volatile bool interrupt_flags[] = {
-        false, false, false
-};
+static volatile bool interrupt_flags[] = {false, false, false};
 
 //irq callback event when detecting event mask from Opto fork pin or piezo sensor pin
 static void irq_event(uint gpio, uint32_t event_mask) {
@@ -59,38 +57,6 @@ bool piezo_detection_within_us() {
     } while ((time_us_64() - time_start) <= PIEZO_MAX_WAITING_TIME);
     return false;
 }
-
-/*
-// Returns the state of opto detection 'event'.
-bool opto_flag_state(enum interrupt_events event) {
-    switch (event) {
-        case OPTO_FALL:
-            return interrupt_flags[OPTO_FALL];
-        case OPTO_RISE:
-            return interrupt_flags[OPTO_RISE];
-        default:
-            fprintf(stderr, "Unknown event: %u\n", event);
-            return false;
-    }
-}
-
-// Manual control over event state.
-void set_opto_flag(enum interrupt_events event, bool state) {
-    switch (event) {
-        case OPTO_FALL:
-            interrupt_flags[OPTO_FALL] = state; break;
-        case OPTO_RISE:
-            interrupt_flags[OPTO_RISE] = state; break;
-        default:
-            fprintf(stderr, "Unknown event: %u\n", event);
-    }
-}
-
-// set piezo_falling_edge flag
-void set_piezo_flag(bool state) {
-    interrupt_flags[PIEZO_FALL] = state;
-}
-*/
 
 // returns system time with decimal accuracy and changes its unit depending on its size
 uint64_t get_time_with_decimal(char * time_unit) {
