@@ -5,6 +5,50 @@
 
 #include "operation.h"
 
+extern volatile bool opto_fall;
+extern volatile bool opto_rise;
+extern volatile bool piezo_falling_edge;
+
+//irq callback event when detecting event mask from Opto fork pin or piezo sensor pin
+static void irq_event(uint gpio, uint32_t event_mask) {
+    if(gpio == OPTO_GPIO){
+        static uint64_t prev_event_time = 0;
+        uint64_t curr_time = time_us_64();
+
+        if (curr_time - prev_event_time > EVENT_DEBOUNCE_US) {
+            prev_event_time = curr_time;
+            switch (event_mask) {
+                case GPIO_IRQ_EDGE_FALL:
+                    opto_fall = true;
+                    break;
+                case GPIO_IRQ_EDGE_RISE:
+                    opto_rise = true;
+                    break;
+                default:;
+            }
+        }
+    }else if(gpio == PIEZO_SENSOR && event_mask == GPIO_IRQ_EDGE_FALL){
+        piezo_falling_edge = true;
+    }
+
+}
+
+// set opto_fork interrupt detection with callback event
+void set_opto_fork_irq() {
+    gpio_set_irq_enabled_with_callback(OPTO_GPIO,
+                                       GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE,
+                                       true,
+                                       &irq_event);
+}
+
+//set piezo interrupt detection with callback event
+void set_piezo_irq() {
+    gpio_set_irq_enabled_with_callback(PIEZO_SENSOR,
+                                       GPIO_IRQ_EDGE_FALL,
+                                       true,
+                                       &irq_event);
+}
+
 // returns system time with decimal accuracy and changes its unit depending on its size
 uint64_t get_time_with_decimal(char * time_unit) {
     uint64_t time_d = TIME_DS;
@@ -100,8 +144,7 @@ void print_state(oper_st state) {
            state.pills_detected);
 }
 
-// Loops infinitely until switch is pressed,
-// blinking LED while looping.
+// Loops infinitely until switch is pressed, blinking LED while looping.
 // Leaves LED off after press.
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
     logf_msg(WAITING_FOR_SW, state, 0);
@@ -205,7 +248,6 @@ void dispense(oper_st * state, LED * led) {
 
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
 
-    set_piezo_irq(true);
     uint64_t start = TIME_S;
     uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
     for (uint8_t comp = 0; comp < compartment_left; comp++) {
@@ -214,7 +256,7 @@ void dispense(oper_st * state, LED * led) {
             sleep_ms(5);
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
-        set_piezo_flag(false);
+        piezo_falling_edge = false;
         rotate_8th(1);
         ++(state->current_comp_idx);
         logf_msg(ROTATION_COMPLETED, state, 0);

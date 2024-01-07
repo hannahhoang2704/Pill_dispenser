@@ -13,6 +13,8 @@ int main() {
     init_piezo();
 
     //print_state(state);
+    set_opto_fork_irq();
+    set_piezo_irq();
 
     while (true) {
         if (state.current_comp_idx == PILLCOMP_COUNT) {

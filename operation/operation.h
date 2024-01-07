@@ -29,7 +29,7 @@ static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
          " SW_%u pressed",
          " Calibrating...",
          " Calibration finished! Full revolution: %hu steps",
-         " Calibration finished! At compartment #%hhu",
+         " Recalibration finished! At compartment #%hhu",
          " Dispensing starting from compartment #%hhu",
          " Dispensing finished! Pills detected: %hhu",
          " Rotating to compartment %hhu...",
@@ -65,6 +65,8 @@ typedef struct operation_state {
 
 oper_st init_operation();
 void print_state(oper_st state);
+void set_opto_fork_irq();
+void set_piezo_irq();
 void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...);
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
 int rotate_to_event(enum opto_events flag, bool clockwise);
