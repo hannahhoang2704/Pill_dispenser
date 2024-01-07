@@ -124,6 +124,7 @@ oper_st init_operation() {
     oper_st state;
 
     state.eeprom_log_idx = get_stored_value(LOG_INDEX_ADDR);
+    if(state.eeprom_log_idx >= MAX_ENTRIES) state.eeprom_log_idx = 0;
     logf_msg(BOOT, &state, 0);
 
     state.current_comp_idx = get_stored_value(COMP_INDEX_ADDR);

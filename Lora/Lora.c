@@ -98,7 +98,7 @@ bool get_cmd_rps(enum cmd_enum cmd, bool loading_bar) {
         if (strcmp(response, fail_rsp[cmd]) == 0) { // could be used for faster failure confirmation
             printf("\nResponse: %s\n", response);
             return false;
-        } else if (strcmp(response, succ_rsp[cmd]) == 0) {
+        } else if (strcmp(response, success_rsp[cmd]) == 0) {
             return true;
         }
     }
