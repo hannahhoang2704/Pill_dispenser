@@ -238,7 +238,6 @@ void dispense(oper_st *state, LED *led, SW *sw_log)
         while (TIME_S < next_pilling_time)
         {
             sleep_ms(5);
-            // read log if sw pressed
             if (switch_pressed_debounced(sw_log))
             {
                 read_log_entry(MAX_ENTRIES);

@@ -1,3 +1,0 @@
-C:/VSARM/sdk/pico/Pill_dispenser/build/pioasm/CMakeFiles/pioasm.dir
-C:/VSARM/sdk/pico/Pill_dispenser/build/pioasm/CMakeFiles/edit_cache.dir
-C:/VSARM/sdk/pico/Pill_dispenser/build/pioasm/CMakeFiles/rebuild_cache.dir
