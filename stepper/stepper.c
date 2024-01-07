@@ -8,6 +8,7 @@
 #define IN4 13
 #define COIL_COUNT 4
 
+//Initialize stepper motor driver pins IN1-IN4
 void init_stepper() {
     for (int stepper_i = 0; stepper_i < COIL_COUNT; stepper_i++) {
         gpio_init(coils[stepper_i].gpio);
@@ -34,9 +35,7 @@ void step(bool clockwise) {
     }
 }
 
-// Rotates steps.
-// Positive steps = clockwise
-// Negative steps = counter-clockwise
+// Rotates steps. Positive steps = clockwise. Negative steps = counter-clockwise
 void rotate_steps(int steps) {
     bool clockwise = steps >= 0;
     int start = clockwise ? 0 : steps;

@@ -5,6 +5,59 @@
 
 #include "operation.h"
 
+static volatile bool interrupt_flags[] = {false, false, false};
+
+//irq callback event when detecting event mask from Opto fork pin or piezo sensor pin
+static void irq_event(uint gpio, uint32_t event_mask) {
+    if(gpio == OPTO_GPIO){
+        static uint64_t prev_event_time = 0;
+        uint64_t curr_time = time_us_64();
+
+        if (curr_time - prev_event_time > EVENT_DEBOUNCE_US) {
+            prev_event_time = curr_time;
+            switch (event_mask) {
+                case GPIO_IRQ_EDGE_FALL:
+                    interrupt_flags[OPTO_FALL] = true;
+                    break;
+                case GPIO_IRQ_EDGE_RISE:
+                    interrupt_flags[OPTO_RISE] = true;
+                    break;
+                default:;
+            }
+        }
+    }else if(gpio == PIEZO_SENSOR && event_mask == GPIO_IRQ_EDGE_FALL){
+        interrupt_flags[PIEZO_FALL] = true;
+    }
+
+}
+
+// set opto_fork interrupt detection with callback event
+void set_opto_fork_irq() {
+    gpio_set_irq_enabled_with_callback(OPTO_GPIO,
+                                       GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE,
+                                       true,
+                                       &irq_event);
+}
+
+//set piezo interrupt detection with callback event
+void set_piezo_irq() {
+    gpio_set_irq_enabled_with_callback(PIEZO_SENSOR,
+                                       GPIO_IRQ_EDGE_FALL,
+                                       true,
+                                       &irq_event);
+}
+
+//returns a boolean if object is detected by piezo sensor within a maximum of waiting time
+bool piezo_detection_within_us() {
+    uint32_t time_start = time_us_64();
+    do {
+        if (interrupt_flags[PIEZO_FALL]) {
+            return true;
+        }
+    } while ((time_us_64() - time_start) <= PIEZO_MAX_WAITING_TIME);
+    return false;
+}
+
 // returns system time with decimal accuracy and changes its unit depending on its size
 uint64_t get_time_with_decimal(char * time_unit) {
     uint64_t time_d = TIME_DS;
@@ -49,6 +102,7 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
         case PILL_FOUND:
             write_to_eeprom(PILLS_DETECTION_ADDR,
                             &state->pills_detected, 1);
+            break;
         default:
             ;
     }
@@ -70,6 +124,7 @@ oper_st init_operation() {
     oper_st state;
 
     state.eeprom_log_idx = get_stored_value(LOG_INDEX_ADDR);
+    if(state.eeprom_log_idx >= MAX_ENTRIES) state.eeprom_log_idx = 0;
     logf_msg(BOOT, &state, 0);
 
     state.current_comp_idx = get_stored_value(COMP_INDEX_ADDR);
@@ -100,8 +155,7 @@ void print_state(oper_st state) {
            state.pills_detected);
 }
 
-// Loops infinitely until switch is pressed,
-// blinking LED while looping.
+// Loops infinitely until switch is pressed, blinking LED while looping.
 // Leaves LED off after press.
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
     logf_msg(WAITING_FOR_SW, state, 0);
@@ -118,17 +172,14 @@ void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
 
 // to_opto defines whether it will rotate in or out of opto-fork
 // returns number of steps taken during this function
-int rotate_to_event(enum opto_events flag, bool clockwise) {
+int rotate_to_event(enum interrupt_events flag, bool clockwise) {
     int steps = 0;
-    set_opto_flag(flag, false);
-    set_opto_fork_irq(true);
-
-    while (!opto_flag_state(flag)) {
+    interrupt_flags[flag] = false;
+    while (!interrupt_flags[flag]) {
         step(clockwise);
         ++steps;
         sleep_us(STEPPER_WAITING_US);
     }
-    set_opto_fork_irq(false);
     return steps;
 }
 
@@ -143,15 +194,15 @@ void calibrate(oper_st * state) {
     if (state->current_comp_idx >= PILLCOMP_COUNT) {
 
         // rotate clockwise into opto-fork area
-        rotate_to_event(FALL, true);
+        rotate_to_event(OPTO_FALL, true);
 
         // rotate clockwise out of opto-fork area
         // and measure opto_width
-        opto_width = rotate_to_event(RISE, true);
+        opto_width = rotate_to_event(OPTO_RISE, true);
 
         // rotate clockwise into opto_fork area and count steps,
         // completing full revolution
-        int full_rev_minus_opto_width = rotate_to_event(FALL, true);
+        int full_rev_minus_opto_width = rotate_to_event(OPTO_FALL, true);
         int full_rev_steps = opto_width + full_rev_minus_opto_width;
 
         // align the disk with the hole,
@@ -165,13 +216,13 @@ void calibrate(oper_st * state) {
     } else {
 
         // rotate counter-clockwise beyond opto-fork area
-        rotate_to_event(RISE, false);
+        rotate_to_event(OPTO_RISE, false);
 
         sleep_ms(50);
 
         // rotate counter-clockwise out of opto-fork
         // and measure opto_width
-        opto_width = rotate_to_event(RISE, true);
+        opto_width = rotate_to_event(OPTO_RISE, true);
 
         sleep_ms(50);
 
@@ -205,7 +256,6 @@ void dispense(oper_st * state, LED * led) {
 
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
 
-    set_piezo_irq(true);
     uint64_t start = TIME_S;
     uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
     for (uint8_t comp = 0; comp < compartment_left; comp++) {
@@ -214,7 +264,7 @@ void dispense(oper_st * state, LED * led) {
             sleep_ms(5);
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
-        set_piezo_flag(false);
+        interrupt_flags[PIEZO_FALL] = false;
         rotate_8th(1);
         ++(state->current_comp_idx);
         logf_msg(ROTATION_COMPLETED, state, 0);
@@ -228,7 +278,6 @@ void dispense(oper_st * state, LED * led) {
         }
     }
 
-    set_piezo_irq(false);
     logf_msg(DISPENSE_COMPLETED, state,
              1, state->pills_detected);
 }
