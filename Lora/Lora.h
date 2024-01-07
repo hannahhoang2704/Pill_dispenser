@@ -7,8 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define UART_ID uart0
-#define STRLEN 80
+#define UART_ID uart1
+#define BAUD_RATE 9600
+#define UART_TX_PIN 4
+#define UART_RX_PIN 5
+#define DATA_BITS 8
+#define STOP_BITS 1
+#define PARITY UART_PARITY_NONE
+#define DATALEN 80
 #define WAITING_TIME 10000 // 10 seconds
 #define TEST_LORA "AT\r\n"
 #define SET_MODE "AT+MODE=LWOTAA\r\n"
@@ -22,7 +28,7 @@ struct LoRaE5
     char *commands;
     char *received_data;
 };
-
+void init_Lora();
 bool test_lora(struct LoRaE5 *Lora);
 bool connect_network(struct LoRaE5 *Lora);
 bool send_message(struct LoRaE5 *Lora, char *data);

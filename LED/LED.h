@@ -4,18 +4,6 @@
 
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
-<<<<<<< HEAD
-
-typedef struct {
-    uint pin;
-} LED;
-
-void init_led(LED *led);
-bool check_led_state(LED *led);
-void blink_led(LED *led, bool state);
-
-#endif  // LED_H
-=======
 #include "hardware/pwm.h"
 
 #define LED_1 22
@@ -42,4 +30,3 @@ void toggle_pwm(LED *led);
 void led_blink_times(LED *led, int blink_time);
 
 #endif  // LED_H
->>>>>>> dev-master

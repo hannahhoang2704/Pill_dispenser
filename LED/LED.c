@@ -1,26 +1,5 @@
-// led.c
 #include "LED.h"
 
-<<<<<<< HEAD
-void init_led(LED *led) {
-    gpio_init(led->pin);
-    gpio_set_dir(led->pin, GPIO_OUT);
-    gpio_put(led->pin, 0);
-}
-
-bool check_led_state(LED *led){
-    if(gpio_get(led->pin))
-    {
-        return 1;
-    }else{
-        return 0;
-    }
-}
-
-void blink_led(LED *led, bool state) {
-    gpio_put(led->pin, state);
-}
-=======
 void init_pwm(LED *led) {
     pwm_config config = pwm_get_default_config();
     pwm_config_set_clkdiv_int(&config, DIVIDER);
@@ -54,4 +33,3 @@ void led_blink_times(LED *led, int blink_time) {
         sleep_ms(200);
     }
 }
->>>>>>> dev-master

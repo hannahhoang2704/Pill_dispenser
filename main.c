@@ -2,19 +2,23 @@
 #include "hardware/i2c.h"
 #include "pico/stdlib.h"
 
-#include "main.h"
+
 #include "LED/LED.h"
 #include "switch/switch.h"
 #include "stepper/stepper.h"
 #include "opto-fork/opto.h"
 #include "piezo/piezo.h"
 #include "eeprom/eeprom.h"
+#include "Lora/Lora.h"
 
 static const uint16_t stored_entry_index_address = I2C_MEMORY_SIZE-1;
 static const uint16_t stored_rotation_address = I2C_MEMORY_SIZE-2;
 
 int main() {
     stdio_init_all();
+    init_Lora();
+    struct LoRaE5 lora;
+    connect_network(&lora);
 
     LED led_3 = {.pin = LED_3};
     init_pwm(&led_3);
@@ -38,6 +42,8 @@ int main() {
     if(current_entry_index >= MAX_ENTRIES || current_entry_index < 0) current_entry_index = 0;
 
     char boot_log[] = "Boot";
+    char calibration_started[] = "Calibration started";
+    
 //    printf("%s\n", boot_log);
     write_log_entry(boot_log, &current_entry_index, stored_entry_index_address);
 
@@ -54,6 +60,7 @@ int main() {
         while (!switch_pressed_debounced(SW_0)) {
             toggle_pwm(&led_3);
             sleep_ms(500);
+            send_message(&lora, boot_log); // Advanced: Lora send boot
         }
 
         set_led_brightness(&led_3, PWM_OFF);
@@ -70,6 +77,7 @@ int main() {
         // LoRaWAN Report: Calibration started.
 
         calibrate(rotations);
+        send_message(&lora, calibration_started); // Advanced: Lora send Calibration started
 
         /// AFTER INITIAL CALIBRATION ///
         /// Minimum:
@@ -82,6 +90,7 @@ int main() {
         // LoRaWAN Report: Calibration finished.
 
         set_led_brightness(&led_3, PWM_SOFT);
+        send_message(&lora, "calibration_finished"); // Advanced: Lora send Calibration finished
 
         while (!switch_pressed_debounced(SW_0)) {
             sleep_ms(50);
@@ -96,6 +105,7 @@ int main() {
         // LoRaWAN Report: Dispensing started.
 
         set_led_brightness(&led_3, PWM_OFF);
+        send_message(&lora, "dispensing_started"); // Advanced: Lora send Dispensing started
 
         set_piezo_irq(true);
         uint64_t start = TIME_S;
@@ -117,6 +127,8 @@ int main() {
 
             set_piezo_flag(false);
             rotate_8th(1);
+            send_message(&lora, "Dropping pill..."); // Advanced: Lora send Dispensing started
+
 
             if (!piezo_detection_within_us()) {
                 printf("No pill found in compartment %d, blink lights\n", pill + 1);
@@ -138,5 +150,7 @@ int main() {
         // Log to EEPROM
         // LoRaWAN Report: Pills dispensed.
         // LoRaWAN Report: Restarting operation.
+        send_message(&lora, "Pills dispensed"); // Advanced: Lora send Dispensing started
+        send_message(&lora, "Restarting operation"); // Advanced: Lora send Dispensing started
     }
 }

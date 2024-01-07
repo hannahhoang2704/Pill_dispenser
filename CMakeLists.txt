@@ -24,18 +24,12 @@ add_compile_options(-Wall
 add_executable(${PROJECT_NAME} 
     main.c
         LED/LED.c
-        LED/LED.h
         opto-fork/opto.c
-        opto-fork/opto.h
         stepper/stepper.c
-        stepper/stepper.h
         switch/switch.c
-        switch/switch.h
-        piezo/piezo.h
         piezo/piezo.c
         eeprom/eeprom.c
-        eeprom/eeprom.h
-        main.h
+        Lora/Lora.c
 )
 
 # Create map/bin/hex/uf2 files

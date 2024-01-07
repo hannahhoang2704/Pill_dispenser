@@ -1108,6 +1108,198 @@ C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.s
 .PHONY : C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.s
 
+LED/LED.obj: LED/LED.c.obj
+.PHONY : LED/LED.obj
+
+# target to build an object file
+LED/LED.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/LED/LED.c.obj
+.PHONY : LED/LED.c.obj
+
+LED/LED.i: LED/LED.c.i
+.PHONY : LED/LED.i
+
+# target to preprocess a source file
+LED/LED.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/LED/LED.c.i
+.PHONY : LED/LED.c.i
+
+LED/LED.s: LED/LED.c.s
+.PHONY : LED/LED.s
+
+# target to generate assembly for a file
+LED/LED.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/LED/LED.c.s
+.PHONY : LED/LED.c.s
+
+Lora/Lora.obj: Lora/Lora.c.obj
+.PHONY : Lora/Lora.obj
+
+# target to build an object file
+Lora/Lora.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj
+.PHONY : Lora/Lora.c.obj
+
+Lora/Lora.i: Lora/Lora.c.i
+.PHONY : Lora/Lora.i
+
+# target to preprocess a source file
+Lora/Lora.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.i
+.PHONY : Lora/Lora.c.i
+
+Lora/Lora.s: Lora/Lora.c.s
+.PHONY : Lora/Lora.s
+
+# target to generate assembly for a file
+Lora/Lora.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.s
+.PHONY : Lora/Lora.c.s
+
+eeprom/eeprom.obj: eeprom/eeprom.c.obj
+.PHONY : eeprom/eeprom.obj
+
+# target to build an object file
+eeprom/eeprom.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj
+.PHONY : eeprom/eeprom.c.obj
+
+eeprom/eeprom.i: eeprom/eeprom.c.i
+.PHONY : eeprom/eeprom.i
+
+# target to preprocess a source file
+eeprom/eeprom.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.i
+.PHONY : eeprom/eeprom.c.i
+
+eeprom/eeprom.s: eeprom/eeprom.c.s
+.PHONY : eeprom/eeprom.s
+
+# target to generate assembly for a file
+eeprom/eeprom.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.s
+.PHONY : eeprom/eeprom.c.s
+
+main.obj: main.c.obj
+.PHONY : main.obj
+
+# target to build an object file
+main.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/main.c.obj
+.PHONY : main.c.obj
+
+main.i: main.c.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/main.c.i
+.PHONY : main.c.i
+
+main.s: main.c.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/main.c.s
+.PHONY : main.c.s
+
+opto-fork/opto.obj: opto-fork/opto.c.obj
+.PHONY : opto-fork/opto.obj
+
+# target to build an object file
+opto-fork/opto.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/opto-fork/opto.c.obj
+.PHONY : opto-fork/opto.c.obj
+
+opto-fork/opto.i: opto-fork/opto.c.i
+.PHONY : opto-fork/opto.i
+
+# target to preprocess a source file
+opto-fork/opto.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/opto-fork/opto.c.i
+.PHONY : opto-fork/opto.c.i
+
+opto-fork/opto.s: opto-fork/opto.c.s
+.PHONY : opto-fork/opto.s
+
+# target to generate assembly for a file
+opto-fork/opto.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/opto-fork/opto.c.s
+.PHONY : opto-fork/opto.c.s
+
+piezo/piezo.obj: piezo/piezo.c.obj
+.PHONY : piezo/piezo.obj
+
+# target to build an object file
+piezo/piezo.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/piezo/piezo.c.obj
+.PHONY : piezo/piezo.c.obj
+
+piezo/piezo.i: piezo/piezo.c.i
+.PHONY : piezo/piezo.i
+
+# target to preprocess a source file
+piezo/piezo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/piezo/piezo.c.i
+.PHONY : piezo/piezo.c.i
+
+piezo/piezo.s: piezo/piezo.c.s
+.PHONY : piezo/piezo.s
+
+# target to generate assembly for a file
+piezo/piezo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/piezo/piezo.c.s
+.PHONY : piezo/piezo.c.s
+
+stepper/stepper.obj: stepper/stepper.c.obj
+.PHONY : stepper/stepper.obj
+
+# target to build an object file
+stepper/stepper.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/stepper/stepper.c.obj
+.PHONY : stepper/stepper.c.obj
+
+stepper/stepper.i: stepper/stepper.c.i
+.PHONY : stepper/stepper.i
+
+# target to preprocess a source file
+stepper/stepper.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/stepper/stepper.c.i
+.PHONY : stepper/stepper.c.i
+
+stepper/stepper.s: stepper/stepper.c.s
+.PHONY : stepper/stepper.s
+
+# target to generate assembly for a file
+stepper/stepper.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/stepper/stepper.c.s
+.PHONY : stepper/stepper.c.s
+
+switch/switch.obj: switch/switch.c.obj
+.PHONY : switch/switch.obj
+
+# target to build an object file
+switch/switch.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/switch/switch.c.obj
+.PHONY : switch/switch.c.obj
+
+switch/switch.i: switch/switch.c.i
+.PHONY : switch/switch.i
+
+# target to preprocess a source file
+switch/switch.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/switch/switch.c.i
+.PHONY : switch/switch.c.i
+
+switch/switch.s: switch/switch.c.s
+.PHONY : switch/switch.s
+
+# target to generate assembly for a file
+switch/switch.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/switch/switch.c.s
+.PHONY : switch/switch.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -1237,6 +1429,30 @@ help:
 	@echo ... C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.obj
 	@echo ... C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.i
 	@echo ... C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.s
+	@echo ... LED/LED.obj
+	@echo ... LED/LED.i
+	@echo ... LED/LED.s
+	@echo ... Lora/Lora.obj
+	@echo ... Lora/Lora.i
+	@echo ... Lora/Lora.s
+	@echo ... eeprom/eeprom.obj
+	@echo ... eeprom/eeprom.i
+	@echo ... eeprom/eeprom.s
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
+	@echo ... opto-fork/opto.obj
+	@echo ... opto-fork/opto.i
+	@echo ... opto-fork/opto.s
+	@echo ... piezo/piezo.obj
+	@echo ... piezo/piezo.i
+	@echo ... piezo/piezo.s
+	@echo ... stepper/stepper.obj
+	@echo ... stepper/stepper.i
+	@echo ... stepper/stepper.s
+	@echo ... switch/switch.obj
+	@echo ... switch/switch.i
+	@echo ... switch/switch.s
 .PHONY : help
 
 

@@ -2,7 +2,7 @@
 
 char *get_response()
 {
-    static char str[STRLEN]; // Make it static to preserve its value between function calls
+    static char str[DATALEN]; // Make it static to preserve its value between function calls
     int pos = 0;
     while (uart_is_readable_within_us(UART_ID, WAITING_TIME))
     {
@@ -18,7 +18,7 @@ char *get_response()
         }
         else
         {
-            if (pos < STRLEN - 1)
+            if (pos < DATALEN - 1)
             {
                 str[pos++] = c;
             }
@@ -38,6 +38,12 @@ void send_command(struct LoRaE5 *Lora, char *command)
     free(Lora->commands);
 }
 
+void init_Lora(){
+    uart_init(UART_ID, BAUD_RATE);
+    gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
+    gpio_set_function(UART_RX_PIN, GPIO_FUNC_UART);
+    uart_set_format(UART_ID, DATA_BITS, STOP_BITS, PARITY);
+}
 bool test_lora(struct LoRaE5 *Lora)
 {
 
