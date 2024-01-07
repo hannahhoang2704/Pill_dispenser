@@ -5,9 +5,9 @@
 
 #include "operation.h"
 
-static volatile bool opto_fall = false;
-static volatile bool opto_rise = false;
-static volatile bool piezo_falling_edge = false;
+static volatile bool interrupt_flags[] = {
+        false, false, false
+};
 
 //irq callback event when detecting event mask from Opto fork pin or piezo sensor pin
 static void irq_event(uint gpio, uint32_t event_mask) {
@@ -19,16 +19,16 @@ static void irq_event(uint gpio, uint32_t event_mask) {
             prev_event_time = curr_time;
             switch (event_mask) {
                 case GPIO_IRQ_EDGE_FALL:
-                    opto_fall = true;
+                    interrupt_flags[OPTO_FALL] = true;
                     break;
                 case GPIO_IRQ_EDGE_RISE:
-                    opto_rise = true;
+                    interrupt_flags[OPTO_RISE] = true;
                     break;
                 default:;
             }
         }
     }else if(gpio == PIEZO_SENSOR && event_mask == GPIO_IRQ_EDGE_FALL){
-        piezo_falling_edge = true;
+        interrupt_flags[PIEZO_FALL] = true;
     }
 
 }
@@ -53,20 +53,21 @@ void set_piezo_irq() {
 bool piezo_detection_within_us() {
     uint32_t time_start = time_us_64();
     do {
-        if (piezo_falling_edge) {
+        if (interrupt_flags[PIEZO_FALL]) {
             return true;
         }
     } while ((time_us_64() - time_start) <= PIEZO_MAX_WAITING_TIME);
     return false;
 }
 
+/*
 // Returns the state of opto detection 'event'.
-bool opto_flag_state(enum opto_events event) {
+bool opto_flag_state(enum interrupt_events event) {
     switch (event) {
-        case FALL:
-            return opto_fall;
-        case RISE:
-            return opto_rise;
+        case OPTO_FALL:
+            return interrupt_flags[OPTO_FALL];
+        case OPTO_RISE:
+            return interrupt_flags[OPTO_RISE];
         default:
             fprintf(stderr, "Unknown event: %u\n", event);
             return false;
@@ -74,12 +75,12 @@ bool opto_flag_state(enum opto_events event) {
 }
 
 // Manual control over event state.
-void set_opto_flag(enum opto_events event, bool state) {
+void set_opto_flag(enum interrupt_events event, bool state) {
     switch (event) {
-        case FALL:
-            opto_fall = state; break;
-        case RISE:
-            opto_rise = state; break;
+        case OPTO_FALL:
+            interrupt_flags[OPTO_FALL] = state; break;
+        case OPTO_RISE:
+            interrupt_flags[OPTO_RISE] = state; break;
         default:
             fprintf(stderr, "Unknown event: %u\n", event);
     }
@@ -87,8 +88,9 @@ void set_opto_flag(enum opto_events event, bool state) {
 
 // set piezo_falling_edge flag
 void set_piezo_flag(bool state) {
-    piezo_falling_edge = state;
+    interrupt_flags[PIEZO_FALL] = state;
 }
+*/
 
 // returns system time with decimal accuracy and changes its unit depending on its size
 uint64_t get_time_with_decimal(char * time_unit) {
@@ -134,6 +136,7 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
         case PILL_FOUND:
             write_to_eeprom(PILLS_DETECTION_ADDR,
                             &state->pills_detected, 1);
+            break;
         default:
             ;
     }
@@ -202,17 +205,14 @@ void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
 
 // to_opto defines whether it will rotate in or out of opto-fork
 // returns number of steps taken during this function
-int rotate_to_event(enum opto_events flag, bool clockwise) {
+int rotate_to_event(enum interrupt_events flag, bool clockwise) {
     int steps = 0;
-    set_opto_flag(flag, false);
-    set_opto_fork_irq(true);
-
-    while (!opto_flag_state(flag)) {
+    interrupt_flags[flag] = false;
+    while (!interrupt_flags[flag]) {
         step(clockwise);
         ++steps;
         sleep_us(STEPPER_WAITING_US);
     }
-    set_opto_fork_irq(false);
     return steps;
 }
 
@@ -227,15 +227,15 @@ void calibrate(oper_st * state) {
     if (state->current_comp_idx >= PILLCOMP_COUNT) {
 
         // rotate clockwise into opto-fork area
-        rotate_to_event(FALL, true);
+        rotate_to_event(OPTO_FALL, true);
 
         // rotate clockwise out of opto-fork area
         // and measure opto_width
-        opto_width = rotate_to_event(RISE, true);
+        opto_width = rotate_to_event(OPTO_RISE, true);
 
         // rotate clockwise into opto_fork area and count steps,
         // completing full revolution
-        int full_rev_minus_opto_width = rotate_to_event(FALL, true);
+        int full_rev_minus_opto_width = rotate_to_event(OPTO_FALL, true);
         int full_rev_steps = opto_width + full_rev_minus_opto_width;
 
         // align the disk with the hole,
@@ -249,13 +249,13 @@ void calibrate(oper_st * state) {
     } else {
 
         // rotate counter-clockwise beyond opto-fork area
-        rotate_to_event(RISE, false);
+        rotate_to_event(OPTO_RISE, false);
 
         sleep_ms(50);
 
         // rotate counter-clockwise out of opto-fork
         // and measure opto_width
-        opto_width = rotate_to_event(RISE, true);
+        opto_width = rotate_to_event(OPTO_RISE, true);
 
         sleep_ms(50);
 
@@ -297,7 +297,7 @@ void dispense(oper_st * state, LED * led) {
             sleep_ms(5);
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
-        set_piezo_flag(false);
+        interrupt_flags[PIEZO_FALL] = false;
         rotate_8th(1);
         ++(state->current_comp_idx);
         logf_msg(ROTATION_COMPLETED, state, 0);
@@ -311,7 +311,6 @@ void dispense(oper_st * state, LED * led) {
         }
     }
 
-    set_piezo_irq(false);
     logf_msg(DISPENSE_COMPLETED, state,
              1, state->pills_detected);
 }

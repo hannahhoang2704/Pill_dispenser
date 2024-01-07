@@ -20,6 +20,12 @@
 #define OPTO_OFFSET 10
 #define BLINK_COUNT 5
 
+enum interrupt_events {
+    PIEZO_FALL,
+    OPTO_FALL,
+    OPTO_RISE
+};
+
 // LoRa doesn't like \n's ; considers them as operators
 static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
         {" Boot",
@@ -70,7 +76,7 @@ void set_piezo_irq();
 void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...);
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
 bool piezo_detection_within_us();
-int rotate_to_event(enum opto_events flag, bool clockwise);
+int rotate_to_event(enum interrupt_events flag, bool clockwise);
 void calibrate(oper_st * state);
 void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
 void dispense(oper_st * state, LED * led);
