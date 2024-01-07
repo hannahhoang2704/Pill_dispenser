@@ -224,7 +224,7 @@ void wait_until_sw_pressed(SW *sw_proceed, LED *led, oper_st *state)
 }
 
 // Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
-void dispense(oper_st *state, LED *led)
+void dispense(oper_st *state, LED *led, SW *sw_log)
 {
 
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
@@ -238,6 +238,11 @@ void dispense(oper_st *state, LED *led)
         while (TIME_S < next_pilling_time)
         {
             sleep_ms(5);
+            // read log if sw pressed
+            if (switch_pressed_debounced(sw_log))
+            {
+                read_log_entry(MAX_ENTRIES);
+            }
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
         set_piezo_flag(false);
@@ -257,48 +262,9 @@ void dispense(oper_st *state, LED *led)
         }
     }
 
-    set_piezo_irq(false);
-    logf_msg(DISPENSE_COMPLETED, state, 1, state->pills_detected);
-}
-
-// Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
-void dispense_2(oper_st *state, LED *led, SW *sw_proceed)
-{
-
-    logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
-
-    set_piezo_irq(true);
-    uint64_t start = TIME_S;
-    uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
-    for (uint8_t comp = 0; comp < compartment_left; comp++)
+    if (compartment_left == 0)
     {
-        uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
-        while (TIME_S < next_pilling_time)
-        {
-            sleep_ms(5);
-        }
-        logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
-        set_piezo_flag(false);
-        rotate_8th(1);
-        ++(state->current_comp_idx);
-        logf_msg(ROTATION_COMPLETED, state, 0);
-
-        if (!piezo_detection_within_us())
-        {
-            logf_msg(NO_PILL_FOUND, state, 1, state->current_comp_idx);
-            led_blink_times(led, BLINK_COUNT);
-        }
-        else
-        {
-            ++(state->pills_detected);
-            logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
-        }
-
-        // read log if sw pressed
-        if (switch_pressed(sw_proceed))
-        {
-            read_log_entry(MAX_ENTRIES);
-        }
+        wait_until_sw_pressed(sw_log, led, state);
     }
 
     set_piezo_irq(false);

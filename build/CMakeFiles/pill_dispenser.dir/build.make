@@ -152,10 +152,52 @@ CMakeFiles/pill_dispenser.dir/piezo/piezo.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pill_dispenser.dir/piezo/piezo.c.s"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\VSARM\sdk\pico\Pill_dispenser\piezo\piezo.c -o CMakeFiles\pill_dispenser.dir\piezo\piezo.c.s
 
+CMakeFiles/pill_dispenser.dir/operation/operation.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
+CMakeFiles/pill_dispenser.dir/operation/operation.c.obj: C:/VSARM/sdk/pico/Pill_dispenser/operation/operation.c
+CMakeFiles/pill_dispenser.dir/operation/operation.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/pill_dispenser.dir/operation/operation.c.obj"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/operation/operation.c.obj -MF CMakeFiles\pill_dispenser.dir\operation\operation.c.obj.d -o CMakeFiles\pill_dispenser.dir\operation\operation.c.obj -c C:\VSARM\sdk\pico\Pill_dispenser\operation\operation.c
+
+CMakeFiles/pill_dispenser.dir/operation/operation.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pill_dispenser.dir/operation/operation.c.i"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\VSARM\sdk\pico\Pill_dispenser\operation\operation.c > CMakeFiles\pill_dispenser.dir\operation\operation.c.i
+
+CMakeFiles/pill_dispenser.dir/operation/operation.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pill_dispenser.dir/operation/operation.c.s"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\VSARM\sdk\pico\Pill_dispenser\operation\operation.c -o CMakeFiles\pill_dispenser.dir\operation\operation.c.s
+
+CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
+CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj: C:/VSARM/sdk/pico/Pill_dispenser/Lora/Lora.c
+CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj -MF CMakeFiles\pill_dispenser.dir\Lora\Lora.c.obj.d -o CMakeFiles\pill_dispenser.dir\Lora\Lora.c.obj -c C:\VSARM\sdk\pico\Pill_dispenser\Lora\Lora.c
+
+CMakeFiles/pill_dispenser.dir/Lora/Lora.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pill_dispenser.dir/Lora/Lora.c.i"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\VSARM\sdk\pico\Pill_dispenser\Lora\Lora.c > CMakeFiles\pill_dispenser.dir\Lora\Lora.c.i
+
+CMakeFiles/pill_dispenser.dir/Lora/Lora.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pill_dispenser.dir/Lora/Lora.c.s"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\VSARM\sdk\pico\Pill_dispenser\Lora\Lora.c -o CMakeFiles\pill_dispenser.dir\Lora\Lora.c.s
+
+CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
+CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj: C:/VSARM/sdk/pico/Pill_dispenser/eeprom/eeprom.c
+CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj -MF CMakeFiles\pill_dispenser.dir\eeprom\eeprom.c.obj.d -o CMakeFiles\pill_dispenser.dir\eeprom\eeprom.c.obj -c C:\VSARM\sdk\pico\Pill_dispenser\eeprom\eeprom.c
+
+CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.i"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\VSARM\sdk\pico\Pill_dispenser\eeprom\eeprom.c > CMakeFiles\pill_dispenser.dir\eeprom\eeprom.c.i
+
+CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.s"
+	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\VSARM\sdk\pico\Pill_dispenser\eeprom\eeprom.c -o CMakeFiles\pill_dispenser.dir\eeprom\eeprom.c.s
+
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdlib\stdlib.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdlib\stdlib.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdlib\stdlib.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.i: cmake_force
@@ -169,7 +211,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_std
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_gpio\gpio.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_gpio\gpio.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_gpio\gpio.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.i: cmake_force
@@ -183,7 +225,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_platform\platform.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_platform\platform.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_platform\platform.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.i: cmake_force
@@ -197,7 +239,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_pla
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_claim\claim.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_claim\claim.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_claim\claim.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_claim/claim.c.i: cmake_force
@@ -211,7 +253,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_sync\sync.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_sync\sync.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_sync\sync.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_sync/sync.c.i: cmake_force
@@ -225,7 +267,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_irq\irq.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_irq\irq.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_irq\irq.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq.c.i: cmake_force
@@ -238,7 +280,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_irq\irq_handler_chain.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_irq\irq_handler_chain.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_irq/irq_handler_chain.S.i: cmake_force
@@ -252,7 +294,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\sem.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\sem.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\sem.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/sem.c.i: cmake_force
@@ -266,7 +308,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/se
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\lock_core.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\lock_core.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\lock_core.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lock_core.c.i: cmake_force
@@ -280,7 +322,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/lo
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\mutex.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\mutex.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\mutex.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mutex.c.i: cmake_force
@@ -294,7 +336,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/mu
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\critical_section.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\critical_section.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_sync\critical_section.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/critical_section.c.i: cmake_force
@@ -308,7 +350,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_sync/cr
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_time\time.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_time\time.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_time\time.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/time.c.i: cmake_force
@@ -322,7 +364,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/ti
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_time\timeout_helper.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_time\timeout_helper.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_time\timeout_helper.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/timeout_helper.c.i: cmake_force
@@ -336,7 +378,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_time/ti
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_timer\timer.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_timer\timer.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_timer\timer.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_timer/timer.c.i: cmake_force
@@ -350,7 +392,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\datetime.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\datetime.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_util\datetime.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/datetime.c.i: cmake_force
@@ -364,7 +406,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/da
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\pheap.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\pheap.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_util\pheap.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/pheap.c.i: cmake_force
@@ -378,7 +420,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/ph
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\queue.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\common\pico_util\queue.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\common\pico_util\queue.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/queue.c.i: cmake_force
@@ -392,7 +434,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/common/pico_util/qu
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_uart\uart.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_uart\uart.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_uart\uart.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_uart/uart.c.i: cmake_force
@@ -406,7 +448,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_clocks\clocks.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_clocks\clocks.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_clocks\clocks.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_clocks/clocks.c.i: cmake_force
@@ -420,7 +462,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_pll\pll.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_pll\pll.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_pll\pll.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_pll/pll.c.i: cmake_force
@@ -434,7 +476,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_vreg\vreg.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_vreg\vreg.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_vreg\vreg.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_vreg/vreg.c.i: cmake_force
@@ -448,7 +490,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_watchdog\watchdog.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_watchdog\watchdog.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_watchdog\watchdog.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_watchdog/watchdog.c.i: cmake_force
@@ -462,7 +504,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_xosc\xosc.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_xosc\xosc.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_xosc\xosc.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_xosc/xosc.c.i: cmake_force
@@ -475,7 +517,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_divider\divider.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_divider\divider.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_divider/divider.S.i: cmake_force
@@ -489,7 +531,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_runtime\runtime.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_runtime\runtime.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_runtime\runtime.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_runtime/runtime.c.i: cmake_force
@@ -503,7 +545,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_run
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_printf\printf.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_printf\printf.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_printf\printf.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_printf/printf.c.i: cmake_force
@@ -516,7 +558,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_pri
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_bit_ops\bit_ops_aeabi.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit_ops/bit_ops_aeabi.S.i: cmake_force
@@ -530,7 +572,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bit
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_bootrom\bootrom.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_bootrom\bootrom.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_bootrom\bootrom.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_bootrom/bootrom.c.i: cmake_force
@@ -543,7 +585,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_boo
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_divider\divider.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_divider\divider.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_divider/divider.S.i: cmake_force
@@ -556,7 +598,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_div
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_aeabi.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_aeabi.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_aeabi.S.i: cmake_force
@@ -570,7 +612,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_dou
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_init_rom.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_init_rom.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_init_rom.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_init_rom.c.i: cmake_force
@@ -584,7 +626,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_dou
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_math.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_math.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_math.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_math.c.i: cmake_force
@@ -597,7 +639,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_dou
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_v1_rom_shim.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_double\double_v1_rom_shim.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_double/double_v1_rom_shim.S.i: cmake_force
@@ -610,7 +652,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_dou
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_int64_ops\pico_int64_ops_aeabi.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S.i: cmake_force
@@ -623,7 +665,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_int
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_41) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_aeabi.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_aeabi.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_aeabi.S.i: cmake_force
@@ -637,7 +679,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_flo
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_42) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_init_rom.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_init_rom.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_init_rom.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_init_rom.c.i: cmake_force
@@ -651,7 +693,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_flo
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_43) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_math.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_math.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_math.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_math.c.i: cmake_force
@@ -664,7 +706,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_flo
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_44) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_float\float_v1_rom_shim.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_float/float_v1_rom_shim.S.i: cmake_force
@@ -678,7 +720,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_flo
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_45) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_malloc\pico_malloc.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_malloc\pico_malloc.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_malloc\pico_malloc.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_malloc/pico_malloc.c.i: cmake_force
@@ -691,7 +733,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mal
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_46) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_mem_ops\mem_ops_aeabi.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem_ops/mem_ops_aeabi.S.i: cmake_force
@@ -704,7 +746,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_mem
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_47) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building ASM object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\crt0.S.obj   -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\crt0.S
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/crt0.S.i: cmake_force
@@ -718,7 +760,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_sta
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_48) "Building CXX object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building CXX object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR10B2~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\new_delete.cpp.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\new_delete.cpp.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\new_delete.cpp
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.i: cmake_force
@@ -732,7 +774,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_sta
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_49) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\binary_info.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\binary_info.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_standard_link\binary_info.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_standard_link/binary_info.c.i: cmake_force
@@ -746,7 +788,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_sta
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_50) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio\stdio.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio\stdio.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio\stdio.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio/stdio.c.i: cmake_force
@@ -760,7 +802,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_std
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_51) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_54) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio_uart\stdio_uart.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio_uart\stdio_uart.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\pico_stdio_uart\stdio_uart.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdio_uart/stdio_uart.c.i: cmake_force
@@ -774,7 +816,7 @@ CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_std
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj: CMakeFiles/pill_dispenser.dir/flags.make
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj: C:/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj: CMakeFiles/pill_dispenser.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_52) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building C object CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj"
 	C:\VSARM\armcc\112202~1.02\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.obj -MF CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_i2c\i2c.c.obj.d -o CMakeFiles\pill_dispenser.dir\C_\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_i2c\i2c.c.obj -c C:\VSARM\sdk\pico\pico-sdk\src\rp2_common\hardware_i2c\i2c.c
 
 CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_i2c/i2c.c.i: cmake_force
@@ -793,6 +835,9 @@ pill_dispenser_OBJECTS = \
 "CMakeFiles/pill_dispenser.dir/stepper/stepper.c.obj" \
 "CMakeFiles/pill_dispenser.dir/switch/switch.c.obj" \
 "CMakeFiles/pill_dispenser.dir/piezo/piezo.c.obj" \
+"CMakeFiles/pill_dispenser.dir/operation/operation.c.obj" \
+"CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj" \
+"CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj" \
 "CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj" \
 "CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj" \
 "CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj" \
@@ -849,6 +894,9 @@ pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/opto-fork/opto.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/stepper/stepper.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/switch/switch.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/piezo/piezo.c.obj
+pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/operation/operation.c.obj
+pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj
+pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_stdlib/stdlib.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/hardware_gpio/gpio.c.obj
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/C_/VSARM/sdk/pico/pico-sdk/src/rp2_common/pico_platform/platform.c.obj
@@ -899,7 +947,7 @@ pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/build.make
 pill_dispenser.elf: pico-sdk/src/rp2_common/boot_stage2/bs2_default_padded_checksummed.S
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/objects1.rsp
 pill_dispenser.elf: CMakeFiles/pill_dispenser.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_53) "Linking CXX executable pill_dispenser.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\VSARM\sdk\pico\Pill_dispenser\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Linking CXX executable pill_dispenser.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\pill_dispenser.dir\link.txt --verbose=$(VERBOSE)
 	"C:\VSARM\armcc\11.2 2022.02\bin\arm-none-eabi-objcopy.exe" -Oihex C:/VSARM/sdk/pico/Pill_dispenser/build/pill_dispenser.elf pill_dispenser.hex
 	"C:\VSARM\armcc\11.2 2022.02\bin\arm-none-eabi-objcopy.exe" -Obinary C:/VSARM/sdk/pico/Pill_dispenser/build/pill_dispenser.elf pill_dispenser.bin

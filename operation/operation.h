@@ -72,5 +72,4 @@ void blink_until_sw_pressed(SW *sw_proceed, LED *led, oper_st *state);
 int rotate_to_event(enum opto_events flag, bool clockwise);
 void calibrate(oper_st *state);
 void wait_until_sw_pressed(SW *sw_proceed, LED *led, oper_st *state);
-void dispense(oper_st *state, LED *led);
-void dispense_2(oper_st *state, LED *led, SW *sw_proceed);
+void dispense(oper_st *state, LED *led, SW *sw_log);

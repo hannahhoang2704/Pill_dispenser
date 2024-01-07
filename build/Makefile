@@ -1158,6 +1158,54 @@ LED/LED.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/LED/LED.c.s
 .PHONY : LED/LED.c.s
 
+Lora/Lora.obj: Lora/Lora.c.obj
+.PHONY : Lora/Lora.obj
+
+# target to build an object file
+Lora/Lora.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.obj
+.PHONY : Lora/Lora.c.obj
+
+Lora/Lora.i: Lora/Lora.c.i
+.PHONY : Lora/Lora.i
+
+# target to preprocess a source file
+Lora/Lora.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.i
+.PHONY : Lora/Lora.c.i
+
+Lora/Lora.s: Lora/Lora.c.s
+.PHONY : Lora/Lora.s
+
+# target to generate assembly for a file
+Lora/Lora.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/Lora/Lora.c.s
+.PHONY : Lora/Lora.c.s
+
+eeprom/eeprom.obj: eeprom/eeprom.c.obj
+.PHONY : eeprom/eeprom.obj
+
+# target to build an object file
+eeprom/eeprom.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.obj
+.PHONY : eeprom/eeprom.c.obj
+
+eeprom/eeprom.i: eeprom/eeprom.c.i
+.PHONY : eeprom/eeprom.i
+
+# target to preprocess a source file
+eeprom/eeprom.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.i
+.PHONY : eeprom/eeprom.c.i
+
+eeprom/eeprom.s: eeprom/eeprom.c.s
+.PHONY : eeprom/eeprom.s
+
+# target to generate assembly for a file
+eeprom/eeprom.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/eeprom/eeprom.c.s
+.PHONY : eeprom/eeprom.c.s
+
 main.obj: main.c.obj
 .PHONY : main.obj
 
@@ -1181,6 +1229,30 @@ main.s: main.c.s
 main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/main.c.s
 .PHONY : main.c.s
+
+operation/operation.obj: operation/operation.c.obj
+.PHONY : operation/operation.obj
+
+# target to build an object file
+operation/operation.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/operation/operation.c.obj
+.PHONY : operation/operation.c.obj
+
+operation/operation.i: operation/operation.c.i
+.PHONY : operation/operation.i
+
+# target to preprocess a source file
+operation/operation.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/operation/operation.c.i
+.PHONY : operation/operation.c.i
+
+operation/operation.s: operation/operation.c.s
+.PHONY : operation/operation.s
+
+# target to generate assembly for a file
+operation/operation.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pill_dispenser.dir\build.make CMakeFiles/pill_dispenser.dir/operation/operation.c.s
+.PHONY : operation/operation.c.s
 
 opto-fork/opto.obj: opto-fork/opto.c.obj
 .PHONY : opto-fork/opto.obj
@@ -1412,9 +1484,18 @@ help:
 	@echo ... LED/LED.obj
 	@echo ... LED/LED.i
 	@echo ... LED/LED.s
+	@echo ... Lora/Lora.obj
+	@echo ... Lora/Lora.i
+	@echo ... Lora/Lora.s
+	@echo ... eeprom/eeprom.obj
+	@echo ... eeprom/eeprom.i
+	@echo ... eeprom/eeprom.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... operation/operation.obj
+	@echo ... operation/operation.i
+	@echo ... operation/operation.s
 	@echo ... opto-fork/opto.obj
 	@echo ... opto-fork/opto.i
 	@echo ... opto-fork/opto.s
