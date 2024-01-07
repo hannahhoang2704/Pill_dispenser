@@ -6,14 +6,19 @@
 #include "operation.h"
 
 // returns system time with decimal accuracy and changes its unit depending on its size
-uint64_t get_time_with_decimal(char * time_unit) {
+uint64_t get_time_with_decimal(char *time_unit)
+{
     uint64_t time_d = TIME_DS;
     *time_unit = 's';
-    if (time_d > SECS_IN_MIN * DEC_OFFSET) {
-        if (time_d > SECS_IN_HOUR * DEC_OFFSET) {
+    if (time_d > SECS_IN_MIN * DEC_OFFSET)
+    {
+        if (time_d > SECS_IN_HOUR * DEC_OFFSET)
+        {
             *time_unit = 'h';
             time_d /= SECS_IN_HOUR;
-        } else {
+        }
+        else
+        {
             time_d /= SECS_IN_MIN;
             *time_unit = 'm';
         }
@@ -22,7 +27,8 @@ uint64_t get_time_with_decimal(char * time_unit) {
 }
 
 // Log messages of different state to EEPROM, print to stdout and send to LORA
-void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
+void logf_msg(enum logs logEnum, oper_st *state, int n_args, ...)
+{
     char msg[STRLEN_EEPROM];
     char time_unit;
     uint64_t time = get_time_with_decimal(&time_unit);
@@ -40,32 +46,34 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
     write_log_entry(msg, &state->eeprom_log_idx);
 
     // values to store to eeprom
-    switch (logEnum) {
-        case CALIB_COMPLETED:
-        case RECALIB_AFTER_REBOOT:
-            write_to_eeprom(COMP_INDEX_ADDR,
-                            &state->current_comp_idx, 1);
-            break;
-        case PILL_FOUND:
-            write_to_eeprom(PILLS_DETECTION_ADDR,
-                            &state->pills_detected, 1);
-        default:
-            ;
+    switch (logEnum)
+    {
+    case CALIB_COMPLETED:
+    case RECALIB_AFTER_REBOOT:
+        write_to_eeprom(COMP_INDEX_ADDR,
+                        &state->current_comp_idx, 1);
+        break;
+    case PILL_FOUND:
+        write_to_eeprom(PILLS_DETECTION_ADDR,
+                        &state->pills_detected, 1);
+    default:;
     }
 
     // LoRa messages to be sent to mqtt
-    switch (logEnum) {
-        case BOOT:
-        case LORA_FAILED:
-            break;
-        default:
-            if (state->lora_connected)
-                send_msg_to_Lora(msg, false);
+    switch (logEnum)
+    {
+    case BOOT:
+    case LORA_FAILED:
+        break;
+    default:
+        if (state->lora_connected)
+            send_msg_to_Lora(msg, false);
     }
 }
 
 // generates operations state, data based on LoRa connection and EEPROM data
-oper_st init_operation() {
+oper_st init_operation()
+{
     init_eeprom();
     oper_st state;
 
@@ -75,20 +83,26 @@ oper_st init_operation() {
     state.current_comp_idx = get_stored_value(COMP_INDEX_ADDR);
     state.pills_detected = get_stored_value(PILLS_DETECTION_ADDR);
 
-    if (state.current_comp_idx > PILLCOMP_COUNT) state.current_comp_idx = PILLCOMP_COUNT;
-    if (state.pills_detected > PILLCOMP_COUNT) state.pills_detected = 0;
+    if (state.current_comp_idx > PILLCOMP_COUNT)
+        state.current_comp_idx = PILLCOMP_COUNT;
+    if (state.pills_detected > PILLCOMP_COUNT)
+        state.pills_detected = 0;
 
     init_Lora();
     start_lora();
-    if ((state.lora_connected = connect_network())) {
+    if ((state.lora_connected = connect_network()))
+    {
         logf_msg(LORA_SUCCEED, &state, 0);
-    } else {
+    }
+    else
+    {
         logf_msg(LORA_FAILED, &state, 0);
     }
     return state;
 }
 
-void print_state(oper_st state) {
+void print_state(oper_st state)
+{
     printf("lora_connected: %s\n"
            "eeprom_log_index: %hhu\n"
            "current_comp_idx: %hhu\n"
@@ -103,11 +117,14 @@ void print_state(oper_st state) {
 // Loops infinitely until switch is pressed,
 // blinking LED while looping.
 // Leaves LED off after press.
-void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
+void blink_until_sw_pressed(SW *sw_proceed, LED *led, oper_st *state)
+{
     logf_msg(WAITING_FOR_SW, state, 0);
     uint8_t loop = 0;
-    while (!switch_pressed_debounced(sw_proceed)) {
-        if (loop++ == 0) toggle_pwm(led);
+    while (!switch_pressed_debounced(sw_proceed))
+    {
+        if (loop++ == 0)
+            toggle_pwm(led);
         loop %= 10;
         sleep_ms(50);
     }
@@ -118,12 +135,14 @@ void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
 
 // to_opto defines whether it will rotate in or out of opto-fork
 // returns number of steps taken during this function
-int rotate_to_event(enum opto_events flag, bool clockwise) {
+int rotate_to_event(enum opto_events flag, bool clockwise)
+{
     int steps = 0;
     set_opto_flag(flag, false);
     set_opto_fork_irq(true);
 
-    while (!opto_flag_state(flag)) {
+    while (!opto_flag_state(flag))
+    {
         step(clockwise);
         ++steps;
         sleep_us(STEPPER_WAITING_US);
@@ -134,13 +153,15 @@ int rotate_to_event(enum opto_events flag, bool clockwise) {
 
 // Calibrates according to number of 'current_comp_idx' done thus far.
 // 'current_comp_idx' is to be derived from EEPROM
-void calibrate(oper_st * state) {
+void calibrate(oper_st *state)
+{
 
     logf_msg(CALIB_START, state, 0);
 
     int opto_width;
 
-    if (state->current_comp_idx >= PILLCOMP_COUNT) {
+    if (state->current_comp_idx >= PILLCOMP_COUNT)
+    {
 
         // rotate clockwise into opto-fork area
         rotate_to_event(FALL, true);
@@ -161,8 +182,9 @@ void calibrate(oper_st * state) {
         state->current_comp_idx = 0;
         state->pills_detected = 0;
         logf_msg(CALIB_COMPLETED, state, 1, full_rev_steps);
-
-    } else {
+    }
+    else
+    {
 
         // rotate counter-clockwise beyond opto-fork area
         rotate_to_event(RISE, false);
@@ -189,28 +211,32 @@ void calibrate(oper_st * state) {
 // Puts LED on.
 // Loops infinitely until switch is pressed.
 // Puts LED off after switch press.
-void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
+void wait_until_sw_pressed(SW *sw_proceed, LED *led, oper_st *state)
+{
     set_led_brightness(led, PWM_SOFT);
     logf_msg(WAITING_FOR_SW, state, 0);
-    while (!switch_pressed_debounced(sw_proceed)) {
+    while (!switch_pressed_debounced(sw_proceed))
+    {
         sleep_ms(50);
     }
-    logf_msg(SW_PRESSED, state,
-             1, sw_proceed->board_index);
+    logf_msg(SW_PRESSED, state, 1, sw_proceed->board_index);
     set_led_brightness(led, PWM_OFF);
 }
 
 // Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
-void dispense(oper_st * state, LED * led) {
+void dispense(oper_st *state, LED *led)
+{
 
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
 
     set_piezo_irq(true);
     uint64_t start = TIME_S;
     uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
-    for (uint8_t comp = 0; comp < compartment_left; comp++) {
+    for (uint8_t comp = 0; comp < compartment_left; comp++)
+    {
         uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
-        while (TIME_S < next_pilling_time) {
+        while (TIME_S < next_pilling_time)
+        {
             sleep_ms(5);
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
@@ -219,16 +245,62 @@ void dispense(oper_st * state, LED * led) {
         ++(state->current_comp_idx);
         logf_msg(ROTATION_COMPLETED, state, 0);
 
-        if (!piezo_detection_within_us()) {
+        if (!piezo_detection_within_us())
+        {
             logf_msg(NO_PILL_FOUND, state, 1, state->current_comp_idx);
             led_blink_times(led, BLINK_COUNT);
-        } else {
+        }
+        else
+        {
             ++(state->pills_detected);
             logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
         }
     }
 
     set_piezo_irq(false);
-    logf_msg(DISPENSE_COMPLETED, state,
-             1, state->pills_detected);
+    logf_msg(DISPENSE_COMPLETED, state, 1, state->pills_detected);
+}
+
+// Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
+void dispense_2(oper_st *state, LED *led, SW *sw_proceed)
+{
+
+    logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
+
+    set_piezo_irq(true);
+    uint64_t start = TIME_S;
+    uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
+    for (uint8_t comp = 0; comp < compartment_left; comp++)
+    {
+        uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
+        while (TIME_S < next_pilling_time)
+        {
+            sleep_ms(5);
+        }
+        logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
+        set_piezo_flag(false);
+        rotate_8th(1);
+        ++(state->current_comp_idx);
+        logf_msg(ROTATION_COMPLETED, state, 0);
+
+        if (!piezo_detection_within_us())
+        {
+            logf_msg(NO_PILL_FOUND, state, 1, state->current_comp_idx);
+            led_blink_times(led, BLINK_COUNT);
+        }
+        else
+        {
+            ++(state->pills_detected);
+            logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
+        }
+
+        // read log if sw pressed
+        if (switch_pressed(sw_proceed))
+        {
+            read_log_entry(MAX_ENTRIES);
+        }
+    }
+
+    set_piezo_irq(false);
+    logf_msg(DISPENSE_COMPLETED, state, 1, state->pills_detected);
 }
