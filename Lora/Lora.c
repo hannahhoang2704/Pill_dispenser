@@ -33,14 +33,13 @@ void start_lora() {
     const uint8_t init_command[] = "AT\r\n";
     char *receivedString;
     for (size_t i = 0; i < 5; i++) {
-        uart_write_blocking(UART_ID, init_command, strlen(init_command));
+        uart_write_blocking(UART_ID, init_command, strlen((const char*)init_command));
         receivedString = on_uart_rx();
 
         if (receivedString != NULL) {
             printf("Connected to LoRa module: %s\n", receivedString);
             break;
-        }
-        if (receivedString == NULL) {
+        }else{
             printf("Module not responding\n");
         }
     }
