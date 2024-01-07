@@ -8,6 +8,5 @@
 #define PIEZO_MAX_WAITING_TIME 85000
 
 void init_piezo();
-bool piezo_detection_within_us();
 
 #endif  // PIEZO_H

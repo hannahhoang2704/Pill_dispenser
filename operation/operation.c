@@ -5,9 +5,9 @@
 
 #include "operation.h"
 
-extern volatile bool opto_fall;
-extern volatile bool opto_rise;
-extern volatile bool piezo_falling_edge;
+static volatile bool opto_fall = false;
+static volatile bool opto_rise = false;
+static volatile bool piezo_falling_edge = false;
 
 //irq callback event when detecting event mask from Opto fork pin or piezo sensor pin
 static void irq_event(uint gpio, uint32_t event_mask) {
@@ -47,6 +47,47 @@ void set_piezo_irq() {
                                        GPIO_IRQ_EDGE_FALL,
                                        true,
                                        &irq_event);
+}
+
+//returns a boolean if object is detected by piezo sensor within a maximum of waiting time
+bool piezo_detection_within_us() {
+    uint32_t time_start = time_us_64();
+    do {
+        if (piezo_falling_edge) {
+            return true;
+        }
+    } while ((time_us_64() - time_start) <= PIEZO_MAX_WAITING_TIME);
+    return false;
+}
+
+// Returns the state of opto detection 'event'.
+bool opto_flag_state(enum opto_events event) {
+    switch (event) {
+        case FALL:
+            return opto_fall;
+        case RISE:
+            return opto_rise;
+        default:
+            fprintf(stderr, "Unknown event: %u\n", event);
+            return false;
+    }
+}
+
+// Manual control over event state.
+void set_opto_flag(enum opto_events event, bool state) {
+    switch (event) {
+        case FALL:
+            opto_fall = state; break;
+        case RISE:
+            opto_rise = state; break;
+        default:
+            fprintf(stderr, "Unknown event: %u\n", event);
+    }
+}
+
+// set piezo_falling_edge flag
+void set_piezo_flag(bool state) {
+    piezo_falling_edge = state;
 }
 
 // returns system time with decimal accuracy and changes its unit depending on its size
@@ -256,7 +297,7 @@ void dispense(oper_st * state, LED * led) {
             sleep_ms(5);
         }
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
-        piezo_falling_edge = false;
+        set_piezo_flag(false);
         rotate_8th(1);
         ++(state->current_comp_idx);
         logf_msg(ROTATION_COMPLETED, state, 0);

@@ -69,6 +69,7 @@ void set_opto_fork_irq();
 void set_piezo_irq();
 void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...);
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
+bool piezo_detection_within_us();
 int rotate_to_event(enum opto_events flag, bool clockwise);
 void calibrate(oper_st * state);
 void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
