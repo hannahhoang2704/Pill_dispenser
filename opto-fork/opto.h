@@ -5,13 +5,12 @@
 
 #define OPTO_GPIO 28
 
+#define EVENT_DEBOUNCE_US 5000
+
 enum opto_events {
     FALL,
     RISE
 };
-
-static bool volatile opto_fall = false;
-static bool volatile opto_rise = false;
 
 bool opto_flag_state(enum opto_events event);
 

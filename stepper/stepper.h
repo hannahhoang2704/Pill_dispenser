@@ -6,11 +6,9 @@
 #define IN4 13
 #define COIL_COUNT 4
 
-#define THEORETICAL_REV 4096
 #define THEORETICAL_8TH 512
 #define STEP_STATES 8
-#define SPD_REDUC_MIN 850
-#define OPTO_OFFSET 148
+#define STEPPER_WAITING_US 850
 
 static const struct coil_struct {
     int gpio;
@@ -33,6 +31,6 @@ void init_stepper();
 
 void step(bool clockwise);
 
-void calibrate(int rotations);
+void rotate_steps(int steps);
 
 void rotate_8th(int n_8ths);

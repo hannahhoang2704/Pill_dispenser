@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include "opto.h"
 
-// Returns the state of 'event'.
+static bool volatile opto_fall = false;
+static bool volatile opto_rise = false;
+
+// Returns the state of opto detection 'event'.
 bool opto_flag_state(enum opto_events event) {
     switch (event) {
         case FALL:
@@ -30,22 +33,30 @@ void set_opto_flag(enum opto_events event, bool state) {
 // Enables detecting movement both "into" opto-fork,
 // aswell as "out" from opto-fork.
 static void opto_event(uint gpio, uint32_t event_mask) {
-    switch (event_mask) {
-        case GPIO_IRQ_EDGE_FALL:
-            opto_fall = true; break;
-        case GPIO_IRQ_EDGE_RISE:
-            opto_rise = true; break;
-        default:
-            ;
+    static uint64_t prev_event_time = 0;
+    uint64_t curr_time = time_us_64();
+
+    if (curr_time - prev_event_time > EVENT_DEBOUNCE_US) {
+        prev_event_time = curr_time;
+        switch (event_mask) {
+            case GPIO_IRQ_EDGE_FALL:
+                opto_fall = true;
+                break;
+            case GPIO_IRQ_EDGE_RISE:
+                opto_rise = true;
+                break;
+            default:;
+        }
     }
 }
 
-// Initialize opto-fork for both falling and rising edge events.
+// Initialize opto-fork.
 void init_opto_fork() {
     gpio_init(OPTO_GPIO);
     gpio_pull_up(OPTO_GPIO);
 }
 
+// set opto_fork interrupt detection to on or off
 void set_opto_fork_irq(bool state) {
     gpio_set_irq_enabled_with_callback(OPTO_GPIO,
                                        GPIO_IRQ_EDGE_FALL | GPIO_IRQ_EDGE_RISE,
