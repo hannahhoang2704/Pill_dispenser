@@ -158,11 +158,16 @@ void print_state(oper_st state) {
 // Loops infinitely until switch is pressed, blinking LED while looping.
 // Leaves LED off after press.
 void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
+    SW sw_log = init_switch(SW_1); // to print log
     logf_msg(WAITING_FOR_SW, state, 0);
     uint8_t loop = 0;
     while (!switch_pressed_debounced(sw_proceed)) {
         if (loop++ == 0) toggle_pwm(led);
         loop %= 10;
+        if (switch_pressed_debounced(&sw_log))
+        {
+            read_log_entry(MAX_ENTRIES);
+        }
         sleep_ms(50);
     }
     logf_msg(SW_PRESSED, state,
@@ -253,6 +258,7 @@ void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state) {
 
 // Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
 void dispense(oper_st * state, LED * led) {
+    SW sw_log = init_switch(SW_1); // to print log
 
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
 
@@ -263,6 +269,7 @@ void dispense(oper_st * state, LED * led) {
         while (TIME_S < next_pilling_time) {
             sleep_ms(5);
         }
+        
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
         interrupt_flags[PIEZO_FALL] = false;
         rotate_8th(1);
@@ -273,11 +280,20 @@ void dispense(oper_st * state, LED * led) {
             logf_msg(NO_PILL_FOUND, state, 1, state->current_comp_idx);
             led_blink_times(led, BLINK_COUNT);
         } else {
-            ++(state->pills_detected);
-            logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
+            ++(state->pills_detected); logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
+        }
+        // print log
+        if (switch_pressed_debounced(&sw_log))
+        {
+            read_log_entry(MAX_ENTRIES);
         }
     }
+    if (compartment_left ==0 )
+    {
+        SW sw_proceed = init_switch(SW_0);
+        wait_until_sw_pressed(&sw_proceed, &led_3, &state);
+    }
+    
 
-    logf_msg(DISPENSE_COMPLETED, state,
-             1, state->pills_detected);
+    logf_msg(DISPENSE_COMPLETED, state, 1, state->pills_detected);
 }
