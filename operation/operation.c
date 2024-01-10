@@ -133,6 +133,8 @@ oper_st init_operation() {
     if (state.current_comp_idx > PILLCOMP_COUNT) state.current_comp_idx = PILLCOMP_COUNT;
     if (state.pills_detected > PILLCOMP_COUNT) state.pills_detected = 0;
 
+    state.dispensing_underway = state.current_comp_idx != PILLCOMP_COUNT;
+
     init_Lora();
     start_lora();
     if ((state.lora_connected = connect_network())) {
@@ -264,6 +266,7 @@ void wait_until_sw_pressed(oper_st * state) {
 
 // Dispense pills according 'current_comp_idx', which is read from EEPROM on boot.
 void dispense(oper_st * state) {
+    state->dispensing_underway = true;
     logf_msg(DISPENSE_CONTINUED, state, 1, state->current_comp_idx);
 
     uint64_t start = TIME_S;
@@ -291,6 +294,7 @@ void dispense(oper_st * state) {
             logf_msg(PILL_FOUND, state, 1, state->current_comp_idx);
         }
     }
+    state->dispensing_underway = false;
 
     logf_msg(DISPENSE_COMPLETED, state, 1, state->pills_detected);
 }

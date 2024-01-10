@@ -14,12 +14,13 @@ int main() {
     set_piezo_irq();
 
     while (true) {
-        if (state.current_comp_idx == PILLCOMP_COUNT) {
+        if (!state.dispensing_underway) {
             blink_until_sw_pressed(&state);
         }
 
         calibrate(&state);
-        if (state.current_comp_idx == PILLCOMP_COUNT) {
+
+        if (!state.dispensing_underway) {
             wait_until_sw_pressed(&state);
         }
 
