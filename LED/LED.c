@@ -1,20 +1,23 @@
-// led.c
 #include "LED.h"
 
-void init_pwm(LED *led) {
+LED init_pwm(uint led_pin) {
     pwm_config config = pwm_get_default_config();
     pwm_config_set_clkdiv_int(&config, DIVIDER);
     pwm_config_set_wrap(&config, WRAP);
 
-    led->slice = pwm_gpio_to_slice_num(led->pin);
-    pwm_set_enabled(led->slice, false);
-    pwm_init(led->slice, &config, false);
+    LED led = {.pin = led_pin};
 
-    led->channel = pwm_gpio_to_channel(led->pin);
-    pwm_set_chan_level(led->slice, led->channel, INIT_PWM_LEVEL);
-    gpio_set_function(led->pin, GPIO_FUNC_PWM);
+    led.slice = pwm_gpio_to_slice_num(led.pin);
+    pwm_set_enabled(led.slice, false);
+    pwm_init(led.slice, &config, false);
 
-    pwm_set_enabled(led->slice, true);
+    led.channel = pwm_gpio_to_channel(led.pin);
+    pwm_set_chan_level(led.slice, led.channel, INIT_PWM_LEVEL);
+    gpio_set_function(led.pin, GPIO_FUNC_PWM);
+
+    pwm_set_enabled(led.slice, true);
+
+    return led;
 }
 
 void set_led_brightness(LED *led, uint16_t level) {
