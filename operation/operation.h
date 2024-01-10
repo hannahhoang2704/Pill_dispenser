@@ -67,6 +67,9 @@ typedef struct operation_state {
     uint8_t current_comp_idx; // compartments rotated for current dispense ; 7 = default
     uint8_t pills_detected; // pills detected during current dispense
     bool lora_connected; // true if LoRa connection established, false if not
+    LED led;
+    SW sw_proceed; // used for proceeding the operation
+    SW sw_log; // used for printing logs
 } oper_st;
 
 oper_st init_operation();
@@ -74,9 +77,9 @@ void print_state(oper_st state);
 void set_opto_fork_irq();
 void set_piezo_irq();
 void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...);
-void blink_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
+void blink_until_sw_pressed(oper_st * state);
 bool piezo_detection_within_us();
 int rotate_to_event(enum interrupt_events flag, bool clockwise);
 void calibrate(oper_st * state);
-void wait_until_sw_pressed(SW * sw_proceed, LED * led, oper_st * state);
-void dispense(oper_st * state, LED * led);
+void wait_until_sw_pressed(oper_st * state);
+void dispense(oper_st * state);
