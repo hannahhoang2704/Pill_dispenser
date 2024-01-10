@@ -147,6 +147,13 @@ oper_st init_operation() {
     state.sw_proceed = init_switch(SW_0);
     state.sw_log = init_switch(SW_1);
 
+    init_stepper();
+    init_opto_fork();
+    init_piezo();
+
+    set_opto_fork_irq();
+    set_piezo_irq();
+
     return state;
 }
 

@@ -6,12 +6,6 @@ int main() {
     stdio_init_all();
 
     oper_st state = init_operation();
-    init_opto_fork();
-    init_stepper();
-    init_piezo();
-
-    set_opto_fork_irq();
-    set_piezo_irq();
 
     while (true) {
         if (!state.dispensing_underway) {
