@@ -94,7 +94,7 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
 
     // values to store to eeprom
     switch (logEnum) {
-        case CALIB_COMPLETED:
+        case DISPENSE_CONTINUED:
         case ROTATION_COMPLETED:
             write_to_eeprom(COMP_INDEX_ADDR,
                             &state->current_comp_idx, 1);
@@ -169,17 +169,25 @@ void print_state(oper_st state) {
            state.pills_detected);
 }
 
+// Prints stored EEPROM logs.
+void press_sw_to_read_log(oper_st * state) {
+    if (switch_pressed_debounced(&state->sw_log)) {
+        logf_msg(SW_PRESSED, state,
+                 1, state->sw_log.board_index);
+        read_log_entry(state->current_comp_idx);
+    }
+}
+
 // Loops infinitely until switch is pressed, blinking LED while looping.
 // Leaves LED off after press.
 void blink_until_sw_pressed(oper_st * state) {
-    logf_msg(WAITING_FOR_SW, state, 0);
+    logf_msg(WAITING_FOR_SW, state, 2,
+             state->sw_proceed.board_index, state->sw_log.board_index);
     uint8_t loop = 0;
     while (!switch_pressed_debounced(&state->sw_proceed)) {
         if (loop++ == 0) toggle_pwm(&state->led);
         loop %= 10;
-        if (switch_pressed_debounced(&state->sw_log)) {
-            read_log_entry(MAX_ENTRIES);
-        }
+        press_sw_to_read_log(state);
         sleep_ms(50);
     }
     logf_msg(SW_PRESSED, state,
@@ -259,11 +267,10 @@ void calibrate(oper_st * state) {
 // Puts LED off after switch press.
 void wait_until_sw_pressed(oper_st * state) {
     set_led_brightness(&state->led, PWM_SOFT);
-    logf_msg(WAITING_FOR_SW, state, 0);
+    logf_msg(WAITING_FOR_SW, state, 2,
+             state->sw_proceed.board_index, state->sw_log.board_index);
     while (!switch_pressed_debounced(&state->sw_proceed)) {
-        if (switch_pressed_debounced(&state->sw_log)) {
-            read_log_entry(MAX_ENTRIES);
-        }
+        press_sw_to_read_log(state);
         sleep_ms(50);
     }
     logf_msg(SW_PRESSED, state,
@@ -281,9 +288,7 @@ void dispense(oper_st * state) {
     for (uint8_t comp = 0; comp < compartment_left; comp++) {
         uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
         while (TIME_S < next_pilling_time) {
-            if (switch_pressed_debounced(&state->sw_log)) {
-                read_log_entry(MAX_ENTRIES);
-            }
+            press_sw_to_read_log(state);
             sleep_ms(5);
         }
         

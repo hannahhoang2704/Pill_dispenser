@@ -31,7 +31,7 @@ static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
         {" Boot",
          " LoRa connection established",
          " LoRa connection failed...",
-         " Waiting for switch press...",
+         " Press SW_%u to proceed or SW_%u to read logs",
          " SW_%u pressed",
          " Calibrating...",
          " Calibration finished! Full revolution: %hu steps",
