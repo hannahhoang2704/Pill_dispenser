@@ -216,7 +216,7 @@ void calibrate(oper_st * state) {
 
     int opto_width;
 
-    if (state->current_comp_idx >= PILLCOMP_COUNT) {
+    if (!state->dispensing_underway) {
 
         // rotate clockwise into opto-fork area
         rotate_to_event(OPTO_FALL, true);
