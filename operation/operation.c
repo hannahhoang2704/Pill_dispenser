@@ -124,7 +124,7 @@ oper_st init_operation() {
     oper_st state;
 
     state.eeprom_log_idx = get_stored_value(LOG_INDEX_ADDR);
-    if(state.eeprom_log_idx >= MAX_ENTRIES) state.eeprom_log_idx = 0;
+    if (state.eeprom_log_idx >= MAX_ENTRIES) state.eeprom_log_idx = 0;
     logf_msg(BOOT, &state, 0);
 
     state.current_comp_idx = get_stored_value(COMP_INDEX_ADDR);
@@ -137,11 +137,9 @@ oper_st init_operation() {
 
     init_Lora();
     start_lora();
-    if ((state.lora_connected = connect_network())) {
-        logf_msg(LORA_SUCCEED, &state, 0);
-    } else {
-        logf_msg(LORA_FAILED, &state, 0);
-    }
+
+    state.lora_connected = connect_network();
+    logf_msg(state.lora_connected ? LORA_SUCCEED : LORA_FAILED, &state, 0);
 
     state.led = init_pwm(LED_3);
     state.sw_proceed = init_switch(SW_0);
