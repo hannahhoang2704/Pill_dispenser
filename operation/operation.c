@@ -107,14 +107,23 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
             ;
     }
 
-    // LoRa messages to be sent to mqtt
+    // Cases where LoRa msg's will be sent, and how
     switch (logEnum) {
-        case BOOT:
-        case LORA_FAILED:
-            break;
-        default:
+        /// Msg sent and response waited for in:
+        case LORA_SUCCEED:
+        case WAITING_FOR_SW:
+        case CALIB_START:
+        case CALIB_COMPLETED:
+        case RECALIB_AFTER_REBOOT:
+        case DISPENSE_CONTINUED:
+        case DISPENSE_COMPLETED:
+        case PILL_FOUND:
+        case NO_PILL_FOUND:
             if (state->lora_connected)
-                send_msg_to_Lora(msg, false);
+                send_msg_to_Lora(msg, true);
+            break;
+        /// No msg sent in the rest:
+        default: ;
     }
 }
 
