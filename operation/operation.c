@@ -112,7 +112,6 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
         /// Msg sent and response waited for in:
         case LORA_SUCCEED:
         case WAITING_FOR_SW:
-        case CALIB_START:
         case CALIB_COMPLETED:
         case RECALIB_AFTER_REBOOT:
         case DISPENSE_CONTINUED:
