@@ -19,9 +19,9 @@ bool switch_pressed(SW sw) {
 
 bool switch_pressed_debounced(SW * sw) {
     if (!gpio_get(sw->pin) && !sw->pressed) {
-        sw->pressed = true;
+        return (sw->pressed = true);
     } else if (gpio_get(sw->pin) && sw->pressed) {
         sw->pressed = false;
     }
-    return sw->pressed;
+    return false;
 }
