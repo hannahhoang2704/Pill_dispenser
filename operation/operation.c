@@ -289,7 +289,7 @@ void dispense(oper_st * state) {
             press_sw_to_read_log(state);
             sleep_ms(5);
         }
-        
+
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
         interrupt_flags[PIEZO_FALL] = false;
         rotate_8th(1);
