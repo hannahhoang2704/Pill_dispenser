@@ -146,7 +146,11 @@ oper_st init_operation() {
     init_Lora();
     start_lora();
 
-    state.lora_connected = connect_network();
+    // retry connection once if first try fails
+    if (!(state.lora_connected = connect_network())) {
+        printf("Retrying...\n");
+        state.lora_connected = connect_network();
+    }
     logf_msg(state.lora_connected ? LORA_SUCCEED : LORA_FAILED, &state, 0);
 
     state.led = init_pwm(LED_3);
@@ -180,7 +184,7 @@ void press_sw_to_read_log(oper_st * state) {
     if (switch_pressed_debounced(&state->sw_log)) {
         logf_msg(SW_PRESSED, state,
                  1, state->sw_log.board_index);
-        read_log_entry(state->current_comp_idx);
+        read_log_entry(state->eeprom_log_idx);
     }
 }
 
