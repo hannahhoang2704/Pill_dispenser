@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include "Lora.h"
 
+// initialize Lora UART
 void init_Lora() {
     uart_init(UART_ID, BAUD_RATE);
     gpio_set_function(UART_TX_PIN, GPIO_FUNC_UART);
@@ -8,10 +9,11 @@ void init_Lora() {
     uart_set_format(UART_ID, DATA_BITS, STOP_BITS, PARITY);
 }
 
+// return a string received from uart within timeout
 char *on_uart_rx() {
     static char str[STRLEN_LORA]; // Make it static to preserve its value between function calls
     int pos = 0;
-    while (uart_is_readable_within_us(UART_ID, 500000)) {
+    while (uart_is_readable_within_us(UART_ID, UAR_WAIT_US_FOR_A_STR)) {
         char c = uart_getc(UART_ID);
         if (c == '\n') {
             str[pos] = '\0';
@@ -25,10 +27,10 @@ char *on_uart_rx() {
             }
         }
     }
-    // If no complete string is received yet, return NULL or an empty string
-    return NULL;
+    return NULL;        // If no complete string is received yet, return NULL or an empty string
 }
 
+// send first command 'AT' to check Lora connection
 void start_lora() {
     const uint8_t init_command[] = "AT\r\n";
     char *receivedString;
@@ -45,53 +47,17 @@ void start_lora() {
     }
 }
 
-void set_time() {
-    const uint8_t set_time[] = "AT+RTC=, \"2023-12-10 14:26:13\"\r\n";
-    uart_write_blocking(UART_ID, set_time, strlen(set_time));
-    printf("Time is setted: %s\n", on_uart_rx());
-}
-
-void sync_real_time() {
-    const uint8_t set_realtime[] = "AT+LW=DTR\r\n";
-    uart_write_blocking(UART_ID, set_realtime, strlen(set_realtime));
-}
-
-void get_current_time() {
-    const uint8_t get_current_time[] = "AT+RTC\r\n";
-    uart_write_blocking(UART_ID, get_current_time, strlen(get_current_time));
-    printf("Current Time %s\n", on_uart_rx());
-}
-
-int get_current_second() {
-    const uint8_t get_current_time[] = "AT+RTC\r\n";
-    uart_write_blocking(UART_ID, get_current_time, strlen(get_current_time));
-    char *receivedString;
-    receivedString = on_uart_rx();
-    int len = strlen(receivedString);
-    if (len >= 2) {
-        char lastTwoChars[3];
-        lastTwoChars[0] = receivedString[len - 2];
-        lastTwoChars[1] = receivedString[len - 1];
-        lastTwoChars[2] = '\0';
-
-        // Use atoi to convert the substring to an integer
-        return atoi(lastTwoChars);
-    } else {
-        // Handle the case where the string has fewer than two characters
-        return -1; // or any other suitable default value
-    }
-}
-
+// send command to Lora
 void send_command(enum cmd_enum cmd) {
-    //printf("Command: %s", (const char *) commands[cmd]);
     uart_write_blocking(UART_ID,
                         (const uint8_t *) commands[cmd],
                         strlen(commands[cmd]));
 }
 
+// Return boolean whether get command response from Lora
 bool get_cmd_rsp(enum cmd_enum cmd, bool loading_bar) {
     char response[STRLEN_LORA];
-    while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
+    while (uart_is_readable_within_us(UART_ID, UART_WAIT_US_FOR_RESP)) {
         if (loading_bar) printf("#");
         strcpy(response, on_uart_rx());
         if (strcmp(response, fail_rsp[cmd]) == 0) { // could be used for faster failure confirmation
@@ -104,6 +70,7 @@ bool get_cmd_rsp(enum cmd_enum cmd, bool loading_bar) {
     return false;
 }
 
+// return boolean whether connection with LoRaWAN network is successful or not
 bool connect_network() {
     bool connecting = true;
     printf("Connecting to LoRa Server...\n"
@@ -119,11 +86,12 @@ bool connect_network() {
     return connecting;
 }
 
-void send_msg_to_Lora(const char *content, bool wait_for_rsp) {
+// send message to Lora
+void send_msg_to_Lora(const char *content) {
     char data[STRLEN_LORA];
     sprintf(data, commands[MSG], content);
     uart_write_blocking(UART_ID,
                         (uint8_t *) data,
                         strlen(data));
-    if (wait_for_rsp) get_cmd_rsp(MSG, false);
+    get_cmd_rsp(MSG, false);
 }

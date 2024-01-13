@@ -1,4 +1,3 @@
-#include <pico/printf.h>
 #include "piezo.h"
 
 //initialize piezo sensor pin

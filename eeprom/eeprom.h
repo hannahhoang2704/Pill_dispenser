@@ -1,7 +1,3 @@
-//
-// Created by Hanh Hoang on 15.12.2023.
-//
-
 #ifndef PILL_DISPENSER_EEPROM_H
 #define PILL_DISPENSER_EEPROM_H
 
@@ -14,16 +10,19 @@
 #define BAUDRATE 100000
 #define I2C_MEMORY_SIZE 32768
 #define WRITE_CYCLE_TIME_PER_BYTE 5
+#define BITS_PER_BYTE 8
 
 #define LOG_INDEX_ADDR (I2C_MEMORY_SIZE - 1)
 #define COMP_INDEX_ADDR (I2C_MEMORY_SIZE - 2)
 #define PILLS_DETECTION_ADDR (I2C_MEMORY_SIZE - 3)
 
-#define ADDR_LEN 2
+#define EEPROM_ADDR_LEN 2
 #define ENTRY_SIZE 64
 #define MAX_ENTRIES 32
 #define STRLEN_EEPROM 62
 #define FIRST_ADDRESS 0
+#define NULL_CHAR 1
+#define CRC_CHAR 2
 
 void init_eeprom();
 void write_to_eeprom(uint16_t memory_address, const uint8_t *data, size_t length);

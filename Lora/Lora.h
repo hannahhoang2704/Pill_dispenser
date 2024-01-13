@@ -15,7 +15,8 @@
 #define STOP_BITS 1
 #define PARITY UART_PARITY_NONE
 #define STRLEN_LORA 80
-#define UART_WAIT_US 10000000
+#define UART_WAIT_US_FOR_RESP 10000000
+#define UAR_WAIT_US_FOR_A_STR 500000
 
 static const char * commands[] =
         {"AT\r\n",
@@ -59,11 +60,7 @@ enum cmd_enum {
 void init_Lora();
 char* on_uart_rx();
 void start_lora();
-void set_time();
-void sync_real_time();
-void get_current_time();
-int get_current_second();
 bool connect_network();
-void send_msg_to_Lora(const char *content, bool wait_for_rsp);
+void send_msg_to_Lora(const char *content);
 
 #endif
