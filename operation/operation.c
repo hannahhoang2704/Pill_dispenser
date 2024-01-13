@@ -103,18 +103,24 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
             write_to_eeprom(PILLS_DETECTION_ADDR,
                             &state->pills_detected, 1);
             break;
-        default:
-            ;
+        default: ;
     }
 
-    // LoRa messages to be sent to mqtt
+    // Cases where LoRa msg's will be sent, and how
     switch (logEnum) {
-        case BOOT:
-        case LORA_FAILED:
-            break;
-        default:
+        /// Msg sent and response waited for in:
+        case LORA_SUCCEED:
+        case CALIB_COMPLETED:
+        case RECALIB_AFTER_REBOOT:
+        case DISPENSE_CONTINUED:
+        case DISPENSE_COMPLETED:
+        case PILL_FOUND:
+        case NO_PILL_FOUND:
             if (state->lora_connected)
-                send_msg_to_Lora(msg, false);
+                send_msg_to_Lora(msg, true);
+            break;
+        /// No msg sent in the rest:
+        default: ;
     }
 }
 
@@ -138,7 +144,11 @@ oper_st init_operation() {
     init_Lora();
     start_lora();
 
-    state.lora_connected = connect_network();
+    // retry connection once if first try fails
+    if (!(state.lora_connected = connect_network())) {
+        printf("Retrying...\n");
+        state.lora_connected = connect_network();
+    }
     logf_msg(state.lora_connected ? LORA_SUCCEED : LORA_FAILED, &state, 0);
 
     state.led = init_pwm(LED_3);
@@ -172,7 +182,7 @@ void press_sw_to_read_log(oper_st * state) {
     if (switch_pressed_debounced(&state->sw_log)) {
         logf_msg(SW_PRESSED, state,
                  1, state->sw_log.board_index);
-        read_log_entry(state->current_comp_idx);
+        read_log_entry(state->eeprom_log_idx);
     }
 }
 
@@ -289,7 +299,7 @@ void dispense(oper_st * state) {
             press_sw_to_read_log(state);
             sleep_ms(5);
         }
-        
+
         logf_msg(ROTATION_CONTINUED, state, 1, state->current_comp_idx + 1);
         interrupt_flags[PIEZO_FALL] = false;
         rotate_8th(1);

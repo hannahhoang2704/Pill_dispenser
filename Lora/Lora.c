@@ -89,7 +89,7 @@ void send_command(enum cmd_enum cmd) {
                         strlen(commands[cmd]));
 }
 
-bool get_cmd_rps(enum cmd_enum cmd, bool loading_bar) {
+bool get_cmd_rsp(enum cmd_enum cmd, bool loading_bar) {
     char response[STRLEN_LORA];
     while (uart_is_readable_within_us(UART_ID, UART_WAIT_US)) {
         if (loading_bar) printf("#");
@@ -110,7 +110,7 @@ bool connect_network() {
            "/LOADING\\\n");
     for (enum cmd_enum cmd = MODE; cmd <= JOIN; cmd++) {
         send_command(cmd);
-        if (!get_cmd_rps(cmd, true)) {
+        if (!get_cmd_rsp(cmd, true)) {
             fprintf(stderr, "\nLoRa command failed: %s""Connection failed.\n\n", commands[cmd]);
             return false;
         }
@@ -125,5 +125,5 @@ void send_msg_to_Lora(const char *content, bool wait_for_rsp) {
     uart_write_blocking(UART_ID,
                         (uint8_t *) data,
                         strlen(data));
-    if (wait_for_rsp) get_cmd_rps(MSG, false);
+    if (wait_for_rsp) get_cmd_rsp(MSG, false);
 }
