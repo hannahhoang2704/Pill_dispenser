@@ -1,14 +1,6 @@
-#include <stdio.h>
-
 #include "stepper.h"
 
-#define IN1 2
-#define IN2 3
-#define IN3 6
-#define IN4 13
-#define COIL_COUNT 4
-
-//Initialize stepper motor driver pins IN1-IN4
+// Initialize stepper motor driver pins IN1-IN4
 void init_stepper() {
     for (int stepper_i = 0; stepper_i < COIL_COUNT; stepper_i++) {
         gpio_init(coils[stepper_i].gpio);
@@ -16,8 +8,7 @@ void init_stepper() {
     }
 }
 
-// Takes one 'half'-step in the ordered direction.
-// Saves the step state within boot ;; not across boots.
+// Takes one 'half'-step in the ordered direction. Saves the step state within boot.
 void step(bool clockwise) {
     static int8_t stepper_mask_i = 0;
 
@@ -47,7 +38,7 @@ void rotate_steps(int steps) {
     }
 }
 
-// rotates n * full_revolution / 8
+// rotates (n * full_revolution / 8) steps = 1 calibrated compartment
 void rotate_8th(int n_8ths) {
     int steps = THEORETICAL_8TH * n_8ths;
     rotate_steps(steps);

@@ -16,9 +16,6 @@ typedef struct SW_S {
 } SW;
 
 SW init_switch(uint sw_pin);
-
-bool switch_pressed(SW sw);
-
 bool switch_pressed_debounced(SW * sw);
 
-#endif
+#endif //SWITCH_H

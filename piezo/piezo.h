@@ -1,4 +1,4 @@
-#ifndef  PIEZO_H
+#ifndef PIEZO_H
 #define PIEZO_H
 
 #include "pico/stdlib.h"

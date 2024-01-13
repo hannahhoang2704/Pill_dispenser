@@ -1,3 +1,6 @@
+#ifndef STEPPER_H
+#define STEPPER_H
+
 #include "pico/stdlib.h"
 
 #define IN1 2
@@ -31,3 +34,5 @@ void init_stepper();
 void step(bool clockwise);
 void rotate_steps(int steps);
 void rotate_8th(int n_8ths);
+
+#endif //STEPPER_H
