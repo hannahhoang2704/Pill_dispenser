@@ -71,8 +71,8 @@ void write_log_entry(const char *str, uint8_t *index) {
 
     //add CRC to log buffer
     uint16_t crc = crc16(log_buf, string_length);
-    log_buf[string_length + 1] = (uint8_t)(crc >> 8);
-    log_buf[string_length + 2] = (uint8_t)crc;         //check again the size length
+    log_buf[string_length] = (uint8_t)(crc >> 8);
+    log_buf[string_length + 1] = (uint8_t)crc;         //check again the size length
 
     //write to EEPROM
     uint16_t write_address = (uint16_t) FIRST_ADDRESS + (*index * (uint16_t) ENTRY_SIZE);
