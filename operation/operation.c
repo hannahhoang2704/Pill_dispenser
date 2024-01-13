@@ -103,15 +103,13 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
             write_to_eeprom(PILLS_DETECTION_ADDR,
                             &state->pills_detected, 1);
             break;
-        default:
-            ;
+        default: ;
     }
 
     // Cases where LoRa msg's will be sent, and how
     switch (logEnum) {
         /// Msg sent and response waited for in:
         case LORA_SUCCEED:
-        case WAITING_FOR_SW:
         case CALIB_COMPLETED:
         case RECALIB_AFTER_REBOOT:
         case DISPENSE_CONTINUED:
