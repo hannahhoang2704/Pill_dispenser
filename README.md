@@ -6,6 +6,7 @@ The goal of the project is to develop an automated pill dispensing system that d
 This documentation provides an overview of the program workflow, implementation principles as well as in-depth peripherals features and utilities within the scope of the project. 
 
 ### **1.1. Program Workflow**
+![Flow chart of main()](README_assets/PillDispenser_main_white.jpg "Flow chart of main()")
 The program starts by initializing essential board pins, calling values from EEPROM which were possibly stored in there during the previous session, connecting to the MQTT-server via the LoRa module, and logging messages in between the initialization.
 
 The program then enters a logically infinite ‘while (true)’ -loop. If dispensing is considered ‘underway’ – retrieved and read from EEPROM – the program recalibrates and starts dispensing without waiting for user input; if dispensing is not considered as ‘underway’, the program prompts and waits for the user to press buttons before proceeding.
@@ -92,6 +93,7 @@ Step function saves its last taken step as a static value for subsequent calls �
 Pill drop is detected using piezoelectric sensor interruption to detect the falling edge. Piezo sensor is first initialized with a corresponding pin. When dispensing the pills, every time the stepper motor rotates to the next compartment, the program waits for a maximum timeout of 85ms (calculated according to the height from a compartment to the sensor) to detect the falling edge in the piezo sensor, which also means that the pill is dropped from the compartment. If the falling edge is not detected within a specified timeout, it means no pill is detected.
 ## **3. Implementation**
 Operation.c source file includes functions that call multiple “pin sets”, streamlining the “#include“ library through this single file set, avoiding circular dependency between several source files (such as stepper or EEPROM files). For instance, blink_until_switch_pressed() function requires both LED and switch handling, while not belonging to either over the other, thus defined and declared in the operation files.
+![Flow chart of file hierarchy()](README_assets/File_hierarchy_white.jpg "Flow chart of program file hierarchy.")
 ### **3.1. Logging**
 Logging occurs throughout the program in various pertinent places. All log messages are printed to the console (stdout) via Debug Probe and stored to the EEPROM log entries. Since processing LoRa messages bears a delay (approximately 3 seconds) interfering with user experience and some time-sensitive scenarios, only selected messages are sent to the MQTT-server via the LoRa module:
 - A successful connection to the MQTT-server.
@@ -105,6 +107,7 @@ Both opto-fork and piezo-sensor events are operated with hardware interrupts. Th
 Opto-fork is initialized for both falling and rising edges, and piezo-sensor for a falling edge, each of the three events having their own flags.
 
 ### **3.3. Calibration**
+![Flow chart of calibration](README_assets/PillDispenser_calibrate_white.jpg "Flow chart of calibrate()")
 Calibration has two different versions:
 1.	Full calibration, when dispensing is not underway.
 2.	Recalibration, when dispensing is underway.
@@ -118,4 +121,5 @@ This order and directions of rotations takes into account the possibility that i
 The sleep_ms() function is for killing the stepper’s spin momentum, so that it does not slip past its step when rotation direction is changed.
 
 ### **3.4. Dispensing**
+![Flow chart of dispensing](README_assets/PillDispenser_dispense_white.jpg "Flow chart of dispense()")
 Dispensing starts by storing the current compartment index to EEPROM. The operation loops as long as the compartment index reaches the final one, 7. Within the loop iterations the program waits for a set time interval, referred from the system's internal clock. During this waiting period, the user may press SW_1 to read EEPROM logs. After the time period has elapsed, the piezo detection flag is reset to false – to remove possible false positives – and the disk is rotated equal to ⅛ of a full revolution (= 1 compartment). After having completed a rotation, the new compartment index is logged to EEPROM and piezo’s ‘pill detection’ is checked. If a pill was detected, it is updated to EEPROM; if not, the LED 3 blinks 5 times. After having reached the last compartment, dispensing ‘status’ is set as false and the operation returns back to the main loop.
