@@ -7,6 +7,7 @@ This documentation provides an overview of the program workflow, implementation 
 
 ### **1.1. Program Workflow**
 ![Flow chart of main()](README_assets/PillDispenser_main_white.jpg "Flow chart of main()")
+
 The program starts by initializing essential board pins, calling values from EEPROM which were possibly stored in there during the previous session, connecting to the MQTT-server via the LoRa module, and logging messages in between the initialization.
 
 The program then enters a logically infinite ‘while (true)’ -loop. If dispensing is considered ‘underway’ – retrieved and read from EEPROM – the program recalibrates and starts dispensing without waiting for user input; if dispensing is not considered as ‘underway’, the program prompts and waits for the user to press buttons before proceeding.
@@ -94,6 +95,7 @@ Pill drop is detected using piezoelectric sensor interruption to detect the fall
 ## **3. Implementation**
 Operation.c source file includes functions that call multiple “pin sets”, streamlining the “#include“ library through this single file set, avoiding circular dependency between several source files (such as stepper or EEPROM files). For instance, blink_until_switch_pressed() function requires both LED and switch handling, while not belonging to either over the other, thus defined and declared in the operation files.
 ![Flow chart of file hierarchy()](README_assets/File_hierarchy_white.jpg "Flow chart of program file hierarchy.")
+
 ### **3.1. Logging**
 Logging occurs throughout the program in various pertinent places. All log messages are printed to the console (stdout) via Debug Probe and stored to the EEPROM log entries. Since processing LoRa messages bears a delay (approximately 3 seconds) interfering with user experience and some time-sensitive scenarios, only selected messages are sent to the MQTT-server via the LoRa module:
 - A successful connection to the MQTT-server.
@@ -108,6 +110,7 @@ Opto-fork is initialized for both falling and rising edges, and piezo-sensor for
 
 ### **3.3. Calibration**
 ![Flow chart of calibration](README_assets/PillDispenser_calibrate_white.jpg "Flow chart of calibrate()")
+
 Calibration has two different versions:
 1.	Full calibration, when dispensing is not underway.
 2.	Recalibration, when dispensing is underway.
