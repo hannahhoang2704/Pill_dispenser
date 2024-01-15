@@ -32,7 +32,7 @@ void toggle_pwm(LED *led) {
 
 // blink led for a certain time
 void led_blink_times(LED *led, int blink_time) {
-    int total_toggle_times = blink_time*2;
+    int total_toggle_times = blink_time * 2;
     for (int blink = 0; blink < total_toggle_times; ++blink) {
         toggle_pwm(led);
         sleep_ms(200);

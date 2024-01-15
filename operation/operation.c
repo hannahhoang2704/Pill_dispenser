@@ -83,10 +83,10 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
     char content[STRLEN_EEPROM - TIMESTAMP_LEN];
     va_list args;
     va_start(args, n_args);
-    vsnprintf(content, STRLEN_EEPROM - 1 - TIMESTAMP_LEN,
+    vsnprintf(content, STRLEN_EEPROM - NULLC - TIMESTAMP_LEN,
               log_format[logEnum], args);
     va_end(args);
-    strncat(msg, content, STRLEN_EEPROM - 1 - TIMESTAMP_LEN);
+    strncat(msg, content, STRLEN_EEPROM - NULLC - TIMESTAMP_LEN);
 
     //print to stdout, log message to EEPROM
     printf("%s\n", msg);
@@ -99,6 +99,7 @@ void logf_msg(enum logs logEnum, oper_st * state, int n_args, ...) {
             write_to_eeprom(COMP_INDEX_ADDR,
                             &state->current_comp_idx, 1);
             break;
+        case CALIB_COMPLETED:
         case PILL_FOUND:
             write_to_eeprom(PILLS_DETECTION_ADDR,
                             &state->pills_detected, 1);
@@ -249,6 +250,7 @@ void dispense(oper_st * state) {
     uint8_t compartment_left = PILLCOMP_COUNT - state->current_comp_idx;
     for (uint8_t comp = 0; comp < compartment_left; comp++) {
         uint64_t next_pilling_time = start + PILL_INTERVAL_S * comp;
+        logf_msg(NEXT_DISPENSE, state, 0);
         while (TIME_S < next_pilling_time) {
             press_sw_to_read_log(state);
             sleep_ms(5);

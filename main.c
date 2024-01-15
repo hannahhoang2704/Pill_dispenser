@@ -1,5 +1,3 @@
-#include <pico/printf.h>
-
 #include "operation/operation.h"
 
 int main() {

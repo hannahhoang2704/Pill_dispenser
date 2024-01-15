@@ -22,7 +22,7 @@ char *on_uart_rx() {
                 return str;
             }
         } else {
-            if (pos < STRLEN_LORA - 1) {
+            if (pos < STRLEN_LORA - NULLC) {
                 str[pos++] = c;
             }
         }
@@ -54,7 +54,7 @@ void send_command(enum cmd_enum cmd) {
                         strlen(commands[cmd]));
 }
 
-// Return boolean whether get command response from Lora
+// Return whether response was received from Lora within a set time limit
 bool get_cmd_rsp(enum cmd_enum cmd, bool loading_bar) {
     char response[STRLEN_LORA];
     while (uart_is_readable_within_us(UART_ID, UART_WAIT_US_FOR_RESP)) {
@@ -70,7 +70,7 @@ bool get_cmd_rsp(enum cmd_enum cmd, bool loading_bar) {
     return false;
 }
 
-// return boolean whether connection with LoRaWAN network is successful or not
+// return whether connection with LoRaWAN network succeeded or not
 bool connect_network() {
     bool connecting = true;
     printf("Connecting to LoRa Server...\n"
