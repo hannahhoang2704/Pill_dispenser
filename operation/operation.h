@@ -29,7 +29,7 @@ enum interrupt_events {
 };
 
 // LoRa doesn't like \n's ; considers them as operators
-static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
+static const char * log_format[STRLEN_EEPROM - NULLC - TIMESTAMP_LEN] =
         {" Boot",
          " LoRa connection established",
          " LoRa connection failed...",
@@ -39,6 +39,7 @@ static const char * log_format[STRLEN_EEPROM - 1 - TIMESTAMP_LEN] =
          " Calibration finished! Full revolution: %hu steps",
          " Recalibration finished! At compartment #%hhu",
          " Dispensing starting from compartment #%hhu",
+         " Waiting for next pill-time...",
          " Dispensing finished! Pills detected: %hhu",
          " Rotating to compartment %hhu...",
          " Rotation finished; now at compartment %hhu",
@@ -56,6 +57,7 @@ enum logs {
     CALIB_COMPLETED,
     RECALIB_AFTER_REBOOT,
     DISPENSE_CONTINUED,
+    NEXT_DISPENSE,
     DISPENSE_COMPLETED,
     ROTATION_CONTINUED,
     ROTATION_COMPLETED,

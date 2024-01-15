@@ -13,9 +13,9 @@ void step(bool clockwise) {
     static int8_t stepper_mask_i = 0;
 
     if (clockwise) {
-        if (++stepper_mask_i > 7) stepper_mask_i = 0;
+        if (++stepper_mask_i >= STEP_STATES) stepper_mask_i = 0;
     } else {
-        if (--stepper_mask_i < 0) stepper_mask_i = 7;
+        if (--stepper_mask_i < 0) stepper_mask_i = HIGHEST_STEP_INDEX;
     }
 
     uint8_t step = step_masks[stepper_mask_i];

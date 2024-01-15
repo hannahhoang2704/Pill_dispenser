@@ -11,6 +11,7 @@
 
 #define THEORETICAL_8TH 512
 #define STEP_STATES 8
+#define HIGHEST_STEP_INDEX 7
 #define STEPPER_WAITING_US 850
 
 static const struct coil_struct {
