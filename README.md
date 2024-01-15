@@ -122,4 +122,5 @@ The sleep_ms() function is for killing the stepper’s spin momentum, so that it
 
 ### **3.4. Dispensing**
 ![Flow chart of dispensing](README_assets/PillDispenser_dispense_white.jpg "Flow chart of dispense()")
+
 Dispensing starts by storing the current compartment index to EEPROM. The operation loops as long as the compartment index reaches the final one, 7. Within the loop iterations the program waits for a set time interval, referred from the system's internal clock. During this waiting period, the user may press SW_1 to read EEPROM logs. After the time period has elapsed, the piezo detection flag is reset to false – to remove possible false positives – and the disk is rotated equal to ⅛ of a full revolution (= 1 compartment). After having completed a rotation, the new compartment index is logged to EEPROM and piezo’s ‘pill detection’ is checked. If a pill was detected, it is updated to EEPROM; if not, the LED 3 blinks 5 times. After having reached the last compartment, dispensing ‘status’ is set as false and the operation returns back to the main loop.
