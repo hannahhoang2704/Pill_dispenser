@@ -1,4 +1,3 @@
-// led.h
 #ifndef LED_H
 #define LED_H
 
@@ -24,7 +23,7 @@ typedef struct {
     uint16_t pwm_level;
 } LED;
 
-void init_pwm(LED *led);
+LED init_pwm(uint led_pin);
 void set_led_brightness(LED *led, uint16_t level);
 void toggle_pwm(LED *led);
 void led_blink_times(LED *led, int blink_time);

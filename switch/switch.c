@@ -1,22 +1,20 @@
 #include "switch.h"
 
-void init_switch(uint sw) {
-    gpio_set_function(sw, GPIO_FUNC_SIO);
-    gpio_set_dir(sw, GPIO_IN);
-    gpio_pull_up(sw);
+SW init_switch(uint sw_pin) {
+    SW sw = {.pin = sw_pin,
+             .pressed = false,
+             .board_index = abs(((int)sw.pin - 7) - 2)};  // board index designed for sw_0, 1 and 2
+    gpio_set_function(sw.pin, GPIO_FUNC_SIO);
+    gpio_set_dir(sw.pin, GPIO_IN);
+    gpio_pull_up(sw.pin);
+    return sw;
 }
 
-bool switch_pressed(uint sw) {
-    return !gpio_get(sw);
-}
-
-static bool sw_0_pressed = false;
-
-bool switch_pressed_debounced(uint sw) {
-    if (!gpio_get(sw) && !sw_0_pressed) {
-        sw_0_pressed = true;
-    } else if (gpio_get(sw) && sw_0_pressed) {
-        sw_0_pressed = false;
+bool switch_pressed_debounced(SW * sw) {
+    if (!gpio_get(sw->pin) && !sw->pressed) {
+        return (sw->pressed = true);
+    } else if (gpio_get(sw->pin) && sw->pressed) {
+        sw->pressed = false;
     }
-    return sw_0_pressed;
+    return false;
 }
