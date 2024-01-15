@@ -39,7 +39,7 @@ LoRa-E5 (Lora Wireless Module) is used to connect to an MQTT-server. After a suc
 
 - Connect network. Before sending messages, Lora needs to connect to the MQTT-server. Following commands connect the module to the MQTT-server, . 
 	- Set LWOTAA mode: ```AT+MODE=LWOTAA.``` Return ```+MODE: LWOTAA.```
-	- Change application session key:  ```AT+KEY=APPKEY,” _device key_”. ```Return  ```+KEY: APPKEY _device key_.```
+	- Change application session key:  ```AT+KEY=APPKEY,” device key”. ```Return  ```+KEY: APPKEY device key.```
 	- Set class A mode when power on: ```AT+CLASS=A```. Return ```+CLASS A.```
 	- Set port number to send message ```AT+PORT=8```. Return ```+PORT:8```. 
 	- Command to join a known network ```AT +JOIN```. Return 
@@ -47,7 +47,7 @@ LoRa-E5 (Lora Wireless Module) is used to connect to an MQTT-server. After a suc
 	 - ```+JOIN: NORMAL``` 
 	 - ```+JOIN: NetID 000024 DevAddr 48:00:00:01```
 	 - ```+JOIN: Done.``` 
-- Command to send string ```AT+MSG="_Data to send_"```. Return:
+- Command to send string ```AT+MSG="Data to send"```. Return:
 	- ```+MSG: Start``` 
 	- ```+MSG: FPENDING```
 	- ```+MSG: Link 20, 1``` 
@@ -110,7 +110,9 @@ Calibration has two different versions:
 2.	Recalibration, when dispensing is underway.
 
 Both versions calibrate the dispensing-disk by confirming their position using the opto-fork. Both also measure the opto-fork’s area’s width, which is used for aligning the disk with the dispenser's hole.
-1.	Full calibration rotates clockwise, first searching for the opto-fork, confirming its position, then continues to rotate for a full revolution, counting the steps it takes to rotate the full revolution in addition to the opto-fork’s area width, finally aligning the disk on top of the dispenser hole, according to the opto-fork’s area width.
+
+1.	Full calibration rotates clockwise, first searching for the opto-fork, confirming its position, then continues to rotate for a full revolution, counting the steps it takes to rotate the full revolution in addition to the opto-fork’s area width, finally aligning the disk on top of the dispenser hole, according to the opto-fork’s area width , and resets the number of ‘pills detected’ to 0, storing the value to EEPROM.
+
 2.	Recalibration first rotates counter-clockwise past the opto-fork to the opto-forks edge, then rotates clockwise through the opto-fork to measure it, then counter-clockwise again to align the disk with the dispenser hole, finally clockwise to the compartment it was supposed to be at according to the data read from EEPROM.
 This order and directions of rotations takes into account the possibility that it was within the opto-fork area to begin with, all the while avoiding dropping any (potential) pills in its compartments.
 The sleep_ms() function is for killing the stepper’s spin momentum, so that it does not slip past its step when rotation direction is changed.
